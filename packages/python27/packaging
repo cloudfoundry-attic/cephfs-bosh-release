@@ -1,0 +1,24 @@
+set -e -x
+
+echo "Extracting python..."
+#tar xzvf python/Python-2.7.6.tgz
+
+echo "Building python..."
+#pushd Python-2.7.6
+#  #./configure --prefix=${BOSH_INSTALL_TARGET}
+#  ./configure
+#  make
+#  make install
+#popd
+
+#dpkg -i python/libpython2.7-minimal_2.7.6-8ubuntu0.2_amd64.deb
+#dpkg -i python/python2.7-minimal_2.7.6-8ubuntu0.2_amd64.deb
+#dpkg -i python/python-minimal_2.7.5-5ubuntu3_amd64.deb
+#dpkg -i python/libpython2.7-stdlib_2.7.6-8ubuntu0.2_amd64.deb
+#dpkg -i python/libpython-stdlib_2.7.5-5ubuntu3_amd64.deb
+#dpkg -i python/python2.7_2.7.6-8ubuntu0.2_amd64.deb
+#dpkg -i python/python_2.7.5-5ubuntu3_amd64.deb
+
+#python -v
+
+cp -a ${BOSH_COMPILE_TARGET}/python/*.deb ${BOSH_INSTALL_TARGET}/

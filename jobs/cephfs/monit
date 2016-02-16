@@ -1,0 +1,5 @@
+check process cephfs
+  with pidfile /var/vcap/sys/run/cephfs/pid
+  start program "/var/vcap/jobs/cephfs/bin/ctl start"
+  stop program "/var/vcap/jobs/cephfs/bin/ctl stop"
+  group vcap

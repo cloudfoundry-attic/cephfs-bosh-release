@@ -1,0 +1,49 @@
+name: cephfs-boshrelease
+director_uuid: 9bca5701-66c0-43ee-a4d0-64813b4b5ece
+
+releases:
+  - name: ceph
+    version: latest
+
+jobs:
+  - name: cephfs
+    instances: 1
+    resource_pool: ceph-resourcepool
+    networks:
+      - name: ceph-net
+        static_ips: &web-ips [10.244.8.2]
+    persistent_disk: 1024 # for consul
+    templates:
+      - {release: ceph, name: cephfs}
+    properties:
+      ceph:
+        key: value
+
+
+networks:
+  - name: ceph-net
+    type: manual
+    subnets:
+      - range: 10.244.8.0/24
+        gateway: 10.244.8.1
+        static: *web-ips
+
+resource_pools:
+  - name: ceph-resourcepool
+    network: ceph-net
+    cloud_properties: {}
+    stemcell:
+      name: bosh-warden-boshlite-ubuntu-trusty-go_agent
+      version: latest
+
+compilation:
+  workers: 1
+  network: ceph-net
+  cloud_properties: {}
+
+update:
+  canaries: 1
+  max_in_flight: 3
+  serial: false
+  canary_watch_time: 1000-60000
+  update_watch_time: 1000-60000

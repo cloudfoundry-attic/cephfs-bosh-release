@@ -1,0 +1,55 @@
+#!/bin/bash
+set -e -x
+#
+chmod +x cephfs/*.sh
+cp cephfs/tmp-run.sh ${BOSH_INSTALL_TARGET}/.
+# mkdir -p $BOSH_INSTALL_TARGET/apt
+#
+# dpkg -i cephfs/libboost-system1.54.0_1.54.0-4ubuntu3.1_amd64.deb
+# dpkg -i cephfs/libboost-thread1.54.0_1.54.0-4ubuntu3.1_amd64.deb
+# dpkg -i cephfs/libboost-random1.54.0_1.54.0-4ubuntu3.1_amd64.deb
+#
+# dpkg -i cephfs/libnspr4_2%3a4.10.10-0ubuntu0.14.04.1_amd64.deb
+# dpkg -i cephfs/libnspr4-0d_2%3a4.10.10-0ubuntu0.14.04.1_amd64.deb
+#
+# dpkg -i --ignore-depends=libnss3 cephfs/libnss3-nssdb_2%3a3.19.2.1-0ubuntu0.14.04.2_all.deb
+# dpkg -i cephfs/libnss3_2%3a3.19.2.1-0ubuntu0.14.04.2_amd64.deb
+# dpkg -i cephfs/libnss3-1d_2%3a3.19.2.1-0ubuntu0.14.04.2_amd64.deb
+#
+# dpkg -i cephfs/libbabeltrace1_1.2.1-2_amd64.deb
+# dpkg -i cephfs/libbabeltrace-ctf1_1.2.1-2_amd64.deb
+#
+# dpkg -i cephfs/liburcu1_0.7.12-0ubuntu2_amd64.deb
+# dpkg -i cephfs/liblttng-ust-ctl2_2.4.0-4ubuntu1_amd64.deb
+# dpkg -i cephfs/liblttng-ust0_2.4.0-4ubuntu1_amd64.deb
+#
+# dpkg -i cephfs/librados2_9.2.0-1trusty_amd64.deb
+# dpkg -i cephfs/librbd1_9.2.0-1trusty_amd64.deb
+# dpkg -i cephfs/libradosstriper1_9.2.0-1trusty_amd64.deb
+# dpkg -i cephfs/libcephfs1_9.2.0-1trusty_amd64.deb
+# dpkg -i cephfs/python-cephfs_9.2.0-1trusty_amd64.deb
+# dpkg -i cephfs/python-rados_9.2.0-1trusty_amd64.deb
+# dpkg -i cephfs/python-rbd_9.2.0-1trusty_amd64.deb
+# dpkg -i cephfs/python-requests_2.2.1-1ubuntu0.3_all.deb
+#
+# dpkg -i cephfs/ceph-common_9.2.0-1trusty_amd64.deb
+# dpkg -i cephfs/ceph-deploy_1.5.31_all.deb
+# dpkg -i cephfs/ceph-mds_9.2.0-1trusty_amd64.deb
+#
+# dpkg -i cephfs/libcurl3-gnutls_7.35.0-1ubuntu2.6_amd64.deb
+# dpkg -i cephfs/apt-transport-https_1.0.1ubuntu2.11_amd64.deb
+#
+# ssh-keygen -t rsa -N "" -f ${BOSH_INSTALL_TARGET}/id_rsa
+# mkdir -p $BOSH_INSTALL_TARGET/ceph-cluster
+# cd $BOSH_INSTALL_TARGET/ceph-cluster/
+# ln -s /var/vcap/packages/python27/bin/python /usr/bin/python
+# export PYTHONPATH=/var/vcap/packages/cephfs/apt/usr/lib/python2.7/dist-packages/
+# export PYTHONPATH=/var/vcap/packages/cephfs/apt/usr/lib/python2.7/dist-packages/ceph_deploy:$PYTHONPATH
+# export PYTHONPATH=/var/vcap/packages/setuptools/lib/python2.7/site-packages:$PYTHONPATH
+# $BOSH_INSTALL_TARGET/apt/usr/bin/ceph-deploy new `hostname`
+# cd $BOSH_INSTALL_TARGET/ceph-cluster/
+# echo osd pool default size = 2 >> ceph.conf
+# echo osd crush chooseleaf type = 0 >> ceph.conf
+# $BOSH_INSTALL_TARGET/apt/usr/bin/ceph-deploy install `hostname`
+
+cp -a ${BOSH_COMPILE_TARGET}/cephfs/*.deb ${BOSH_INSTALL_TARGET}/

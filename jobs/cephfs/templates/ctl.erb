@@ -1,0 +1,51 @@
+#!/bin/bash
+
+RUN_DIR=/var/vcap/sys/run/cephfs
+LOG_DIR=/var/vcap/sys/log/cephfs
+PIDFILE=${RUN_DIR}/pid
+
+case $1 in
+
+  start)
+    pid_guard $PIDFILE "ceph"
+    mkdir -p $RUN_DIR $LOG_DIR
+    chown -R vcap:vcap $RUN_DIR $LOG_DIR
+
+    echo $$ > $PIDFILE
+
+    rm $LOG_DIR/.started
+
+    if [ ! -f $LOG_DIR/.started ]; then
+
+      rm -rf $LOG_DIR/*
+
+      # guard multiple starts
+      touch $LOG_DIR/.started
+
+      exec chpst -u root:root /var/vcap/jobs/cephfs/bin/install-all.sh \
+          1>>$LOG_DIR/ceph.stdout.log \
+          2>>$LOG_DIR/ceph.stderr.log
+
+
+      cd /var/vcap/packages/cephfs
+      exec chpst -u vcap:vcap ./tmp-run.sh \
+            1>>$LOG_DIR/ceph.stdout.log \
+            2>>$LOG_DIR/ceph.stderr.log
+
+      #    sudo start ceph-all
+
+      rm $LOG_DIR/.started
+    fi
+
+    ;;
+
+  stop)
+    kill -9 `cat $PIDFILE`
+    rm -f $PIDFILE
+#    sudo stop ceph-all
+    ;;
+
+  *)
+    echo "Usage: ctl {start|stop}" ;;
+
+esac

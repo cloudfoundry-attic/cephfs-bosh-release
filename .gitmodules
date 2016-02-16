@@ -1,0 +1,3 @@
+[submodule "src/cephfs"]
+	path = src/cephfs
+	url = https://github.com/ceph/ceph.git

@@ -1,0 +1,8 @@
+---
+name: setuptools
+
+dependencies:
+- python27
+
+files:
+- setuptools/**/*
