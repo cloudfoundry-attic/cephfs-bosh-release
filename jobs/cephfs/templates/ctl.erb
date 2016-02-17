@@ -22,7 +22,7 @@ case $1 in
       # guard multiple starts
       touch $LOG_DIR/.started
 
-      exec chpst -u root:root /var/vcap/jobs/cephfs/bin/install-all.sh \
+      chpst -u root:root /var/vcap/jobs/cephfs/bin/install-all.sh \
           1>>$LOG_DIR/ceph.stdout.log \
           2>>$LOG_DIR/ceph.stderr.log
 
