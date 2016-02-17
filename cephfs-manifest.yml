@@ -1,8 +1,8 @@
-name: cephfs-boshrelease
+name: cephfs-bosh-release
 director_uuid: 9bca5701-66c0-43ee-a4d0-64813b4b5ece
 
 releases:
-  - name: ceph
+  - name: cephfs-bosh-release
     version: latest
 
 jobs:
@@ -14,7 +14,7 @@ jobs:
         static_ips: &web-ips [10.244.8.2]
     persistent_disk: 1024 # for consul
     templates:
-      - {release: ceph, name: cephfs}
+      - {release: cephfs-bosh-release, name: cephfs}
     properties:
       ceph:
         key: value
