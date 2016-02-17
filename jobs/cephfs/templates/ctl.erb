@@ -26,14 +26,16 @@ case $1 in
           1>>$LOG_DIR/ceph.stdout.log \
           2>>$LOG_DIR/ceph.stderr.log
 
-      cd /var/vcap/packages/cephfs
-      exec chpst -u vcap:vcap ./tmp-run.sh \
-            1>>$LOG_DIR/tmp-run.stdout.log \
-            2>>$LOG_DIR/tmp-run.stderr.log
-
-      #    sudo start ceph-all
+      echo `pgrep -f ceph-mon` > $PIDFILE
 
       rm $LOG_DIR/.started
+
+      status=$(ceph health | grep HEALTH_OK)
+      if [ "$status" == "HEALTH_OK" ]; then
+        exit 0
+      fi
+      exit 1
+
     fi
 
     ;;
@@ -41,7 +43,7 @@ case $1 in
   stop)
     kill -9 `cat $PIDFILE`
     rm -f $PIDFILE
-#    sudo stop ceph-all
+
     ;;
 
   *)

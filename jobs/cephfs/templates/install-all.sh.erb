@@ -163,7 +163,7 @@ mon data = /var/lib/ceph/mon/data
 keyring = /etc/ceph/ceph.client.admin.keyring
 filestore xattr use omap = true
 osd pool default size = 2
-osd crush chooseleaf type = 1
+osd crush chooseleaf type = 0
 
 [osd.0]
 osd data = /var/vcap/storage/storage0
@@ -246,8 +246,8 @@ mds_uuid=$(uuidgen)
 mds_id=$(ceph-mds -i $mds_uuid)
 mkdir -p /var/lib/ceph/mds/ceph-$mds_id
 
-ceph osd pool create cephfs_data 100
-ceph osd pool create cephfs_metadata 100
+ceph osd pool create cephfs_data 128
+ceph osd pool create cephfs_metadata 128
 ceph fs new cephfs cephfs_metadata cephfs_data
 
 
