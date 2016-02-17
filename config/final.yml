@@ -3,4 +3,4 @@ blobstore:
   provider: local
   options:
    blobstore_path: /Users/peninsula/workspace/ceph-bosh-release/local-blobs
-final_name: ceph-blobstore
+final_name: cephfs-bosh-release

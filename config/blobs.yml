@@ -1,16 +1,4 @@
 ---
-python/pip-1.5.2.tar.gz:
-  object_id: c47fbd48-1846-4b82-9e70-64a29d6aa22c
-  sha: 4f43a6b04f83b8d83bee702750ff35be2a2b6af1
-  size: 1079904
-python/Python-2.7.6.tgz:
-  object_id: bca8c62c-56da-4e5f-8ad1-389188bcc455
-  sha: 8328d9f1d55574a287df384f4931a3942f03da64
-  size: 14725931
-python/setuptools-2.2b1.tar.gz:
-  object_id: 980e2584-1460-4bc7-ba25-0f63d2419e11
-  sha: 9913b010e4a0ce443bc6be21d93a4ecde936a0f5
-  size: 878504
 cephfs/ceph-common_9.2.0-1trusty_amd64.deb:
   object_id: 5bc72d79-d8ee-4e5f-8774-2b9e502962fb
   sha: ddd7082716047e536351eaab5b7f733f2c6466bc

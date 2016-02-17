@@ -3,9 +3,7 @@ name: cephfs
 
 dependencies:
 - python27
-- pip
 - setuptools
-- python-dependencies
 
 files:
 - cephfs/**/*

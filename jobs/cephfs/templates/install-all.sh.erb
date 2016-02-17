@@ -12,34 +12,9 @@ dpkg -i /var/vcap/packages/python27/libpython-stdlib_2.7.5-5ubuntu3_amd64.deb
 dpkg -i /var/vcap/packages/python27/python2.7_2.7.6-8ubuntu0.2_amd64.deb
 dpkg -i /var/vcap/packages/python27/python_2.7.5-5ubuntu3_amd64.deb
 
-#echo "Extracting setuptools..."
-#tar xzvf /var/vcap/packages/setuptools/setuptools-2.2b1.tar.gz
-
-#PYTHON_LIB_DIR=${PWD}/setuptools-2.2b1/lib/python2.7/site-packages
-
-#echo "Creating the setuptools site packages..."
-#mkdir -p $PYTHON_LIB_DIR
-
-#echo "Setting the PYTHONPATH with setuptools site packages..."
-#export PYTHONPATH=${PYTHON_LIB_DIR}:$PYTHONPATH
-
 echo "Installing setuptools..."
-#pushd setuptools-2.2b1
-#  /var/vcap/packages/python27/bin/python setup.py install --prefix=${PWD}
-#  python setup.py install --prefix=${PWD}
-#popd
-
 dpkg -i /var/vcap/packages/setuptools/python-pkg-resources_3.3-1ubuntu2_all.deb
 dpkg -i /var/vcap/packages/setuptools/python-setuptools_3.3-1ubuntu2_all.deb
-
-#dpkg -i /var/vcap/packages/python-dependencies/libevent-dev_2.0.21-stable-1ubuntu1.14.04.1_amd64.deb
-#dpkg -i /var/vcap/packages/python-dependencies/liblzma-dev_5.1.1alpha+20120614-2ubuntu2_amd64.deb
-#dpkg -i /var/vcap/packages/python-dependencies/libssl-dev_1.0.1f-1ubuntu2.16_amd64.deb
-
-#for profile in $(ls /var/vcap/packages/*/profile.sh)
-#do
-#	source $profile
-#done
 
 echo "Installing cephfs"
 dpkg -i /var/vcap/packages/cephfs/libboost-system1.54.0_1.54.0-4ubuntu3.1_amd64.deb
@@ -61,9 +36,6 @@ dpkg -i /var/vcap/packages/cephfs/liblttng-ust-ctl2_2.4.0-4ubuntu1_amd64.deb
 dpkg -i /var/vcap/packages/cephfs/liblttng-ust0_2.4.0-4ubuntu1_amd64.deb
 
 dpkg -i /var/vcap/packages/cephfs/upstart_1.12.1-0ubuntu4.2_amd64.deb
-# https://github.com/docker/docker/issues/1024
-#sudo dpkg-divert --local --rename --add /sbin/initctl
-#sudo ln -s /bin/true /sbin/initctl || true
 
 dpkg -i /var/vcap/packages/cephfs/librados2_9.2.0-1trusty_amd64.deb
 dpkg -i /var/vcap/packages/cephfs/librbd1_9.2.0-1trusty_amd64.deb
@@ -107,7 +79,7 @@ dpkg -i /var/vcap/packages/cephfs/apt-transport-https_1.0.1ubuntu2.11_amd64.deb
 
 dpkg -i /var/vcap/packages/cephfs/uuid-runtime_2.20.1-5.1ubuntu20.7_amd64.deb
 
-### Install ceph fuse client
+echo "Installing ceph fuse"
 dpkg -i /var/vcap/packages/cephfs/libfuse2_2.9.2-4ubuntu4.14.04.1_amd64.deb
 dpkg -i /var/vcap/packages/cephfs/ceph-fuse_9.2.0-1trusty_amd64.deb
 
@@ -141,11 +113,6 @@ sudo mkdir -p /var/lib/ceph && sudo chown -R $user:$user /var/lib/ceph
 sudo mkdir -p /etc/ceph && sudo chown -R $user:$user /etc/ceph
 
 ### Make OSD directories
-# TODO: Get the block device mapping from the metadata endpoint
-#sudo umount /mnt
-#sudo mkdir -p /mnt/osd-data && sudo chown -R $user:$user /mnt/osd-data
-#sudo mkfs.btrfs /dev/xvdb -f
-#sudo mount -o user_subvol_rm_allowed /dev/xvdb /mnt/osd-data && sudo chown -R $user:$user /mnt/osd-data
 sudo mkdir -p /var/vcap/storage/storage0 && chown -R $user:$user /var/vcap/storage
 sudo mkdir -p /var/vcap/storage/storage1
 sudo mkdir -p /var/vcap/storage/storage2
@@ -185,8 +152,6 @@ ceph-authtool --create-keyring /tmp/ceph.mon.keyring --gen-key -n mon. --cap mon
 ceph-authtool --create-keyring /etc/ceph/ceph.client.admin.keyring --gen-key -n client.admin --set-uid=0 --cap mon 'allow *' --cap osd 'allow *' --cap mds 'allow'
 ceph-authtool /tmp/ceph.mon.keyring --import-keyring /etc/ceph/ceph.client.admin.keyring
 
-#aws s3 cp /etc/ceph/ceph.client.admin.keyring s3://$CEPH_CONFIG_BUCKET
-
 monmaptool --create --clobber --add $hostname $ipaddr --fsid c0162a84-1d21-46a2-8a8e-4507f6ec707f /tmp/monmap
 
 mkdir -p /var/lib/ceph/mon/ceph-$hostname
@@ -196,9 +161,6 @@ ceph-mon --mkfs -i $hostname --monmap /tmp/monmap --keyring /tmp/ceph.mon.keyrin
 ceph-mon -i $hostname
 
 ### Bootstrap OSD 0
-#aws s3 cp s3://$CEPH_CONFIG_BUCKET/ceph.client.admin.keyring /etc/ceph/ceph.client.admin.keyring
-#aws s3 cp s3://$CEPH_CONFIG_BUCKET/ceph.conf /etc/ceph/ceph.conf
-
 osd_uuid=$(uuidgen)
 osd_id=$(ceph osd create $osd_uuid)
 mkdir -p /var/lib/ceph/osd/ceph-$osd_id
@@ -206,7 +168,6 @@ touch /var/lib/ceph/osd/ceph-$osd_id/journal
 
 ceph-osd -i $osd_id --mkfs --mkkey --osd-uuid $osd_uuid
 ceph auth add osd.$osd_id osd 'allow *' mon 'allow profile osd' -i /etc/ceph/ceph.client.admin.keyring
-#ceph auth add osd.$osd_id osd 'allow *' mon 'allow profile osd' -i /var/vcap/storage/storage1/keyring
 ceph osd crush add-bucket $hostname host
 ceph osd crush move $hostname root=default
 ceph osd crush add osd.$osd_id 1.0 host=$hostname
@@ -220,7 +181,6 @@ touch /var/lib/ceph/osd/ceph-$osd_id/journal
 
 ceph-osd -i $osd_id --mkfs --mkkey --osd-uuid $osd_uuid
 ceph auth add osd.$osd_id osd 'allow *' mon 'allow profile osd' -i /etc/ceph/ceph.client.admin.keyring
-#ceph auth add osd.$osd_id osd 'allow *' mon 'allow profile osd' -i /var/vcap/storage/storage1/keyring
 ceph osd crush add-bucket $hostname host
 ceph osd crush move $hostname root=default
 ceph osd crush add osd.$osd_id 1.0 host=$hostname
@@ -234,12 +194,10 @@ touch /var/lib/ceph/osd/ceph-$osd_id/journal
 
 ceph-osd -i $osd_id --mkfs --mkkey --osd-uuid $osd_uuid
 ceph auth add osd.$osd_id osd 'allow *' mon 'allow profile osd' -i /etc/ceph/ceph.client.admin.keyring
-#ceph auth add osd.$osd_id osd 'allow *' mon 'allow profile osd' -i /var/vcap/storage/storage1/keyring
 ceph osd crush add-bucket $hostname host
 ceph osd crush move $hostname root=default
 ceph osd crush add osd.$osd_id 1.0 host=$hostname
 ceph-osd -i $osd_id
-
 
 ### Bootstrap MDS
 mds_uuid=$(uuidgen)
@@ -249,36 +207,4 @@ mkdir -p /var/lib/ceph/mds/ceph-$mds_id
 ceph osd pool create cephfs_data 128
 ceph osd pool create cephfs_metadata 128
 ceph fs new cephfs cephfs_metadata cephfs_data
-
-
-
-
-
-
-
-
-
-
-#sudo useradd -d /home/ceph -m ceph -s /bin/bash
-#echo "ceph ALL = (root) NOPASSWD:ALL" | sudo tee /etc/sudoers.d/ceph
-#sudo chmod 0440 /etc/sudoers.d/ceph
-
-#export PYTHONPATH=/usr/lib/python2.7/dist-packages:$PYTHONPATH
-
-#sudo ceph-deploy new $hostname
-#sudo echo osd pool default size = 2 >> ceph.conf
-#sudo echo osd crush chooseleaf type = 0 >> ceph.conf
-
-#sudo apt-get remove -y ceph ceph-mds radosgw
-#sudo apt-get autoremove -y
-
-#sudo ceph-deploy install $hostname
-#sudo ceph-deploy mon create-initial
-#sudo mkdir -p /var/vcap/storage/storage1
-#sudo mkdir -p /var/vcap/storage/storage2
-#sudo chmod -R 777 /var/vcap/storage/
-#sudo chown -R root:root /var/vcap/storage/
-#sudo ceph-deploy osd prepare $hostname:/var/vcap/storage/storage1 $hostname:/var/vcap/storage/storage2
-#sudo ceph-deploy osd activate $hostname:/var/vcap/storage/storage1 $hostname:/var/vcap/storage/storage2
-
 popd

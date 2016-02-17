@@ -5,8 +5,6 @@ templates:
   install-all.sh.erb: bin/install-all.sh
 
 packages:
-- python-dependencies
 - python27
 - setuptools
-- pip
 - cephfs
