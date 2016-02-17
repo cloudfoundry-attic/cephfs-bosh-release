@@ -107,6 +107,10 @@ dpkg -i /var/vcap/packages/cephfs/apt-transport-https_1.0.1ubuntu2.11_amd64.deb
 
 dpkg -i /var/vcap/packages/cephfs/uuid-runtime_2.20.1-5.1ubuntu20.7_amd64.deb
 
+### Install ceph fuse client
+dpkg -i /var/vcap/packages/cephfs/libfuse2_2.9.2-4ubuntu4.14.04.1_amd64.deb
+dpkg -i /var/vcap/packages/cephfs/ceph-fuse_9.2.0-1trusty_amd64.deb
+
 echo "Setup ceph cluster"
 mkdir -p /var/vcap/ceph-cluster
 pushd /var/vcap/ceph-cluster
@@ -142,7 +146,9 @@ sudo mkdir -p /etc/ceph && sudo chown -R $user:$user /etc/ceph
 #sudo mkdir -p /mnt/osd-data && sudo chown -R $user:$user /mnt/osd-data
 #sudo mkfs.btrfs /dev/xvdb -f
 #sudo mount -o user_subvol_rm_allowed /dev/xvdb /mnt/osd-data && sudo chown -R $user:$user /mnt/osd-data
-sudo mkdir -p /var/vcap/storage/storage1 && chown -R $user:$user /var/vcap/storage/storage1
+sudo mkdir -p /var/vcap/storage/storage0 && chown -R $user:$user /var/vcap/storage
+sudo mkdir -p /var/vcap/storage/storage1
+sudo mkdir -p /var/vcap/storage/storage2
 
 ### Ceph configuration
 cat << EOF > /etc/ceph/ceph.conf
@@ -154,30 +160,30 @@ auth client required = none
 mon initial members = $hostname
 mon host = $ipaddr
 mon data = /var/lib/ceph/mon/data
-
-[osd]
-osd journal size = 1024
+keyring = /etc/ceph/ceph.client.admin.keyring
 filestore xattr use omap = true
 osd pool default size = 2
-osd pool default min size = 1
-osd pool default pg num = 333
-osd pool default pgp num = 333
 osd crush chooseleaf type = 1
+
+[osd.0]
+osd data = /var/vcap/storage/storage0
+
+[osd.1]
 osd data = /var/vcap/storage/storage1
+
+[osd.2]
+osd data = /var/vcap/storage/storage2
 
 [mds]
 mds data = /var/lib/ceph/mds/mds.0
-keyring = /var/lib/ceph/mds/mds.0/mds.0.keyring
 EOF
 
 ### Bootstrap monitor
 mkdir -p /var/lib/ceph/mon/data
 
 ceph-authtool --create-keyring /tmp/ceph.mon.keyring --gen-key -n mon. --cap mon 'allow *'
-ceph-authtool --create-keyring /etc/ceph/ceph.client.admin.keyring --gen-key -n client.admin --set-uid=0 --cap mon 'allow *' --cap osd 'allow *' --cap mds 'allow *'
+ceph-authtool --create-keyring /etc/ceph/ceph.client.admin.keyring --gen-key -n client.admin --set-uid=0 --cap mon 'allow *' --cap osd 'allow *' --cap mds 'allow'
 ceph-authtool /tmp/ceph.mon.keyring --import-keyring /etc/ceph/ceph.client.admin.keyring
-#ceph-authtool --create-keyring /var/lib/ceph/mds/mds.0/mds.0.keyring --gen-key -n mds.0 --cap mds 'allow *' --cap osd 'allow *' --cap mon 'allow rwx'
-#ceph-authtool /tmp/ceph.mon.keyring --import-keyring /var/lib/ceph/mds/mds.0/mds.0.keyring
 
 #aws s3 cp /etc/ceph/ceph.client.admin.keyring s3://$CEPH_CONFIG_BUCKET
 
@@ -189,53 +195,59 @@ touch /var/lib/ceph/mon/ceph-$hostname/done
 ceph-mon --mkfs -i $hostname --monmap /tmp/monmap --keyring /tmp/ceph.mon.keyring
 ceph-mon -i $hostname
 
-### Bootstrap OSD
+### Bootstrap OSD 0
 #aws s3 cp s3://$CEPH_CONFIG_BUCKET/ceph.client.admin.keyring /etc/ceph/ceph.client.admin.keyring
 #aws s3 cp s3://$CEPH_CONFIG_BUCKET/ceph.conf /etc/ceph/ceph.conf
 
 osd_uuid=$(uuidgen)
 osd_id=$(ceph osd create $osd_uuid)
 mkdir -p /var/lib/ceph/osd/ceph-$osd_id
-#touch /var/lib/ceph/osd/ceph-$osd_id/journal
+touch /var/lib/ceph/osd/ceph-$osd_id/journal
 
 ceph-osd -i $osd_id --mkfs --mkkey --osd-uuid $osd_uuid
-ceph auth add osd.$osd_id osd 'allow *' mon 'allow profile osd' -i /var/vcap/storage/storage1/keyring
+ceph auth add osd.$osd_id osd 'allow *' mon 'allow profile osd' -i /etc/ceph/ceph.client.admin.keyring
+#ceph auth add osd.$osd_id osd 'allow *' mon 'allow profile osd' -i /var/vcap/storage/storage1/keyring
 ceph osd crush add-bucket $hostname host
 ceph osd crush move $hostname root=default
 ceph osd crush add osd.$osd_id 1.0 host=$hostname
 ceph-osd -i $osd_id
 
+### Bootstrap OSD 1
 osd_uuid=$(uuidgen)
 osd_id=$(ceph osd create $osd_uuid)
 mkdir -p /var/lib/ceph/osd/ceph-$osd_id
-#touch /var/lib/ceph/osd/ceph-$osd_id/journal
+touch /var/lib/ceph/osd/ceph-$osd_id/journal
 
 ceph-osd -i $osd_id --mkfs --mkkey --osd-uuid $osd_uuid
-ceph auth add osd.$osd_id osd 'allow *' mon 'allow profile osd' -i /var/vcap/storage/storage1/keyring
+ceph auth add osd.$osd_id osd 'allow *' mon 'allow profile osd' -i /etc/ceph/ceph.client.admin.keyring
+#ceph auth add osd.$osd_id osd 'allow *' mon 'allow profile osd' -i /var/vcap/storage/storage1/keyring
 ceph osd crush add-bucket $hostname host
 ceph osd crush move $hostname root=default
 ceph osd crush add osd.$osd_id 1.0 host=$hostname
 ceph-osd -i $osd_id
 
+### Bootstrap OSD 2
 osd_uuid=$(uuidgen)
 osd_id=$(ceph osd create $osd_uuid)
 mkdir -p /var/lib/ceph/osd/ceph-$osd_id
-#touch /var/lib/ceph/osd/ceph-$osd_id/journal
+touch /var/lib/ceph/osd/ceph-$osd_id/journal
 
 ceph-osd -i $osd_id --mkfs --mkkey --osd-uuid $osd_uuid
-ceph auth add osd.$osd_id osd 'allow *' mon 'allow profile osd' -i /var/vcap/storage/storage1/keyring
+ceph auth add osd.$osd_id osd 'allow *' mon 'allow profile osd' -i /etc/ceph/ceph.client.admin.keyring
+#ceph auth add osd.$osd_id osd 'allow *' mon 'allow profile osd' -i /var/vcap/storage/storage1/keyring
 ceph osd crush add-bucket $hostname host
 ceph osd crush move $hostname root=default
 ceph osd crush add osd.$osd_id 1.0 host=$hostname
 ceph-osd -i $osd_id
 
-### Bootstrap OSD
+
+### Bootstrap MDS
 mds_uuid=$(uuidgen)
 mds_id=$(ceph-mds -i $mds_uuid)
 mkdir -p /var/lib/ceph/mds/ceph-$mds_id
 
-ceph osd pool create cephfs_data 333
-ceph osd pool create cephfs_metadata 333
+ceph osd pool create cephfs_data 100
+ceph osd pool create cephfs_metadata 100
 ceph fs new cephfs cephfs_metadata cephfs_data
 
 

@@ -263,3 +263,15 @@ cephfs/uuid-runtime_2.20.1-5.1ubuntu20.7_amd64.deb:
   object_id: 36a0ea62-74df-4ddf-bba7-eb2bb76d51b5
   sha: cd52248729efdbe150ec23e091617d58ef653333
   size: 12304
+cephfs/ceph-fs-common_9.2.0-1trusty_amd64.deb:
+  object_id: 6c00d0d4-a13b-49fd-b18b-4d007adbde65
+  sha: 65c6996566fd45aec52c02a76599013d58ebfdf5
+  size: 882452
+cephfs/ceph-fuse_9.2.0-1trusty_amd64.deb:
+  object_id: 9f73873a-ca64-4bff-8062-da2639802082
+  sha: 9995a1ba7b1dead2f54b77258fd649d49769c41c
+  size: 2440610
+cephfs/libfuse2_2.9.2-4ubuntu4.14.04.1_amd64.deb:
+  object_id: 3690eee8-a446-4611-9716-2682f9f21e4c
+  sha: 1ed58e3a9a2b90f015bbea3774603181aaa9252f
+  size: 87404

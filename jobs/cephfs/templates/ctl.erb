@@ -26,11 +26,10 @@ case $1 in
           1>>$LOG_DIR/ceph.stdout.log \
           2>>$LOG_DIR/ceph.stderr.log
 
-
       cd /var/vcap/packages/cephfs
       exec chpst -u vcap:vcap ./tmp-run.sh \
-            1>>$LOG_DIR/ceph.stdout.log \
-            2>>$LOG_DIR/ceph.stderr.log
+            1>>$LOG_DIR/tmp-run.stdout.log \
+            2>>$LOG_DIR/tmp-run.stderr.log
 
       #    sudo start ceph-all
 
