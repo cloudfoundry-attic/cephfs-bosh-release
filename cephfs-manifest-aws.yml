@@ -1,0 +1,58 @@
+name: cephfs-bosh-release
+director_uuid: 9bfbfb5d-f481-474d-9e53-fd0759729354
+
+releases:
+  - name: cephfs-bosh-release
+    version: latest
+
+jobs:
+  - name: cephfs
+    instances: 1
+    resource_pool: ceph-resourcepool
+    networks:
+      - name: ceph-net
+        static_ips: &web-ips [10.244.8.10]
+    persistent_disk: 1024 # for consul
+    templates:
+      - {release: cephfs-bosh-release, name: cephfs}
+    properties:
+      ceph:
+        key: value
+
+networks:
+  - name: ceph-net
+    type: manual
+    subnets:
+      - range: 10.244.8.0/24
+        reserved: [10.244.8.2 - 10.244.8.9]
+        gateway: 10.244.8.1
+        static: *web-ips
+        cloud_properties:
+          security_groups: [sg-5f26e127]
+          subnet: subnet-a70bdc8d
+
+resource_pools:
+  - name: ceph-resourcepool
+    network: ceph-net
+    stemcell:
+      name: bosh-aws-xen-hvm-ubuntu-trusty-go_agent
+      version: latest
+    cloud_properties:
+      instance_type: m3.medium
+
+compilation:
+  workers: 1
+  network: ceph-net
+  reuse_compilation_vms: true
+  cloud_properties:
+    instance_type: c4.large
+    ephemeral_disk:
+      size: 30000 # in MB
+      type: gp2
+
+update:
+  canaries: 1
+  max_in_flight: 3
+  serial: false
+  canary_watch_time: 1000-60000
+  update_watch_time: 1000-60000
