@@ -1,5 +1,0 @@
----
-blobstore_secret: 'does-not-matter'
-blobstore:
-  local:
-    blobstore_path: /Users/peninsula/workspace/ceph-bosh-release/local-blobs

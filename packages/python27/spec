@@ -4,4 +4,4 @@ name: python27
 dependencies: []
 
 files:
-- python/**deb
+- python27/**deb

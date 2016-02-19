@@ -1,4 +1,4 @@
 #!/bin/bash
 set -e -x
 
-cp -a ${BOSH_COMPILE_TARGET}/python/*.deb ${BOSH_INSTALL_TARGET}/
+cp -a ${BOSH_COMPILE_TARGET}/python27/*.deb ${BOSH_INSTALL_TARGET}/

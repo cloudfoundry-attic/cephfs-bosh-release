@@ -6,3 +6,4 @@ dev_releases/**/*
 .final_builds/jobs/**/*.tgz
 .final_builds/packages/**/*.tgz
 *.swp
+config/private.yml
