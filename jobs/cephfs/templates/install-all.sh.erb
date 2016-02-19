@@ -24,9 +24,9 @@ dpkg -i /var/vcap/packages/cephfs/libboost-random1.54.0_1.54.0-4ubuntu3.1_amd64.
 dpkg -i /var/vcap/packages/cephfs/libnspr4_2%3a4.10.10-0ubuntu0.14.04.1_amd64.deb
 dpkg -i /var/vcap/packages/cephfs/libnspr4-0d_2%3a4.10.10-0ubuntu0.14.04.1_amd64.deb
 
-dpkg -i --ignore-depends=libnss3 /var/vcap/packages/cephfs/libnss3-nssdb_2%3a3.21-0ubuntu0.14.04.1_all.deb
-dpkg -i /var/vcap/packages/cephfs/libnss3_2%3a3.21-0ubuntu0.14.04.1_amd64.deb
-dpkg -i /var/vcap/packages/cephfs/libnss3-1d_2%3a3.21-0ubuntu0.14.04.1_amd64.deb
+dpkg -i --ignore-depends=libnss3 /var/vcap/packages/cephfs/libnss3-nssdb_2%3a3.19.2.1-0ubuntu0.14.04.2_all.deb
+dpkg -i /var/vcap/packages/cephfs/libnss3_2%3a3.19.2.1-0ubuntu0.14.04.2_amd64.deb
+dpkg -i /var/vcap/packages/cephfs/libnss3-1d_2%3a3.19.2.1-0ubuntu0.14.04.2_amd64.deb
 
 dpkg -i /var/vcap/packages/cephfs/libbabeltrace1_1.2.1-2_amd64.deb
 dpkg -i /var/vcap/packages/cephfs/libbabeltrace-ctf1_1.2.1-2_amd64.deb
@@ -82,7 +82,6 @@ dpkg -i /var/vcap/packages/cephfs/uuid-runtime_2.20.1-5.1ubuntu20.7_amd64.deb
 echo "Installing ceph fuse"
 dpkg -i /var/vcap/packages/cephfs/libfuse2_2.9.2-4ubuntu4.14.04.1_amd64.deb
 dpkg -i /var/vcap/packages/cephfs/ceph-fuse_9.2.0-1trusty_amd64.deb
-
 echo "Setup ceph cluster"
 mkdir -p /var/vcap/ceph-cluster
 pushd /var/vcap/ceph-cluster
@@ -113,9 +112,9 @@ sudo mkdir -p /var/lib/ceph && sudo chown -R $user:$user /var/lib/ceph
 sudo mkdir -p /etc/ceph && sudo chown -R $user:$user /etc/ceph
 
 ### Make OSD directories
-sudo mkdir -p /var/vcap/storage/storage0 && chown -R $user:$user /var/vcap/storage
-sudo mkdir -p /var/vcap/storage/storage1
-sudo mkdir -p /var/vcap/storage/storage2
+sudo mkdir -p /var/vcap/store/storage0 && chown -R $user:$user /var/vcap/store/storage0
+sudo mkdir -p /var/vcap/store/storage1 && chown -R $user:$user /var/vcap/store/storage1
+sudo mkdir -p /var/vcap/store/storage2 && chown -R $user:$user /var/vcap/store/storage2
 
 ### Ceph configuration
 cat << EOF > /etc/ceph/ceph.conf
@@ -133,13 +132,13 @@ osd pool default size = 2
 osd crush chooseleaf type = 0
 
 [osd.0]
-osd data = /var/vcap/storage/storage0
+osd data = /var/vcap/store/storage0
 
 [osd.1]
-osd data = /var/vcap/storage/storage1
+osd data = /var/vcap/store/storage1
 
 [osd.2]
-osd data = /var/vcap/storage/storage2
+osd data = /var/vcap/store/storage2
 
 [mds]
 mds data = /var/lib/ceph/mds/mds.0
@@ -163,41 +162,39 @@ ceph-mon -i $hostname
 ### Bootstrap OSD 0
 osd_uuid=$(uuidgen)
 osd_id=$(ceph osd create $osd_uuid)
-mkdir -p /var/lib/ceph/osd/ceph-$osd_id
-touch /var/lib/ceph/osd/ceph-$osd_id/journal
+mkdir -p /var/vcap/store/journal
+touch /var/vcap/store/journal/store0
 
-ceph-osd -i $osd_id --mkfs --mkkey --osd-uuid $osd_uuid
+ceph-osd -i $osd_id --mkfs --mkkey --osd-uuid $osd_uuid --mkjournal --osd-journal=/var/vcap/store/journal/store0
 ceph auth add osd.$osd_id osd 'allow *' mon 'allow profile osd' -i /etc/ceph/ceph.client.admin.keyring
 ceph osd crush add-bucket $hostname host
 ceph osd crush move $hostname root=default
 ceph osd crush add osd.$osd_id 1.0 host=$hostname
-ceph-osd -i $osd_id
+ceph-osd -i $osd_id --osd-journal=/var/vcap/store/journal/store0
 
 ### Bootstrap OSD 1
 osd_uuid=$(uuidgen)
 osd_id=$(ceph osd create $osd_uuid)
-mkdir -p /var/lib/ceph/osd/ceph-$osd_id
-touch /var/lib/ceph/osd/ceph-$osd_id/journal
+touch /var/vcap/store/journal/store1
 
-ceph-osd -i $osd_id --mkfs --mkkey --osd-uuid $osd_uuid
+ceph-osd -i $osd_id --mkfs --mkkey --osd-uuid $osd_uuid --mkjournal --osd-journal=/var/vcap/store/journal/store1
 ceph auth add osd.$osd_id osd 'allow *' mon 'allow profile osd' -i /etc/ceph/ceph.client.admin.keyring
 ceph osd crush add-bucket $hostname host
 ceph osd crush move $hostname root=default
 ceph osd crush add osd.$osd_id 1.0 host=$hostname
-ceph-osd -i $osd_id
+ceph-osd -i $osd_id --osd-journal=/var/vcap/store/journal/store1
 
 ### Bootstrap OSD 2
 osd_uuid=$(uuidgen)
 osd_id=$(ceph osd create $osd_uuid)
-mkdir -p /var/lib/ceph/osd/ceph-$osd_id
-touch /var/lib/ceph/osd/ceph-$osd_id/journal
+touch /var/vcap/store/journal/store2
 
-ceph-osd -i $osd_id --mkfs --mkkey --osd-uuid $osd_uuid
+ceph-osd -i $osd_id --mkfs --mkkey --osd-uuid $osd_uuid --mkjournal --osd-journal=/var/vcap/store/journal/store2
 ceph auth add osd.$osd_id osd 'allow *' mon 'allow profile osd' -i /etc/ceph/ceph.client.admin.keyring
 ceph osd crush add-bucket $hostname host
 ceph osd crush move $hostname root=default
 ceph osd crush add osd.$osd_id 1.0 host=$hostname
-ceph-osd -i $osd_id
+ceph-osd -i $osd_id --osd-journal=/var/vcap/store/journal/store2
 
 ### Bootstrap MDS
 mds_uuid=$(uuidgen)

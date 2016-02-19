@@ -1,5 +1,5 @@
 name: cephfs-bosh-release
-director_uuid: 9bca5701-66c0-43ee-a4d0-64813b4b5ece
+director_uuid: c37383cd-d5a8-43d7-b595-2ede9513c858
 
 releases:
   - name: cephfs-bosh-release
@@ -12,7 +12,7 @@ jobs:
     networks:
       - name: ceph-net
         static_ips: &web-ips [10.244.8.2]
-    persistent_disk: 1024 # for consul
+    persistent_disk: 25000 # for consul
     templates:
       - {release: cephfs-bosh-release, name: cephfs}
     properties:
@@ -27,6 +27,7 @@ networks:
       - range: 10.244.8.0/24
         gateway: 10.244.8.1
         static: *web-ips
+        cloud_properties: {}
 
 resource_pools:
   - name: ceph-resourcepool
