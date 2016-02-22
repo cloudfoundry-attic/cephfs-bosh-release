@@ -1,6 +1,6 @@
 #!/bin/bash
-bosh delete deployment --force cephfs-boshrelease
-bosh delete release ceph --force
+bosh delete deployment --force cephfs-bosh-release
+bosh delete release cephfs-bosh-release --force
 bosh create release --force
 bosh upload release
 bosh -n deploy

@@ -10,9 +10,10 @@ jobs:
     instances: 1
     resource_pool: ceph-resourcepool
     networks:
-      - name: ceph-net
-        static_ips: &web-ips [10.244.8.10]
-    persistent_disk: 1024 # for consul
+      - name: ceph-subnet
+        default: [dns, gateway]
+
+    persistent_disk: 25000 # for consul
     templates:
       - {release: cephfs-bosh-release, name: cephfs}
     properties:
@@ -20,20 +21,20 @@ jobs:
         key: value
 
 networks:
-  - name: ceph-net
+  - name: ceph-subnet
     type: manual
     subnets:
-      - range: 10.244.8.0/24
-        reserved: [10.244.8.2 - 10.244.8.9]
-        gateway: 10.244.8.1
-        static: *web-ips
+      - range: 10.0.32.0/24
+        reserved: [10.0.32.2 - 10.0.32.9]
+        static: [10.0.32.10 - 10.0.32.100]
+        gateway: 10.0.32.1
+        dns: [10.0.32.2]
         cloud_properties:
-          security_groups: [sg-5f26e127]
-          subnet: subnet-a70bdc8d
+          subnet: subnet-eeea6698
 
 resource_pools:
   - name: ceph-resourcepool
-    network: ceph-net
+    network: ceph-subnet
     stemcell:
       name: bosh-aws-xen-hvm-ubuntu-trusty-go_agent
       version: latest
@@ -42,17 +43,17 @@ resource_pools:
 
 compilation:
   workers: 1
-  network: ceph-net
+  network: ceph-subnet
   reuse_compilation_vms: true
   cloud_properties:
-    instance_type: c4.large
+    instance_type: m3.large
     ephemeral_disk:
-      size: 30000 # in MB
+      size: 10000 # in MB
       type: gp2
 
 update:
   canaries: 1
   max_in_flight: 3
   serial: false
-  canary_watch_time: 1000-60000
-  update_watch_time: 1000-60000
+  canary_watch_time: 1000-30000
+  update_watch_time: 1000-30000
