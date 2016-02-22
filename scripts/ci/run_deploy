@@ -9,5 +9,5 @@ gem install bosh_cli --no-ri --no-rdoc
 #bosh target https://52.72.95.180:25555
 #bosh target https://192.168.50.4:25555
 pushd cephfs-bosh-release
-bosh -n create release --force --with-tarball
+bosh -n create release --force --with-tarball --name cephfs-bosh-release
 popd
