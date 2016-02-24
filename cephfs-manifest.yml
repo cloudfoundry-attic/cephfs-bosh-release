@@ -1,5 +1,5 @@
 name: cephfs-bosh-release
-director_uuid: 9bca5701-66c0-43ee-a4d0-64813b4b5ece
+director_uuid: 553a6e62-1b01-4e9a-9cdc-ae95a65e6ab4
 
 releases:
   - name: cephfs-bosh-release

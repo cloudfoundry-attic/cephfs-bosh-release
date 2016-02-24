@@ -1,8 +1,9 @@
 ---
 name: cephfs
 templates:
+  bin/install.sh.erb: bin/pre-start
   ctl.erb: bin/ctl
-  install-all.sh.erb: bin/install-all.sh
+  
 
 packages:
 - python27
