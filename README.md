@@ -1,23 +1,51 @@
 # ceph-boshrelease
 
-*Tested on bosh-lite only*
+*Tested on bosh-lite and aws*
 
-## To Install
+## Installation
+### Pre-Requisites
+```
+bosh target <your bosh director url>
+```
+
+For Bosh-Lite:
+```
+bosh upload stemcell https://bosh.io/d/stemcells/bosh-warden-boshlite-ubuntu-trusty-go_agent --skip-if-exists
+```
+For AWS:
+```
+bosh upload stemcell https://bosh.io/d/stemcells/bosh-aws-xen-ubuntu-trusty-go_agent --skip-if-exists
+```
+
+### To Install
+Git clone the repo and create a bosh release from it:
 ```
 git clone https://github.com/cloudfoundry-incubator/cephfs-bosh-release.git
 bosh create release
 ```
-Accept the default name for the release (cephfs-bosh-release)
+NB: Accept the default name for the release (cephfs-bosh-release)
 
+Upload the release to your bosh director.
 ```
 bosh upload release
+```
+
+Generate the manifest for your environment.  Check your `bosh target` is correct.
+```
+./templates/generate_manifest.sh bosh-lite|aws
+```
+
+And deploy:-
+```
 bosh deploy
 ```
-When prompted, answer `yes`.
+NB: When prompted, answer `yes`.
+
+## Verify the install
 
 SSH onto the bosh release VM
 
-`bosh ssh --gateway_host 192.168.50.4 --gateway_user vcap --strict_host_key_checking=no cephfs/0`
+`bosh ssh --gateway_host <your bosh director ip> --gateway_user vcap --strict_host_key_checking=no cephfs/0`
 
 Check the health of the ceph-cluster
 
@@ -40,9 +68,11 @@ cluster c0162a84-1d21-46a2-8a8e-4507f6ec707f
 
 ## Mount cephfs (using fuse)
 
+Perform a quick sanity check.  In the same ssh session:-
+
 ```
 sudo mkdir ~/mycephfs
-sudo ceph-fuse -k /etc/ceph/ceph.client.admin.keyring -m 10.244.8.2:6789 ~/mycephfs
+sudo ceph-fuse -k /etc/ceph/ceph.client.admin.keyring -m <your cephfs VM ip>:6789 ~/mycephfs
 ```
 
 Check the volume is mounted
