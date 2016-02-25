@@ -20,9 +20,11 @@ EOD
 #bosh target https://192.168.50.4:25555
 
 
-
+wget https://github.com/cloudfoundry-incubator/spiff/releases/download/v1.0.7/spiff_linux_amd64
 sudo chmod +x spiff_linux_amd64
-sudo ln -s $(pwd)spiff_linux_amd64 /usr/bin/spiff 
+sudo ln -s $(pwd)spiff_linux_amd64 /usr/bin/spiff
+
+which spiff 
 
 pushd cephfs-bosh-release
 echo "Generating Manifest"
