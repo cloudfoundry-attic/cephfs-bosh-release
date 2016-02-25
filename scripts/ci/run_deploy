@@ -12,13 +12,25 @@ expect "Your username:"
 send "admin\n"
 expect "password:"
 send "admin\n"
+expect eof
+spawn bosh login
+expect "Your username:"
+send "admin\n"
+expect "password:"
+send "admin\n"
+expect eof
+set timeout 1500
+spawn bosh delete deployment cephfs-bosh-release
+expect "(type 'yes' to continue):"
+send "yes\n"
+expect eof
+set timeout 1500
+spawn bosh delete release cephfs-bosh-release
+expect "(type 'yes' to continue):"
+send "yes\n"
+expect eof
 interact
 EOD
-
-#bosh target https://52.72.95.180:25555
-#bosh login admin admin
-#bosh target https://192.168.50.4:25555
-
 
 wget https://github.com/cloudfoundry-incubator/spiff/releases/download/v1.0.7/spiff_linux_amd64
 sudo chmod +x spiff_linux_amd64
@@ -35,15 +47,21 @@ ls
 echo "Manifest Generated"
 bosh -n create release --force --with-tarball --name cephfs-bosh-release
 
-bosh upload release
-
-bosh deploy
-
 /usr/bin/expect <<EOD
+spawn bosh login
+expect "Your username:"
+send "admin\n"
+expect "password:"
+send "admin\n"
+expect eof
+set timeout 300
+spawn bosh upload release
+expect eof
+set timeout 1500
 spawn bosh deploy
 expect "(type 'yes' to continue):"
 send "yes\n"
+expect eof
 interact
 EOD
-
 popd
