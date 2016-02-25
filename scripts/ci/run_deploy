@@ -23,24 +23,23 @@ expect eof
 
 set timeout 1500
 spawn bosh delete deployment cephfs-bosh-release
+expect  "(type 'yes' to continue):" { send "yes\n" }
 expect {
-    "(type 'yes' to continue):" { send "yes\n" }
     "Error" { puts stderr Failed; exit 1 }
-    "Skipped" { exp_continue }
+    "Skipped" { puts "Skipped"; exp_continue }
     eof
 }
 
 set timeout 1500
 spawn bosh delete release cephfs-bosh-release
+expect  "(type 'yes' to continue):" { send "yes\n" }
 expect {
-    "(type 'yes' to continue):" { send "yes\n" }
-    "Error 30005" { exp_continue }
+    "Error 30005" { puts "Already done"; exp_continue }
     "Error" { puts stderr Failed; exit 1 }
-    "Skipped" { exp_continue }
+    "Skipped" { puts "Skipped"; exp_continue }
+    "Deleted" { puts "Deleted"; exp_continue }
     eof
 }
-
-interact
 EOD
 
 wget https://github.com/cloudfoundry-incubator/spiff/releases/download/v1.0.7/spiff_linux_amd64
@@ -75,11 +74,10 @@ expect {
 
 set timeout 1500
 spawn bosh deploy
+expect "(type 'yes' to continue):" { send "yes\n" }
 expect {
-    "(type 'yes' to continue):" { send "yes\n" }
     "Error" { puts stderr Failed; exit 1 }
     eof
 }
-interact
 EOD
 popd
