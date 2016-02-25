@@ -25,6 +25,9 @@ sudo chmod +x spiff_linux_amd64
 sudo ln -s $(pwd)spiff_linux_amd64 /usr/bin/spiff 
 
 pushd cephfs-bosh-release
+echo "Generating Manifest"
+ls
 ./templates/generate_manifest.sh aws
+echo "Manifest Generated"
 bosh -n create release --force --with-tarball --name cephfs-bosh-release
 popd
