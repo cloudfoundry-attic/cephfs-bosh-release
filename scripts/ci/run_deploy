@@ -13,22 +13,33 @@ send "admin\n"
 expect "password:"
 send "admin\n"
 expect eof
+
 spawn bosh login
 expect "Your username:"
 send "admin\n"
 expect "password:"
 send "admin\n"
 expect eof
+
 set timeout 1500
 spawn bosh delete deployment cephfs-bosh-release
-expect "(type 'yes' to continue):"
-send "yes\n"
-expect eof
+expect {
+    "(type 'yes' to continue):" { send "yes\n" }
+    "Error" { puts stderr Failed; exit 1 }
+    "Skipped" { exp_continue }
+    eof
+}
+
 set timeout 1500
 spawn bosh delete release cephfs-bosh-release
-expect "(type 'yes' to continue):"
-send "yes\n"
-expect eof
+expect {
+    "(type 'yes' to continue):" { send "yes\n" }
+    "Error 30005" { exp_continue }
+    "Error" { puts stderr Failed; exit 1 }
+    "Skipped" { exp_continue }
+    eof
+}
+
 interact
 EOD
 
@@ -54,14 +65,21 @@ send "admin\n"
 expect "password:"
 send "admin\n"
 expect eof
+
 set timeout 300
 spawn bosh upload release
-expect eof
+expect {
+    "Error" { puts stderr Failed; exit 1 }
+    eof
+}
+
 set timeout 1500
 spawn bosh deploy
-expect "(type 'yes' to continue):"
-send "yes\n"
-expect eof
+expect {
+    "(type 'yes' to continue):" { send "yes\n" }
+    "Error" { puts stderr Failed; exit 1 }
+    eof
+}
 interact
 EOD
 popd
