@@ -6,8 +6,19 @@ sudo apt-get update
 sudo apt-get --assume-yes install build-essential ruby ruby-dev libxml2-dev libsqlite3-dev libxslt1-dev libpq-dev libmysqlclient-dev zlib1g-dev
 gem install bosh_cli --no-ri --no-rdoc
 
-#bosh target https://52.72.95.180:25555
+# /usr/bin/expect <<EOD
+# spawn bosh 2.72.95.180:25555
+# expect "username"
+# send "admin\n"
+
+# interact
+# EOD
+
+bosh target https://52.72.95.180:25555
+bosh login admin admin
 #bosh target https://192.168.50.4:25555
+
 pushd cephfs-bosh-release
+./templates/generate_manifest.sh aws
 bosh -n create release --force --with-tarball --name cephfs-bosh-release
 popd

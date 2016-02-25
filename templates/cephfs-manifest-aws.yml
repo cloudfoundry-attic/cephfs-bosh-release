@@ -24,13 +24,15 @@ networks:
   - name: ceph-subnet
     type: manual
     subnets:
-      - range: 10.0.32.0/24
-        reserved: [10.0.32.2 - 10.0.32.9]
-        static: [10.0.32.10 - 10.0.32.100]
-        gateway: 10.0.32.1
-        dns: [10.0.32.2]
+      - range: 10.0.0.0/24
+        gateway: 10.0.0.1
+        dns: [10.0.0.2]
+        reserved:
+        - 10.0.0.2 - 10.0.0.9
+        static:
+        - 10.0.0.10 - 10.0.0.100
         cloud_properties:
-          subnet: subnet-eeea6698
+          subnet: subnet-98b118ee
 
 resource_pools:
   - name: ceph-resourcepool
