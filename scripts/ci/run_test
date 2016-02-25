@@ -1,0 +1,41 @@
+#!/bin/bash
+#run_deploy
+
+set -x -e
+
+### Install ruby and the the bosh cli
+sudo apt-get update
+sudo apt-get --assume-yes install build-essential expect ruby ruby-dev libxml2-dev libsqlite3-dev libxslt1-dev libpq-dev libmysqlclient-dev zlib1g-dev ceph-fuse
+gem install bosh_cli --no-ri --no-rdoc
+
+/usr/bin/expect <<EOD
+spawn bosh target https://52.72.95.180:25555
+expect "Your username:"
+send "admin\n"
+expect "password:"
+send "admin\n"
+expect eof
+
+spawn bosh tasks
+expect eof
+
+spawn bosh login
+expect "Your username:"
+send "admin\n"
+expect "password:"
+send "admin\n"
+expect eof
+EOD
+
+cephfs_ip=$(bosh vms cephfs-bosh-release | grep 'cephfs/0' | awk '{print $11}')
+echo $cephfs_ip
+
+bosh scp cephfs/0 --gateway_host 52.72.95.180 --gateway_user vcap --download /etc/ceph/ceph.client.admin.keyring ./
+
+sudo mkdir ~/mycephfs
+sudo ceph-fuse -k ceph.client.admin.keyring.cephfs. -m $cephfs_ip:6789 ~/mycephfs
+
+pushd ~/mycephfs
+ls
+
+popd
