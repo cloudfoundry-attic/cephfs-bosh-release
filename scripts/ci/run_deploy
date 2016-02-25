@@ -16,6 +16,9 @@ expect "password:"
 send "admin\n"
 expect eof
 
+spawn bosh tasks
+expect eof
+
 spawn bosh login
 expect "Your username:"
 send "admin\n"
