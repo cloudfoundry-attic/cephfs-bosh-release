@@ -1,5 +1,5 @@
 #!/bin/bash
-#run_deploy
+#run_test
 
 set -x -e
 
@@ -30,27 +30,31 @@ bosh deployment cephfs-bosh-release-manifest.yml
 cephfs_ip=$(bosh vms cephfs-bosh-release | grep 'cephfs/0' | awk '{print $11}')
 echo $cephfs_ip
 
-/usr/bin/expect <<EOD
-spawn bosh target https://52.72.95.180:25555
-expect "Your username:"
-send "admin\n"
-expect "password:"
-send "admin\n"
-expect eof
+# /usr/bin/expect <<EOD
+# spawn bosh target https://52.72.95.180:25555
+# expect "Your username:"
+# send "admin\n"
+# expect "password:"
+# send "admin\n"
+# expect eof
 
-spawn bosh login
-expect "Your username:"
-send "admin\n"
-expect "password:"
-send "admin\n"
-expect eof
+# spawn bosh login
+# expect "Your username:"
+# send "admin\n"
+# expect "password:"
+# send "admin\n"
+# expect eof
 
-spawn bosh scp cephfs/0 --gateway_host 52.72.95.180 --gateway_user vcap --download /etc/ceph/ceph.client.admin.keyring ./
-expect eof
-EOD
+# spawn bosh scp cephfs/0 --gateway_host 52.72.95.180 --gateway_user vcap --download /etc/ceph/ceph.client.admin.keyring ./
+# expect eof
+# EOD
+
+ssh-add deployments-runtime/persi-ci/keys/bosh.pem
+
+scp vcap@$cephfs_ip:/etc/ceph/ceph.client.admin.keyring .
 
 sudo mkdir ~/mycephfs
-sudo ceph-fuse -k ceph.client.admin.keyring.cephfs. -m $cephfs_ip:6789 ~/mycephfs
+sudo ceph-fuse -k ceph.client.admin.keyring -m $cephfs_ip:6789 ~/mycephfs
 
 pushd ~/mycephfs
 ls
