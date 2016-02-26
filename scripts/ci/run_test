@@ -27,6 +27,9 @@ send "admin\n"
 expect eof
 EOD
 
+bosh download manifest cephfs-bosh-release > cephfs-bosh-release-manifest.yml
+bosh deployment cephfs-bosh-release-manifest.yml
+
 cephfs_ip=$(bosh vms cephfs-bosh-release | grep 'cephfs/0' | awk '{print $11}')
 echo $cephfs_ip
 
