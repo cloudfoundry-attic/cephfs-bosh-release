@@ -49,9 +49,12 @@ echo $cephfs_ip
 # expect eof
 # EOD
 
+eval `ssh-agent -s`
+chmod 600 deployments-runtime/persi-ci/keys/bosh.pem 
 ssh-add deployments-runtime/persi-ci/keys/bosh.pem
 
-scp vcap@$cephfs_ip:/etc/ceph/ceph.client.admin.keyring .
+ssh -o StrictHostKeyChecking=no vcap@$cephfs_ip remote 'sudo chmod 777 /etc/ceph/ceph.client.admin.keyring'
+scp -o StrictHostKeyChecking=no vcap@$cephfs_ip:/etc/ceph/ceph.client.admin.keyring .
 
 sudo mkdir ~/mycephfs
 sudo ceph-fuse -k ceph.client.admin.keyring -m $cephfs_ip:6789 ~/mycephfs
