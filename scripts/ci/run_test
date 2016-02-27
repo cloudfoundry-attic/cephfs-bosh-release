@@ -50,16 +50,28 @@ echo $cephfs_ip
 # EOD
 
 eval `ssh-agent -s`
-chmod 600 deployments-runtime/persi-ci/keys/bosh.pem 
+chmod 600 deployments-runtime/persi-ci/keys/bosh.pem
 ssh-add deployments-runtime/persi-ci/keys/bosh.pem
 
-ssh -o StrictHostKeyChecking=no vcap@$cephfs_ip remote 'sudo chmod 777 /etc/ceph/ceph.client.admin.keyring'
+ssh -o StrictHostKeyChecking=no -t vcap@$cephfs_ip 'sudo chmod 777 /etc/ceph/ceph.client.admin.keyring'
 scp -o StrictHostKeyChecking=no vcap@$cephfs_ip:/etc/ceph/ceph.client.admin.keyring .
+scp -o StrictHostKeyChecking=no vcap@$cephfs_ip:/etc/ceph/ceph.conf .
 
 sudo mkdir ~/mycephfs
 sudo ceph-fuse -k ceph.client.admin.keyring -m $cephfs_ip:6789 ~/mycephfs
 
 pushd ~/mycephfs
-ls
+sudo mkdir test-dir
+dir_created=$(ls -d */ | grep test-dir)
+if [ "$dir_created" != "test-dir/" ]
+  then
+    exit 1
+fi
 
+sudo sh -c "echo 'some text' > test.txt"
+file_created=$(cat test.txt)
+if [ "$file_created" != "some text" ]
+  then
+    exit 1
+fi
 popd
