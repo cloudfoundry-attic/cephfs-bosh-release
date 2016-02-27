@@ -61,7 +61,14 @@ eval `ssh-agent -s`
 chmod 600 deployments-runtime/persi-ci/keys/bosh.pem
 ssh-add deployments-runtime/persi-ci/keys/bosh.pem
 
-ssh -o StrictHostKeyChecking=no -t vcap@$cephfs_ip 'sudo chmod 777 /etc/ceph/ceph.client.admin.keyring'
+/usr/bin/expect <<EOD
+spawn ssh -o StrictHostKeyChecking=no -t vcap@$cephfs_ip 'sudo chmod 777 /etc/ceph/ceph.client.admin.keyring'
+expect "[sudo] password for vcap:"
+# send "c1oudc0w\n"
+# expect eof
+EOD
+
+#ssh -o StrictHostKeyChecking=no -t vcap@$cephfs_ip 'sudo chmod 777 /etc/ceph/ceph.client.admin.keyring'
 scp -o StrictHostKeyChecking=no vcap@$cephfs_ip:/etc/ceph/ceph.client.admin.keyring .
 scp -o StrictHostKeyChecking=no vcap@$cephfs_ip:/etc/ceph/ceph.conf .
 
