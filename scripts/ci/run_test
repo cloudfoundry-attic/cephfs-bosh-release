@@ -24,6 +24,11 @@ send "admin\n"
 expect eof
 EOD
 
+echo "### Generate cephfs-bosh-release manifest"
+wget https://github.com/cloudfoundry-incubator/spiff/releases/download/v1.0.7/spiff_linux_amd64
+sudo chmod +x spiff_linux_amd64
+sudo ln -s $(pwd)/spiff_linux_amd64 /usr/bin/spiff
+
 pushd cephfs-bosh-release
 echo "Generating Manifest"
 ls
