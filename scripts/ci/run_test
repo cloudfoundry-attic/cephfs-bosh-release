@@ -45,7 +45,7 @@ ssh-add deployments-runtime/persi-ci/keys/bosh.pem
 /usr/bin/expect <<EOD
 spawn ssh -o StrictHostKeyChecking=no vcap@$cephfs_ip
 expect "$"
-send {sudo chmod 777 /etc/ceph/ceph.client.admin.keyring}\n
+send {sudo chmod 777 /etc/ceph/ceph.client.admin.keyring}
 expect "password for vcap:"
 send "c1oudc0w\n"
 expect eof
