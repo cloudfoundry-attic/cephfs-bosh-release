@@ -149,6 +149,7 @@ mkdir -p /var/lib/ceph/mon/data
 ceph-authtool --create-keyring /tmp/ceph.mon.keyring --gen-key -n mon. --cap mon 'allow *'
 ceph-authtool --create-keyring /etc/ceph/ceph.client.admin.keyring --gen-key -n client.admin --set-uid=0 --cap mon 'allow *' --cap osd 'allow *' --cap mds 'allow'
 ceph-authtool /tmp/ceph.mon.keyring --import-keyring /etc/ceph/ceph.client.admin.keyring
+chmod 777 /etc/ceph/ceph.client.admin.keyring
 
 monmaptool --create --clobber --add $hostname $ipaddr --fsid c0162a84-1d21-46a2-8a8e-4507f6ec707f /tmp/monmap
 
@@ -206,4 +207,4 @@ ceph fs new cephfs cephfs_metadata cephfs_data
 popd
 sleep 60
 ceph health > /var/vcap/sys/log/cephfs/health
-exit 0 
+exit 0
