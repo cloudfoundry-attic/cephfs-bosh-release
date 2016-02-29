@@ -8,6 +8,9 @@ tearDown () {
 	rm -f ~/mycephfs/test.txt
 } 
 
+source $(pwd)/cephfs-bosh-release/scripts/ci/utils.sh
+check_param DEPLOYMENT_NAME
+
 ### Install ruby and the the bosh cli
 sudo apt-get update
 sudo apt-get --assume-yes install build-essential expect ruby ruby-dev libxml2-dev libsqlite3-dev libxslt1-dev libpq-dev libmysqlclient-dev zlib1g-dev ceph-fuse
@@ -40,10 +43,10 @@ sudo ln -s $(pwd)/spiff_linux_amd64 /usr/bin/spiff
 pushd cephfs-bosh-release
 echo "Generating Manifest"
 ls
-./templates/generate_manifest.sh aws
+./templates/generate_manifest.sh aws ${DEPLOYMENT_NAME}
 popd
 
-cephfs_ip=$(bosh vms cephfs-bosh-release | grep 'cephfs/0' | awk '{print $11}')
+cephfs_ip=$(bosh vms ${DEPLOYMENT_NAME} | grep 'cephfs/0' | awk '{print $11}')
 echo $cephfs_ip
 
 eval `ssh-agent -s`

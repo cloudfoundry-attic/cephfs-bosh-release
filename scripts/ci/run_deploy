@@ -3,6 +3,9 @@
 
 set -x -e
 
+source $(pwd)/cephfs-bosh-release/scripts/ci/utils.sh
+check_param DEPLOYMENT_NAME
+
 ### Install ruby and the the bosh cli
 sudo apt-get update
 sudo apt-get --assume-yes install build-essential expect ruby ruby-dev libxml2-dev libsqlite3-dev libxslt1-dev libpq-dev libmysqlclient-dev zlib1g-dev
@@ -35,9 +38,9 @@ EOD
 pushd cephfs-bosh-release
 echo "Generating Manifest"
 
-./templates/generate_manifest.sh aws
+./templates/generate_manifest.sh aws ${DEPLOYMENT_NAME}
 echo "Manifest Generated"
-bosh -n create release --force --with-tarball --name cephfs-bosh-release
+bosh -n create release --force --with-tarball --name ${DEPLOYMENT_NAME}
 
 /usr/bin/expect <<EOD
 spawn bosh logout

@@ -8,7 +8,7 @@ inputs:
   - name: deployments-runtime
 
 params:
-  PACKAGE:
+  DEPLOYMENT_NAME: replace-me
 
 run:
   path: cephfs-bosh-release/scripts/ci/run_teardown

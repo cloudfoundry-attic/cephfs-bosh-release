@@ -7,4 +7,5 @@ dev_releases/**/*
 .final_builds/packages/**/*.tgz
 *.swp
 config/private.yml
+config/dev.yml
 cephfs-manifest.yml
