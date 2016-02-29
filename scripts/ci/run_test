@@ -67,7 +67,28 @@ sudo sh -c "echo 'some text' > test.txt"
 file_created=$(cat test.txt)
 if [ "$file_created" != "some text" ]
   then
-  	tearDown
+    tearDown
     exit 1
 fi
 popd
+
+sudo umount ~/mycephfs
+sudo ceph-fuse -k ceph.client.admin.keyring -m $cephfs_ip:6789 ~/mycephfs
+
+pushd ~/mycephfs
+dir_created=$(ls -d */ | grep test-dir)
+if [ "$dir_created" != "test-dir/" ]
+  then
+    tearDown
+    exit 1
+fi
+
+file_created=$(cat test.txt)
+if [ "$file_created" != "some text" ]
+  then
+    tearDown
+    exit 1
+fi
+popd
+
+tearDown
