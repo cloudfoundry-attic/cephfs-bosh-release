@@ -1,4 +1,4 @@
-name: cephfs-bosh-release
+name:
 director_uuid:
 
 releases:

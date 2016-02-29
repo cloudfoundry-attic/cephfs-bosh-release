@@ -3,6 +3,10 @@
 
 set -x -e
 
+source $(pwd)/cephfs-bosh-release/scripts/ci/utils.sh
+check_param DEPLOYMENT_NAME
+
+
 ### Install ruby and the the bosh cli
 sudo apt-get update
 sudo apt-get --assume-yes install build-essential expect ruby ruby-dev libxml2-dev libsqlite3-dev libxslt1-dev libpq-dev libmysqlclient-dev zlib1g-dev ceph-fuse
@@ -27,7 +31,7 @@ send "admin\n"
 expect eof
 
 set timeout 1500
-spawn bosh delete deployment cephfs-bosh-release
+spawn bosh delete deployment ${DEPLOYMENT_NAME}
 expect  "(type 'yes' to continue):" { send "yes\n" }
 expect {
     "Error" { puts stderr Failed; exit 1 }
@@ -36,7 +40,7 @@ expect {
 }
 
 set timeout 1500
-spawn bosh delete release cephfs-bosh-release
+spawn bosh delete release ${DEPLOYMENT_NAME}
 expect  "(type 'yes' to continue):" { send "yes\n" }
 expect {
     "Error 30005" { puts "Already done"; exp_continue }

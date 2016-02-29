@@ -16,6 +16,9 @@ wget https://github.com/cloudfoundry-incubator/spiff/releases/download/v1.0.7/sp
 sudo chmod +x spiff_linux_amd64
 sudo ln -s $(pwd)/spiff_linux_amd64 /usr/bin/spiff
 
+pushd cephfs-bosh-release
+echo "Generating Manifest"
+
 /usr/bin/expect <<EOD
 spawn bosh logout
 expect eof
@@ -33,12 +36,11 @@ send "admin\n"
 expect "password:"
 send "admin\n"
 expect eof
+
+spawn /templates/generate_manifest.sh aws ${DEPLOYMENT_NAME}
+expect eof
 EOD
 
-pushd cephfs-bosh-release
-echo "Generating Manifest"
-
-./templates/generate_manifest.sh aws ${DEPLOYMENT_NAME}
 echo "Manifest Generated"
 bosh -n create release --force --with-tarball --name ${DEPLOYMENT_NAME}
 
