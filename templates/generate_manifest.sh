@@ -10,7 +10,9 @@ if [[  "$1" != "bosh-lite" && "$1" != "aws" ]]
 fi
 
 ARG2=${2:-cephfs-bosh-release}
-SUBSTITUTION=$(printf "name: %s\ndirector_uuid: %s", "${ARG2}", "${director_uuid}")
+SUBSTITUTION=$(printf "name: %s\ndirector_uuid: %s" "${ARG2}" "${director_uuid}")
+
+echo $SUBSTITUTION
 
 if [ "$1" == "bosh-lite" ] 
   then
