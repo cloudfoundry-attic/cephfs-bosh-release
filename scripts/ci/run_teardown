@@ -1,0 +1,45 @@
+#!/bin/bash
+#run_test
+
+set -x -e
+
+### Install ruby and the the bosh cli
+sudo apt-get update
+sudo apt-get --assume-yes install build-essential expect ruby ruby-dev libxml2-dev libsqlite3-dev libxslt1-dev libpq-dev libmysqlclient-dev zlib1g-dev ceph-fuse
+gem install bosh_cli --no-ri --no-rdoc
+
+/usr/bin/expect <<EOD
+spawn bosh target https://52.72.95.180:25555
+expect "Your username:"
+send "admin\n"
+expect "password:"
+send "admin\n"
+expect eof
+
+spawn bosh login
+expect "Your username:"
+send "admin\n"
+expect "password:"
+send "admin\n"
+expect eof
+
+set timeout 1500
+spawn bosh delete deployment cephfs-bosh-release
+expect  "(type 'yes' to continue):" { send "yes\n" }
+expect {
+    "Error" { puts stderr Failed; exit 1 }
+    "Skipped" { puts "Skipped"; exp_continue }
+    eof
+}
+
+set timeout 1500
+spawn bosh delete release cephfs-bosh-release
+expect  "(type 'yes' to continue):" { send "yes\n" }
+expect {
+    "Error 30005" { puts "Already done"; exp_continue }
+    "Error" { puts stderr Failed; exit 1 }
+    "Skipped" { puts "Skipped"; exp_continue }
+    "Deleted" { puts "Deleted"; exp_continue }
+    eof
+}
+EOD
