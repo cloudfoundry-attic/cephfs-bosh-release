@@ -37,7 +37,7 @@ expect "password:"
 send "admin\n"
 expect eof
 
-spawn /templates/generate_manifest.sh aws ${DEPLOYMENT_NAME}
+spawn templates/generate_manifest.sh aws ${DEPLOYMENT_NAME}
 expect eof
 EOD
 
