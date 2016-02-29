@@ -8,7 +8,7 @@ sudo apt-get update
 sudo apt-get --assume-yes install build-essential expect ruby ruby-dev libxml2-dev libsqlite3-dev libxslt1-dev libpq-dev libmysqlclient-dev zlib1g-dev
 gem install bosh_cli --no-ri --no-rdoc
 
-$(pwd)/run_teardown
+$(pwd)/cephfs-bosh-release/scripts/ci/run_teardown
 
 ### Get spiff
 wget https://github.com/cloudfoundry-incubator/spiff/releases/download/v1.0.7/spiff_linux_amd64
