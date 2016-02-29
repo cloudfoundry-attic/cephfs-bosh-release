@@ -5,7 +5,7 @@ set -x -e
 
 tearDown () {
 	rm -rf ~/mycephfs/test-dir
-	rm ~/mycephfs/test.txt
+	rm -f ~/mycephfs/test.txt
 } 
 
 ### Install ruby and the the bosh cli
