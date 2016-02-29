@@ -3,6 +3,11 @@
 
 set -x -e
 
+tearDown () {
+	rm -rf ~/mycephfs/test-dir
+	rm ~/mycephfs/test.txt
+} 
+
 ### Install ruby and the the bosh cli
 sudo apt-get update
 sudo apt-get --assume-yes install build-essential expect ruby ruby-dev libxml2-dev libsqlite3-dev libxslt1-dev libpq-dev libmysqlclient-dev zlib1g-dev ceph-fuse
@@ -42,15 +47,6 @@ eval `ssh-agent -s`
 chmod 600 deployments-runtime/persi-ci/keys/bosh.pem
 ssh-add deployments-runtime/persi-ci/keys/bosh.pem
 
-# COMMAND='sudo su; chmod 777 /etc/ceph/ceph.client.admin.keyring'
-# /usr/bin/expect <<EOD
-# spawn ssh -o StrictHostKeyChecking=no -t vcap@$cephfs_ip \"$COMMAND\"
-# expect "password for vcap:"
-# send "c1oudc0w\n"
-# expect eof
-# EOD
-
-#ssh -o StrictHostKeyChecking=no -t vcap@$cephfs_ip 'sudo chmod 777 /etc/ceph/ceph.client.admin.keyring'
 scp -o StrictHostKeyChecking=no vcap@$cephfs_ip:/etc/ceph/ceph.client.admin.keyring .
 scp -o StrictHostKeyChecking=no vcap@$cephfs_ip:/etc/ceph/ceph.conf .
 
@@ -58,10 +54,12 @@ sudo mkdir ~/mycephfs
 sudo ceph-fuse -k ceph.client.admin.keyring -m $cephfs_ip:6789 ~/mycephfs
 
 pushd ~/mycephfs
+tearDown
 sudo mkdir test-dir
 dir_created=$(ls -d */ | grep test-dir)
 if [ "$dir_created" != "test-dir/" ]
   then
+    tearDown
     exit 1
 fi
 
@@ -69,6 +67,7 @@ sudo sh -c "echo 'some text' > test.txt"
 file_created=$(cat test.txt)
 if [ "$file_created" != "some text" ]
   then
+  	tearDown
     exit 1
 fi
 popd
