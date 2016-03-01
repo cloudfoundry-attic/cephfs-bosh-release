@@ -10,7 +10,18 @@ if [[  "$1" != "bosh-lite" && "$1" != "aws" ]]
 fi
 
 ARG2=${2:-cephfs-bosh-release}
-SUBSTITUTION=$(printf "name: %s\ndirector_uuid: %s" "${ARG2}" "${director_uuid}")
+
+SUBSTITUTION=$(cat <<END_HEREDOC
+name: ${ARG2}
+director_uuid: ${director_uuid}
+releases:
+  - name: ${ARG2}
+jobs:
+  - name: cephfs
+    templates:
+      - {release: ${ARG2}, name: cephfs}
+END_HEREDOC
+)
 
 echo $SUBSTITUTION
 

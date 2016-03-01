@@ -2,7 +2,7 @@ name:
 director_uuid: 
 
 releases:
-  - name: cephfs-bosh-release
+  - name: 
     version: latest
 
 jobs:
@@ -15,7 +15,7 @@ jobs:
 
     persistent_disk: 25000 # for consul
     templates:
-      - {release: cephfs-bosh-release, name: cephfs}
+      - {release: , name: cephfs}
     properties:
       ceph:
         key: value
