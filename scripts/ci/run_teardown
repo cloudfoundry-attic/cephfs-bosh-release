@@ -8,6 +8,7 @@ check_param DEPLOYMENT_NAME
 
 
 ### Install ruby and the the bosh cli
+rm /var/lib/apt/lists/* -vf
 sudo apt-get update
 sudo apt-get --assume-yes install build-essential expect ruby ruby-dev libxml2-dev libsqlite3-dev libxslt1-dev libpq-dev libmysqlclient-dev zlib1g-dev ceph-fuse
 gem install bosh_cli --no-ri --no-rdoc
