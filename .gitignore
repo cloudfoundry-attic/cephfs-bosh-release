@@ -9,3 +9,20 @@ dev_releases/**/*
 config/private.yml
 config/dev.yml
 cephfs-manifest.yml
+
+## goPath system specifics
+bin/
+pkg
+
+## vim plugins to ignore
+src/9fans.net/
+src/github.com/alecthomas/
+src/github.com/golang/
+src/github.com/google/
+src/github.com/jstemmer/
+src/github.com/kisielk/
+src/github.com/klauspost/
+src/github.com/nsf/
+src/github.com/rogpeppe/
+src/golang.org/
+src/gopkg.in/
