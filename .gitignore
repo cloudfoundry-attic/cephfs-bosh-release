@@ -26,3 +26,4 @@ src/github.com/nsf/
 src/github.com/rogpeppe/
 src/golang.org/
 src/gopkg.in/
+cephfs-bosh-release.iml
