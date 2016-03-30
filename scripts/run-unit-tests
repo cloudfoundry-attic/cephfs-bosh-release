@@ -10,6 +10,6 @@ if [ -n "$PACKAGE" ]; then
 else
   pushd $CEPHFS_RELEASE_DIR/src/github.com/cloudfoundry-incubator/
     ginkgo -r -keepGoing -p -trace -randomizeAllSpecs -progress --race \
-      -skipPackage="cf_http,volman,cf-debug-server,cf-lager" "$@"
+      -skipPackage="cf_http,volman,cf-debug-server,cf-lager,acceptance" "$@"
   popd
 fi
