@@ -59,18 +59,20 @@ scp -o StrictHostKeyChecking=no vcap@$cephfs_ip:/etc/ceph/ceph.conf .
 #### prepare for acceptance
 ######################################################################################
 
+export CEPH_KEYRING=`cat /ceph.client.admin.keyring`
+export CEPH_CLUSTER_IP=$cephfs_ip
+
+pushd cephfs-bosh-release
+
 export GOROOT=/usr/local/go
 export PATH=$GOROOT/bin:$PATH
 
 export GOPATH=$PWD
 export PATH=$PWD/bin:$PATH
 
-export CEPH_KEYRING=`cat /ceph.client.admin.keyring`
-export CEPH_CLUSTER_IP=$cephfs_ip
-
-pushd cephfs-bosh-release
-
 go get github.com/onsi/ginkgo/ginkgo
 go get github.com/onsi/gomega 
 
 ./scripts/run-acceptance-tests -race
+popd
+
