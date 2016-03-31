@@ -59,7 +59,7 @@ scp -o StrictHostKeyChecking=no vcap@$cephfs_ip:/etc/ceph/ceph.conf .
 #### prepare for acceptance
 ######################################################################################
 
-export CEPH_KEYRING=`cat /ceph.client.admin.keyring`
+export CEPH_KEYRING=`cat ceph.client.admin.keyring`
 export CEPH_CLUSTER_IP=$cephfs_ip
 
 pushd cephfs-bosh-release
