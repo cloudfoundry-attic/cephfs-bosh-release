@@ -1,4 +1,4 @@
-# ceph-boshrelease
+# cephfs-bosh-release
 
 *Tested on bosh-lite and aws*
 
