@@ -1,0 +1,52 @@
+#!/bin/bash
+
+set -e -x
+
+RUN_DIR=/var/vcap/sys/run/cephdriver
+LOG_DIR=/var/vcap/sys/log/cephdriver
+PIDFILE=$RUN_DIR/cephdriver.pid
+
+source /var/vcap/packages/pid_utils/pid_utils.sh
+
+case $1 in
+
+  start)
+    pid_guard $PIDFILE "cephdriver"
+
+    mkdir -p $RUN_DIR
+    chown -R vcap:vcap $RUN_DIR
+
+    mkdir -p $LOG_DIR
+    chown -R vcap:vcap $LOG_DIR
+
+    export GOMAXPROCS=$(nproc)
+
+    # Work around for GOLANG 1.5.3 DNS bug
+    export GODEBUG=netdns=cgo
+
+    echo $$ > $PIDFILE
+
+    # Allowed number of open file descriptors
+    ulimit -n 100000
+
+    exec chpst -u vcap:vcap /var/vcap/packages/cephdriver/bin/cephdriver \
+      --listenAddr="<%= p("cephdriver.listen_addr") %>" \
+      --transport="tcp" \
+      --debugAddr="<%= p("cephdriver.debug_addr") %>" \
+      --logLevel="<%= p("cephdriver.log_level") %>" \
+      2> >(tee -a $LOG_DIR/cephdriver.stderr.log | logger -p user.error -t vcap.cephdriver) \
+      1> >(tee -a $LOG_DIR/cephdriver.stdout.log | logger -p user.info -t vcap.cephdriver)
+
+    ;;
+
+  stop)
+    kill_and_wait $PIDFILE
+
+    ;;
+
+  *)
+    echo "Usage: cephdriver_ctl {start|stop}"
+
+    ;;
+
+esac

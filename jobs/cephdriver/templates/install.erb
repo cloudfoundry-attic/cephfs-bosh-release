@@ -1,0 +1,18 @@
+#!/bin/bash
+
+set -e
+
+echo "Installing ceph-fuse"
+dpkg -i /var/vcap/packages/cephdriver/libboost-system1.54.0_1.54.0-4ubuntu3.1_amd64.deb
+dpkg -i /var/vcap/packages/cephdriver/libboost-thread1.54.0_1.54.0-4ubuntu3.1_amd64.deb
+dpkg -i /var/vcap/packages/cephdriver/libnspr4_2%3a4.10.10-0ubuntu0.14.04.1_amd64.deb
+dpkg -i /var/vcap/packages/cephdriver/libnspr4-0d_2%3a4.10.10-0ubuntu0.14.04.1_amd64.deb
+dpkg -i --ignore-depends=libnss3 /var/vcap/packages/cephdriver/libnss3-nssdb_2%3a3.19.2.1-0ubuntu0.14.04.2_all.deb
+dpkg -i /var/vcap/packages/cephdriver/libnss3_2%3a3.19.2.1-0ubuntu0.14.04.2_amd64.deb
+dpkg -i /var/vcap/packages/cephdriver/libnss3-1d_2%3a3.19.2.1-0ubuntu0.14.04.2_amd64.deb
+dpkg -i /var/vcap/packages/cephdriver/libfuse2_2.9.2-4ubuntu4.14.04.1_amd64.deb
+dpkg -i /var/vcap/packages/cephdriver/ceph-fuse_9.2.0-1trusty_amd64.deb
+
+
+echo "Installed ceph-fuse"
+exit 0

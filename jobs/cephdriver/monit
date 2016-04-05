@@ -1,0 +1,5 @@
+check process cephdriver
+  with pidfile /var/vcap/sys/run/cephdriver/cephdriver.pid
+  start program "/var/vcap/jobs/cephdriver/bin/cephdriver_ctl start"
+  stop program "/var/vcap/jobs/cephdriver/bin/cephdriver_ctl stop"
+  group vcap

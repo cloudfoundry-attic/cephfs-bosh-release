@@ -11,7 +11,6 @@ config/dev.yml
 cephfs-manifest.yml
 
 ## goPath system specifics
-bin/
 pkg
 
 ## vim plugins to ignore

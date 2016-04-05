@@ -263,3 +263,7 @@ cephfs/ceph-fs-common_9.2.0-1trusty_amd64.deb:
   object_id: 18713b32-bf47-4ad6-98c9-43ded6322a01
   sha: 65c6996566fd45aec52c02a76599013d58ebfdf5
   size: 882452
+golang/go1.6.linux-amd64.tar.gz:
+  object_id: 733b2527-8585-4c85-8985-988ef66baf3d
+  sha: 01a6a28dbe31a53103b600979bbbbd63a8104456
+  size: 84799480
