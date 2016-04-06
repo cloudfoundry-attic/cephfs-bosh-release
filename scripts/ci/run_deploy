@@ -38,7 +38,7 @@ EOD
 pushd cephfs-bosh-release
 echo "Generating Manifest"
 
-./templates/generate_manifest.sh aws $DEPLOYMENT_NAME
+./templates/generate_manifest.sh aws cephfs
 echo "Manifest Generated"
 bosh -n create release --force --with-tarball --name ${DEPLOYMENT_NAME}
 
