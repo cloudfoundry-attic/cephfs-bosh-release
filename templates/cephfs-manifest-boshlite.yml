@@ -6,7 +6,7 @@ releases:
     version: latest
 
 jobs:
-  - name: cephfs
+  - name:
     instances: 1
     resource_pool: ceph-resourcepool
     networks:
@@ -14,11 +14,8 @@ jobs:
         static_ips: &web-ips [10.244.8.2]
     persistent_disk: 25000 # for consul
     templates:
-      - {release: , name: cephfs}
-    properties:
-      ceph:
-        key: value
-
+      - {release: , name: }
+    properties: {}
 
 networks:
   - name: ceph-net
