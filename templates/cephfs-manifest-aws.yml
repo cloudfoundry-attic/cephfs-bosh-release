@@ -16,8 +16,11 @@ jobs:
     persistent_disk: 25000 # for consul
     templates:
       - {release: , name: }
-    properties: {}
-
+    properties:
+      cephdriver:
+        drivers_path:
+        cephfs_ip:
+        cephfs_keyring:
 networks:
   - name: ceph-subnet
     type: manual

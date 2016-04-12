@@ -1,0 +1,29 @@
+#!/bin/bash
+
+set -e
+
+export GOPATH=/var/vcap/packages/acceptance-tests
+export GOROOT=/var/vcap/packages/golang
+export PATH=$GOPATH/bin:$GOROOT/bin:$PWD/bin:$PATH
+
+ceph_keyring=`cat key.txt`
+
+export CEPH_KEYRING=${ceph_keyring}
+export CEPH_CLUSTER_IP=<%= p("cephdriver.cephfs_ip") %>
+export VOLMAN_DRIVERSPATH=<%= p("cephdriver.drivers_path") %>
+export PERSI_PIPELINE=true
+
+go install github.com/onsi/ginkgo/ginkgo
+go install github.com/onsi/gomega
+
+#scripts_path=./$(dirname $0)
+#eval $($scripts_path/get_paths.sh)
+
+#if [ -n "$PACKAGE" ]; then
+#  ginkgo -r -p "$@" "./src/${PACKAGE}"
+#else
+  pushd /var/vcap/packages/acceptance-tests/src/github.com/cloudfoundry-incubator/cephdriver/acceptance
+    ginkgo -r -keepGoing -p -trace -randomizeAllSpecs -progress --race \
+      -skipPackage="cf_http,volman,cf-debug-server,cf-lager" "$@"
+  popd
+#fi

@@ -4,19 +4,28 @@ name: cephdriver
 templates:
   install.erb: bin/pre-start
   ctl.erb: bin/cephdriver_ctl
+  key.txt.erb: bin/key.txt
+  run_acceptance_tests.erb: bin/run-acceptance-tests
 
 packages:
 - golang
 - pid_utils
 - cephdriver
+- acceptance-tests
 
 properties:
   cephdriver.listen_addr:
     description: "address cephdriver listens on"
-    default: "0.0.0.0:8080"
+    default: "127.0.0.1:8080"
   cephdriver.debug_addr:
     description: "address cephdriver will serve debug info"
-    default: "0.0.0.0:8181"
+    default: "127.0.0.1:8181"
   cephdriver.log_level:
     description: "cephdriver log level"
     default: "info"
+  cephdriver.drivers_path:
+    description: the directory into which cephdriver will write an appropriate config file
+  cephdriver.cephfs_ip:
+    description: the ip address
+  cephdriver.cephfs_keyring:
+    description: the keyring

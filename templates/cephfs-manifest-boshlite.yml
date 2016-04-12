@@ -11,11 +11,15 @@ jobs:
     resource_pool: ceph-resourcepool
     networks:
       - name: ceph-net
-        static_ips: &web-ips [10.244.8.2]
+        static_ips:
     persistent_disk: 25000 # for consul
     templates:
       - {release: , name: }
-    properties: {}
+    properties:
+      cephdriver:
+        drivers_path:
+        cephfs_ip:
+        cephfs_keyring:
 
 networks:
   - name: ceph-net
@@ -23,7 +27,9 @@ networks:
     subnets:
       - range: 10.244.8.0/24
         gateway: 10.244.8.1
-        static: *web-ips
+        static:
+        - 10.244.8.2
+        - 10.244.8.3
         cloud_properties: {}
 
 resource_pools:

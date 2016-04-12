@@ -1,0 +1,53 @@
+---
+name: acceptance-tests
+
+dependencies:
+  - golang
+
+files:
+  - github.com/cloudfoundry-incubator/cephdriver/acceptance/*.go 
+  - github.com/cloudfoundry-incubator/volman/**/*.go
+
+  - github.com/onsi/ginkgo/*/**.go
+  - github.com/onsi/ginkgo/config/*.go
+  - github.com/onsi/ginkgo/extensions/table/*.go
+  - github.com/onsi/ginkgo/ginkgo/*/**.go
+  - github.com/onsi/ginkgo/integration/*.go
+  - github.com/onsi/ginkgo/internal/*/**.go
+  - github.com/onsi/ginkgo/reporters/*/**.go
+  - github.com/onsi/ginkgo/types/*.go
+
+  - github.com/onsi/gomega/**/*.go
+  - github.com/onsi/gomega/format/*.go
+  - github.com/onsi/gomega/gbytes/*.go
+  - github.com/onsi/gomega/gexec/*.go
+  - github.com/onsi/gomega/ghttp/*.go
+  - github.com/onsi/gomega/internal/**/*.go
+  - github.com/onsi/gomega/matchers/**/*.go
+  - github.com/onsi/gomega/types/*.go
+
+  - github.com/pivotal-golang/lager/*/*.go
+
+  - github.com/tedsuo/ifrit/**/*.go
+
+  - github.com/nu7hatch/gouuid/**/*.go
+
+  - github.com/bmizerany/pat/*.go # gosub
+  - github.com/cloudfoundry-incubator/cephdriver/cephlocal/*.go # gosub
+  - github.com/cloudfoundry-incubator/cephdriver/cephlocal/cephfakes/*.go # gosub
+  - github.com/cloudfoundry-incubator/cephdriver/cmd/cephdriver/*.go # gosub
+  - github.com/cloudfoundry-incubator/cf-debug-server/*.go # gosub
+  - github.com/cloudfoundry-incubator/cf-lager/*.go # gosub
+  - github.com/cloudfoundry-incubator/cf_http/*.go # gosub
+  - github.com/cloudfoundry-incubator/cf_http/handlers/*.go # gosub
+  - github.com/cloudfoundry-incubator/cf_http/unix_transport/*.go # gosub
+  - github.com/cloudfoundry-incubator/volman/system/*.go # gosub
+  - github.com/cloudfoundry-incubator/volman/system/http/*.go # gosub
+  - github.com/cloudfoundry-incubator/volman/voldriver/*.go # gosub
+  - github.com/cloudfoundry-incubator/volman/voldriver/driverhttp/*.go # gosub
+  - github.com/pivotal-golang/lager/*.go # gosub
+  - github.com/tedsuo/ifrit/*.go # gosub
+  - github.com/tedsuo/ifrit/grouper/*.go # gosub
+  - github.com/tedsuo/ifrit/http_server/*.go # gosub
+  - github.com/tedsuo/ifrit/sigmon/*.go # gosub
+  - github.com/tedsuo/rata/*.go # gosub
