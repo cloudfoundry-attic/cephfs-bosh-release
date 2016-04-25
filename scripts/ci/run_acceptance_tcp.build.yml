@@ -1,0 +1,15 @@
+---
+platform: linux
+
+image: docker:///cloudfoundry/inigo-ci
+
+inputs:
+  - name: cephfs-bosh-release
+  - name: deployments-runtime
+
+params:
+  PACKAGE:
+  TRANSPORT: tcp
+
+run:
+  path: cephfs-bosh-release/scripts/ci/run_acceptance

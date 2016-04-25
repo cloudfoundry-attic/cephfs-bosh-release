@@ -9,6 +9,8 @@ inputs:
 
 params:
   PACKAGE:
+  TRANSPORT: unix
+
 
 run:
   path: cephfs-bosh-release/scripts/ci/run_acceptance

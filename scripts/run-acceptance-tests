@@ -38,7 +38,7 @@ cd ../src/github.com/cloudfoundry-incubator/cephdriver
 
 go build -o "acceptance/exec/cephdriver" "cmd/cephdriver/main.go"
 
-/bin/bash acceptance/scripts/startdriver_tcp.sh
+/bin/bash acceptance/scripts/startdriver.sh
 
 pushd $CEPHFS_RELEASE_DIR/src/github.com/cloudfoundry-incubator/volume_driver_cert
 ginkgo
