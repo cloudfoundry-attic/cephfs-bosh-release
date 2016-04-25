@@ -40,3 +40,6 @@
 [submodule "src/github.com/pivotal-golang/clock"]
 	path = src/github.com/pivotal-golang/clock
 	url = https://github.com/pivotal-golang/clock.git
+[submodule "src/github.com/cloudfoundry-incubator/volume_driver_cert"]
+	path = src/github.com/cloudfoundry-incubator/volume_driver_cert
+	url = https://github.com/cloudfoundry-incubator/volume_driver_cert.git

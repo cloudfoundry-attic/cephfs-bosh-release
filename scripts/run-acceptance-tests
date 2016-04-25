@@ -5,11 +5,46 @@ set -e
 scripts_path=./$(dirname $0)
 eval $($scripts_path/get_paths.sh)
 
-if [ -n "$PACKAGE" ]; then
-  ginkgo -r -p "$@" "./src/${PACKAGE}"
-else
-  pushd $CEPHFS_RELEASE_DIR/src/github.com/cloudfoundry-incubator/cephdriver/acceptance
-    ginkgo -r -keepGoing -p -trace -randomizeAllSpecs -progress --race \
-      -skipPackage="cf_http,volman,cf-debug-server,cf-lager" "$@"
-  popd
-fi
+CEPH_ACCEPTANCE_DIR=$CEPHFS_RELEASE_DIR/src/github.com/cloudfoundry-incubator/cephdriver/acceptance/
+
+# json encode the CEPH_KEYRING string since it is multiline and we will inject it into a json string
+ENCODED_KEYRING=${CEPH_KEYRING//\\/\\\\} # \
+ENCODED_KEYRING=${ENCODED_KEYRING//\//\\\/} # / 
+ENCODED_KEYRING=${ENCODED_KEYRING//\'/\\\'} # ' (not strictly needed ?)
+ENCODED_KEYRING=${ENCODED_KEYRING//\"/\\\"} # " 
+ENCODED_KEYRING=${ENCODED_KEYRING//$'\t'/\\\t} # \t (tab)
+ENCODED_KEYRING=${ENCODED_KEYRING//$'\n'/\\\n} # \n (newline)
+ENCODED_KEYRING=${ENCODED_KEYRING//^M/\\\r} # \r (carriage return)
+ENCODED_KEYRING=${ENCODED_KEYRING//^L/\\\f} # \f (form feed)
+ENCODED_KEYRING=${ENCODED_KEYRING//^H/\\\b} # \b (backspace)
+
+echo "{
+  \"volman_driver_path\": \"~/voldriver_plugins\",
+  \"driver_name\": \"cephdriver\",
+  \"create_config\": {
+    \"Name\": \"ceph-volume-name\",
+    \"Opts\": {
+      \"keyring\":\"$ENCODED_KEYRING\",
+      \"ip\":\"$CEPH_CLUSTER_IP\",
+      \"localMountPoint\":\"$CEPH_ACCEPTANCE_DIR/mountdir\",
+      \"remoteMountPoint\":\"notUsed\"}
+  }
+} "  > $CEPHFS_RELEASE_DIR/src/github.com/cloudfoundry-incubator/cephdriver/acceptance/fixture.json
+
+export FIXTURE_FILENAME="$CEPHFS_RELEASE_DIR/src/github.com/cloudfoundry-incubator/cephdriver/acceptance/fixture.json"
+
+cd `dirname $0`
+cd ../src/github.com/cloudfoundry-incubator/cephdriver
+
+go build -o "acceptance/exec/cephdriver" "cmd/cephdriver/main.go"
+
+/bin/bash acceptance/scripts/startdriver_tcp.sh
+
+pushd $CEPHFS_RELEASE_DIR/src/github.com/cloudfoundry-incubator/volume_driver_cert
+ginkgo
+popd
+
+/bin/bash acceptance/scripts/stopdriver.sh
+
+
+rm acceptance/exec/cephdriver
