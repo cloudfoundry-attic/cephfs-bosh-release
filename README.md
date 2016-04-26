@@ -25,6 +25,7 @@ bosh upload stemcell https://bosh.io/d/stemcells/bosh-aws-xen-ubuntu-trusty-go_a
 Git clone the repo and create a bosh release from it:
 ```
 git clone https://github.com/cloudfoundry-incubator/cephfs-bosh-release.git
+git submodule init && git submodule update
 bosh create release
 ```
 NB: Accept the default name for the release (cephfs-bosh-release)
