@@ -44,6 +44,8 @@ bosh upload stemcell https://bosh.io/d/stemcells/bosh-aws-xen-ubuntu-trusty-go_a
 ### Uploading to bosh
 
 ```
+git clone https://github.com/cloudfoundry-incubator/cephfs-bosh-release.git
+git submodule init && git submodule update
 bosh create release
 bosh upload release
 ```
