@@ -7,16 +7,19 @@ templates:
 
 packages:
 - golang
-- pid_utils
+- cephfs_pid_utils
 - cephdriver
 
 properties:
   cephdriver.listen_addr:
     description: "address cephdriver listens on"
-    default: "0.0.0.0:8080"
+    default: "0.0.0.0:8089"
   cephdriver.debug_addr:
     description: "address cephdriver will serve debug info"
-    default: "0.0.0.0:8181"
+    default: "0.0.0.0:8189"
+  cephdriver.drivers_path:
+    description: "path to place driver spec/json file for volman to discover"
+    default: "/tmp/"
   cephdriver.log_level:
     description: "cephdriver log level"
     default: "info"
