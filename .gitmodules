@@ -43,3 +43,9 @@
 [submodule "src/github.com/cloudfoundry-incubator/volume_driver_cert"]
 	path = src/github.com/cloudfoundry-incubator/volume_driver_cert
 	url = https://github.com/cloudfoundry-incubator/volume_driver_cert.git
+[submodule "src/github.com/cloundfoundry/gunk"]
+	path = src/github.com/cloundfoundry/gunk
+	url = https://github.com/cloudfoundry/gunk.git
+[submodule "src/github.com/cloudfoundry/gunk"]
+	path = src/github.com/cloudfoundry/gunk
+	url = https://github.com/cloudfoundry/gunk.git
