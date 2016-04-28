@@ -6,7 +6,7 @@ RUN_DIR=/var/vcap/sys/run/cephdriver
 LOG_DIR=/var/vcap/sys/log/cephdriver
 PIDFILE=$RUN_DIR/cephdriver.pid
 
-source /var/vcap/packages/pid_utils/pid_utils.sh
+source /var/vcap/packages/cephfs_pid_utils/pid_utils.sh
 
 case $1 in
 
@@ -33,6 +33,7 @@ case $1 in
       --listenAddr="<%= p("cephdriver.listen_addr") %>" \
       --transport="tcp" \
       --debugAddr="<%= p("cephdriver.debug_addr") %>" \
+      --driversPath="<%= p("cephdriver.drivers_path") %>" \
       --logLevel="<%= p("cephdriver.log_level") %>" \
       2> >(tee -a $LOG_DIR/cephdriver.stderr.log | logger -p user.error -t vcap.cephdriver) \
       1> >(tee -a $LOG_DIR/cephdriver.stdout.log | logger -p user.info -t vcap.cephdriver)
