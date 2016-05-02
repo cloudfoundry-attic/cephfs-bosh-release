@@ -19,7 +19,7 @@ properties:
     default: "0.0.0.0:8189"
   cephdriver.drivers_path:
     description: "path to place driver spec/json file for volman to discover"
-    default: "/tmp/"
+    default: "/var/vcap/data/plugins"
   cephdriver.log_level:
     description: "cephdriver log level"
     default: "info"
