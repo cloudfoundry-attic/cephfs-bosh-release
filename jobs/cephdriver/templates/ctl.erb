@@ -33,7 +33,7 @@ case $1 in
       --listenAddr="<%= p("cephdriver.listen_addr") %>" \
       --transport="tcp" \
       --debugAddr="<%= p("cephdriver.debug_addr") %>" \
-      --driversPath="<%= p("cephdriver.drivers_path") %>" \
+      --driversPath="<%= p("cephdriver.driver_paths") %>" \
       --logLevel="<%= p("cephdriver.log_level") %>" \
       2> >(tee -a $LOG_DIR/cephdriver.stderr.log | logger -p user.error -t vcap.cephdriver) \
       1> >(tee -a $LOG_DIR/cephdriver.stdout.log | logger -p user.info -t vcap.cephdriver)

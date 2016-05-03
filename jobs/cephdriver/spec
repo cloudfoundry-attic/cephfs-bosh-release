@@ -17,9 +17,9 @@ properties:
   cephdriver.debug_addr:
     description: "address cephdriver will serve debug info"
     default: "0.0.0.0:8189"
-  cephdriver.drivers_path:
+  cephdriver.driver_paths:
     description: "path to place driver spec/json file for volman to discover"
-    default: "/var/vcap/data/volmanplugins"
+    default: "/var/vcap/data/voldrivers"
   cephdriver.log_level:
     description: "cephdriver log level"
     default: "info"

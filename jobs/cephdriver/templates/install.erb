@@ -13,7 +13,7 @@ dpkg -i /var/vcap/packages/cephdriver/libnss3-1d_2%3a3.19.2.1-0ubuntu0.14.04.2_a
 dpkg -i /var/vcap/packages/cephdriver/libfuse2_2.9.2-4ubuntu4.14.04.1_amd64.deb
 dpkg -i /var/vcap/packages/cephdriver/ceph-fuse_9.2.0-1trusty_amd64.deb
 
-DATA_DIR=<%= p("cephdriver.drivers_path") %>
+DATA_DIR=<%= p("cephdriver.driver_paths") %>
 mkdir -p $DATA_DIR
 chown vcap:vcap $DATA_DIR
 
