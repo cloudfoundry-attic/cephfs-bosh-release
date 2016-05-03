@@ -15,10 +15,11 @@ files:
   - github.com/cloudfoundry-incubator/cf_http/*.go # gosub
   - github.com/cloudfoundry-incubator/cf_http/handlers/*.go # gosub
   - github.com/cloudfoundry-incubator/cf_http/unix_transport/*.go # gosub
-  - github.com/cloudfoundry-incubator/volman/system/*.go # gosub
-  - github.com/cloudfoundry-incubator/volman/system/http/*.go # gosub
   - github.com/cloudfoundry-incubator/volman/voldriver/*.go # gosub
   - github.com/cloudfoundry-incubator/volman/voldriver/driverhttp/*.go # gosub
+  - github.com/cloudfoundry/gunk/os_wrap/exec_wrap/**/*.go # gosub
+  - github.com/cloudfoundry/gunk/http_wrap/**/*.go # gosub
+  - github.com/pivotal-golang/clock/**/*.go # gosub
   - github.com/pivotal-golang/lager/*.go # gosub
   - github.com/tedsuo/ifrit/*.go # gosub
   - github.com/tedsuo/ifrit/grouper/*.go # gosub
