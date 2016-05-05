@@ -1,0 +1,24 @@
+---
+name: cephbroker
+
+templates:
+  install.erb: bin/pre-start
+  ctl.erb: bin/cephbroker_ctl
+
+packages:
+- golang
+- cephfs_pid_utils
+- cephbroker
+- cephdriver
+
+properties:
+  cephbroker.listenAddr:
+    description: "address cephbroker listens on"
+    default: "0.0.0.0:8009"
+  cephbroker.dataPath:
+    description: "path to save the data on"
+    default: "data/"
+  cephbroker.catalogPath:
+    description: "path to the catalog.json file"
+    default: "data/"
+

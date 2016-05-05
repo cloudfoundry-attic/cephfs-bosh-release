@@ -27,7 +27,7 @@ END_HEREDOC
 if [ "$2" == "cephfs" -o "$2" == "" ]
     then
     MANIFEST_NAME=cephfs-manifest
-CEPHFS_JOB_YML=$(cat <<END_HEREDOC
+    CEPHFS_JOB_YML=$(cat <<END_HEREDOC
 jobs:
 - name: cephfs
   templates:
@@ -37,17 +37,57 @@ END_HEREDOC
 elif [ "$2" == "cephdriver" ]
     then
     MANIFEST_NAME=cephdriver-manifest
-CEPHDRIVER_JOB_YML=$(cat <<END_HEREDOC
+    CEPHDRIVER_PROPERTIES_YML=$(cat <<END_HEREDOC
+
+properties:
+ cephdriver:
+  driver_paths: "/var/vcap/data/voldrivers"
+END_HEREDOC
+)
+    CEPHDRIVER_JOB_YML=$(cat <<END_HEREDOC
+
 jobs:
 - name: cephdriver
   templates:
   - {release: ${ARG2}, name: cephdriver}
 END_HEREDOC
 )
+elif [ "$2" == "cephbroker" ]
+    then
+    MANIFEST_NAME=cephbroker-manifest
+    CEPHBROKER_PROPERTIES_YML=$(cat <<END_HEREDOC
+
+properties:
+  cephbroker:
+   listenAddr: "0.0.0.0:8009"
+   dataPath: "/var/vcap/data/cephbroker/data"
+   catalogPath: "/var/vcap/data/cephbroker/catalog"
+END_HEREDOC
+)
+    CEPHBROKER_JOB_YML=$(cat <<END_HEREDOC
+
+jobs:
+- name: cephbroker
+  templates:
+  - {release: ${ARG2}, name: cephbroker}
+END_HEREDOC
+)
 elif [ "$2" == "both" ]
     then
     MANIFEST_NAME=ceph-manifest
-CEPHFS_AND_CEPHDRIVER_JOB_YML=$(cat <<END_HEREDOC
+    PROPERTIES_YML=$(cat <<END_HEREDOC
+
+properties:
+  cephbroker:
+   listenAddr: "0.0.0.0:8009"
+   dataPath: "/var/vcap/data/cephbroker/data"
+   catalogPath: "/var/vcap/data/cephbroker/catalog"
+  cephdriver:
+   driver_paths: "/var/vcap/data/voldrivers"
+END_HEREDOC
+)
+    CEPHFS_AND_CEPHDRIVER_AND_CEPHBROKER_JOB_YML=$(cat <<END_HEREDOC
+
 jobs:
 - name: cephfs
   templates:
@@ -55,6 +95,9 @@ jobs:
 - name: cephdriver
   templates:
   - {release: ${ARG2}, name: cephdriver}
+- name: cephbroker
+  templates:
+  - {release: ${ARG2}, name: cephbroker}
 END_HEREDOC
 )
 else
@@ -65,7 +108,11 @@ SUBSTITUTION=$(cat <<END_HEREDOC
 ${DIRECTOR_YML}
 ${CEPHFS_JOB_YML}
 ${CEPHDRIVER_JOB_YML}
-${CEPHFS_AND_CEPHDRIVER_JOB_YML}
+${CEPHBROKER_JOB_YML}
+${CEPHFS_AND_CEPHDRIVER_AND_CEPHBROKER_JOB_YML}
+${CEPHBROKER_PROPERTIES_YML}
+${CEPHDRIVER_PROPERTIES_YML}
+${PROPERTIES_YML}
 END_HEREDOC
 )
 

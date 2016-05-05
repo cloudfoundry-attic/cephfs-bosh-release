@@ -49,3 +49,6 @@
 [submodule "src/github.com/cloudfoundry/gunk"]
 	path = src/github.com/cloudfoundry/gunk
 	url = https://github.com/cloudfoundry/gunk.git
+[submodule "src/github.com/cloudfoundry-incubator/cephbroker"]
+	path = src/github.com/cloudfoundry-incubator/cephbroker
+	url = http://github.com/cloudfoundry-incubator/cephbroker

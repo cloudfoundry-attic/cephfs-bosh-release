@@ -1,0 +1,5 @@
+check process cephbroker
+  with pidfile /var/vcap/sys/run/cephbroker/cephbroker.pid
+  start program "/var/vcap/jobs/cephbroker/bin/cephbroker_ctl start"
+  stop program "/var/vcap/jobs/cephbroker/bin/cephbroker_ctl stop"
+  group vcap

@@ -1,0 +1,51 @@
+#!/bin/bash
+
+set -e -x
+
+RUN_DIR=/var/vcap/sys/run/cephbroker
+LOG_DIR=/var/vcap/sys/log/cephbroker
+PIDFILE=$RUN_DIR/cephbroker.pid
+
+source /var/vcap/packages/cephfs_pid_utils/pid_utils.sh
+
+case $1 in
+
+  start)
+    pid_guard $PIDFILE "cephbroker"
+
+    mkdir -p $RUN_DIR
+    chown -R vcap:vcap $RUN_DIR
+
+    mkdir -p $LOG_DIR
+    chown -R vcap:vcap $LOG_DIR
+
+    export GOMAXPROCS=$(nproc)
+
+    # Work around for GOLANG 1.5.3 DNS bug
+    export GODEBUG=netdns=cgo
+
+    echo $$ > $PIDFILE
+
+    # Allowed number of open file descriptors
+    ulimit -n 100000
+
+    exec chpst -u vcap:vcap /var/vcap/packages/cephbroker/bin/cephbroker \
+      --listenAddr="<%= p("cephbroker.listenAddr") %>" \
+      --dataPath="<%= p("cephbroker.dataPath") %>" \
+      --catalogPath="<%= p("cephbroker.catalogPath") %>" \
+      2> >(tee -a $LOG_DIR/cephbroker.stderr.log | logger -p user.error -t vcap.cephbroker) \
+      1> >(tee -a $LOG_DIR/cephbroker.stdout.log | logger -p user.info -t vcap.cephbroker)
+
+    ;;
+
+  stop)
+    kill_and_wait $PIDFILE
+
+    ;;
+
+  *)
+    echo "Usage: cephbroker_ctl {start|stop}"
+
+    ;;
+
+esac

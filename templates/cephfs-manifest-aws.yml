@@ -19,8 +19,6 @@ jobs:
     properties: {}
 
 properties:
- cephdriver:
-  driver_paths: "/var/vcap/data/voldrivers"
 
 networks:
   - name: ceph-subnet
