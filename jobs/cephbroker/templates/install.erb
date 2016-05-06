@@ -27,6 +27,9 @@ cp /var/vcap/packages/cephbroker/src/github.com/cloudfoundry-incubator/cephbroke
 
 echo "{}" > $DATA_DIR/ServiceBindings.json
 echo "{}" > $DATA_DIR/ServiceInstances.json
+# clean up source artifacts
+
+rm -rf ${BOSH_INSTALL_TARGET}/src ${BOSH_INSTALL_TARGET}/pkg
 
 echo "prepared data files"
 exit 0

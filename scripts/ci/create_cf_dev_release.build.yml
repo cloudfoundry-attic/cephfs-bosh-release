@@ -1,0 +1,14 @@
+---
+platform: linux
+
+image: docker:///cloudfoundry/diego-pipeline
+
+inputs:
+  - name: cf-release
+  - name: diego-ci
+
+outputs:
+  - name: created-cf-release
+
+run:
+  path: diego-ci/concourse/create_cf_dev_release
