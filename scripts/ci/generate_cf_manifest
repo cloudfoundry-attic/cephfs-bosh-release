@@ -12,7 +12,7 @@ stubs_path="${environment_path}/stubs"
 templates_path="${environment_path}/templates"
 
 
-pushd cf-dev-release
+pushd cf-release
   ./scripts/generate_deployment_manifest \
     ${INFRASTRUCTURE} \
     ${stubs_path}/cf/*.yml \
