@@ -4,7 +4,7 @@ set -e -x -u
 export GEM_HOME="${HOME}/.gem"
 mkdir -p "${GEM_HOME}"
 
-pushd cf-release
+pushd cf-dev-release
   for i in {1..5}; do
     echo "Syncing blobs, attempt $i"
     bosh -n --parallel 10 sync blobs && break
