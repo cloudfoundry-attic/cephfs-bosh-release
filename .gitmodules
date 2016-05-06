@@ -52,3 +52,13 @@
 [submodule "src/github.com/cloudfoundry-incubator/cephbroker"]
 	path = src/github.com/cloudfoundry-incubator/cephbroker
 	url = http://github.com/cloudfoundry-incubator/cephbroker
+[submodule "src/github.com/fatih/motion"]
+	path = src/github.com/fatih/motion
+	url = http://github.com/fatih/motion
+[submodule "src/github.com/gorilla/context"]
+	path = src/github.com/gorilla/context
+	url = http://github.com/gorilla/context
+[submodule "src/github.com/gorilla/mux"]
+	path = src/github.com/gorilla/mux
+	url = http://github.com/gorilla/mux
+
