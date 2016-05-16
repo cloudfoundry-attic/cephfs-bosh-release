@@ -12,4 +12,5 @@ files:
   - github.com/gorilla/context/**/*.go #gosub
   - github.com/cloudfoundry-incubator/cf-lager/**/*.go # gosub
   - github.com/pivotal-golang/lager/**/*.go # gosub
+  - github.com/tedsuo/rata/**/*.go # gosub
 
