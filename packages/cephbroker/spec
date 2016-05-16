@@ -13,4 +13,13 @@ files:
   - github.com/cloudfoundry-incubator/cf-lager/**/*.go # gosub
   - github.com/pivotal-golang/lager/**/*.go # gosub
   - github.com/tedsuo/rata/**/*.go # gosub
+  - github.com/cloudfoundry-incubator/cf_http/*.go # gosub
+  - github.com/cloudfoundry-incubator/cf_http/handlers/*.go # gosub
+  - github.com/cloudfoundry/gunk/os_wrap/exec_wrap/**/*.go # gosub
+  - github.com/pivotal-golang/clock/**/*.go # gosub
+  - github.com/pivotal-golang/lager/*.go # gosub
+  - github.com/tedsuo/ifrit/*.go # gosub
+  - github.com/tedsuo/ifrit/grouper/*.go # gosub
+  - github.com/tedsuo/ifrit/http_server/*.go # gosub
+  - github.com/tedsuo/ifrit/sigmon/*.go # gosub
 
