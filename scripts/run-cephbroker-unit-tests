@@ -1,0 +1,14 @@
+#!/bin/bash
+
+set -e
+
+scripts_path=./$(dirname $0)
+eval $($scripts_path/get_paths.sh)
+
+if [ -n "$PACKAGE" ]; then
+  ginkgo -r -p "$@" "./src/${PACKAGE}"
+else
+  pushd $CEPHFS_RELEASE_DIR/src/github.com/cloudfoundry-incubator/cephbroker
+    ginkgo -r -keepGoing  -skipPackage=./main -p -trace -randomizeAllSpecs -progress --race "$@"
+  popd
+fi
