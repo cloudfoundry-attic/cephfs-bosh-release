@@ -27,12 +27,21 @@ case $1 in
     echo $$ > $PIDFILE
 
     # Allowed number of open file descriptors
-    ulimit -n 100000
+    # ulimit -n 100000
+
+    CONFIG_DIR=<%= p("cephbroker.config-path") %>
+    mkdir -p $CONFIG_DIR
+    chown vcap:vcap $CONFIG_DIR
+
+    echo "{}" > $CONFIG_DIR/ServiceBindings.json
+    echo "{}" > $CONFIG_DIR/ServiceInstances.json
 
     exec chpst -u vcap:vcap /var/vcap/packages/cephbroker/bin/cephbroker \
-      --listenAddr="<%= p("cephbroker.listenAddr") %>" \
-      --dataPath="<%= p("cephbroker.dataPath") %>" \
-      --catalogPath="<%= p("cephbroker.catalogPath") %>" \
+      --listenAddr="<%= p("cephbroker.listen-addr") %>" \
+      --mds="<%= p("cephbroker.mds") %>" \
+      --configPath="<%= p("cephbroker.config-path") %>" \
+      --defaultMountPath="<%= p("cephbroker.default-mount-path") %>" \
+      --keyringFile="<%= p("cephbroker.keyring-file") %>" \
       2> >(tee -a $LOG_DIR/cephbroker.stderr.log | logger -p user.error -t vcap.cephbroker) \
       1> >(tee -a $LOG_DIR/cephbroker.stdout.log | logger -p user.info -t vcap.cephbroker)
 

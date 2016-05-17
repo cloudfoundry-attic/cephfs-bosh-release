@@ -15,6 +15,7 @@ jobs:
     persistent_disk: 25000 # for consul
     templates:
       - {release: , name: }
+      - {release: , name: }
     properties: {}
 
 properties:

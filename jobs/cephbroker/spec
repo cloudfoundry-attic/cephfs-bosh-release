@@ -2,23 +2,26 @@
 name: cephbroker
 
 templates:
-  install.erb: bin/pre-start
   ctl.erb: bin/cephbroker_ctl
 
 packages:
 - golang
 - cephfs_pid_utils
 - cephbroker
-- cephdriver
 
 properties:
-  cephbroker.listenAddr:
+  cephbroker.listen-addr:
     description: "address cephbroker listens on"
-    default: "0.0.0.0:8009"
-  cephbroker.dataPath:
-    description: "path to save the data on"
-    default: "data/"
-  cephbroker.catalogPath:
-    description: "path to the catalog.json file"
-    default: "data/"
-
+    default: "0.0.0.0:8999"
+  cephbroker.mds:
+    description: "host:port for ceph mds server"
+    default: "10.0.0.106:6789"
+  cephbroker.config-path:
+    description: "config directory to store book-keeping info"
+    default: "/tmp/cephbroker"
+  cephbroker.default-mount-path:
+    description: "local directory to mount within"
+    default: "/tmp/cephfs"
+  cephbroker.keyring-file:
+    description: "keyring file for ceph authentication"
+    default: "/etc/ceph/ceph.client.admin.keyring"

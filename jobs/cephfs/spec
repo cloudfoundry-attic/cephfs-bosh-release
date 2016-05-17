@@ -3,9 +3,10 @@ name: cephfs
 templates:
   bin/install.sh.erb: bin/pre-start
   ctl.erb: bin/ctl
-  
 
 packages:
 - python27
 - setuptools
 - cephfs
+
+properties: {}

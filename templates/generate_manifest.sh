@@ -29,14 +29,19 @@ if [ "$2" == "cephfs" -o "$2" == "" ]
     MANIFEST_NAME=cephfs-manifest
     CEPHFS_PROPERTIES_YML=$(cat <<END_HEREDOC
 
-properties: {}
+properties:
+  cephbroker: {}
+  cephfs: {}
 END_HEREDOC
 )
     CEPHFS_JOB_YML=$(cat <<END_HEREDOC
 jobs:
 - name: cephfs
   templates:
-  - {release: ${ARG2}, name: cephfs}
+  - release: ${ARG2}
+    name: cephfs
+  - release: ${ARG2}
+    name: cephbroker
 END_HEREDOC
 )
 elif [ "$2" == "cephdriver" ]
@@ -55,26 +60,6 @@ jobs:
 - name: cephdriver
   templates:
   - {release: ${ARG2}, name: cephdriver}
-END_HEREDOC
-)
-elif [ "$2" == "cephbroker" ]
-    then
-    MANIFEST_NAME=cephbroker-manifest
-    CEPHBROKER_PROPERTIES_YML=$(cat <<END_HEREDOC
-
-properties:
-  cephbroker:
-   listenAddr: "0.0.0.0:8009"
-   dataPath: "/var/vcap/data/cephbroker/data"
-   catalogPath: "/var/vcap/data/cephbroker/catalog"
-END_HEREDOC
-)
-    CEPHBROKER_JOB_YML=$(cat <<END_HEREDOC
-
-jobs:
-- name: cephbroker
-  templates:
-  - {release: ${ARG2}, name: cephbroker}
 END_HEREDOC
 )
 elif [ "$2" == "both" ]
@@ -97,12 +82,10 @@ jobs:
 - name: cephfs
   templates:
   - {release: ${ARG2}, name: cephfs}
+  - {release: ${ARG2}, name: cephbroker}
 - name: cephdriver
   templates:
   - {release: ${ARG2}, name: cephdriver}
-- name: cephbroker
-  templates:
-  - {release: ${ARG2}, name: cephbroker}
 END_HEREDOC
 )
 else
@@ -113,7 +96,6 @@ SUBSTITUTION=$(cat <<END_HEREDOC
 ${DIRECTOR_YML}
 ${CEPHFS_JOB_YML}
 ${CEPHDRIVER_JOB_YML}
-${CEPHBROKER_JOB_YML}
 ${CEPHFS_AND_CEPHDRIVER_AND_CEPHBROKER_JOB_YML}
 ${CEPHFS_PROPERTIES_YML}
 ${CEPHBROKER_PROPERTIES_YML}
