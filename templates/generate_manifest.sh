@@ -68,10 +68,8 @@ elif [ "$2" == "both" ]
     PROPERTIES_YML=$(cat <<END_HEREDOC
 
 properties:
-  cephbroker:
-   listenAddr: "0.0.0.0:8009"
-   dataPath: "/var/vcap/data/cephbroker/data"
-   catalogPath: "/var/vcap/data/cephbroker/catalog"
+  cephfs: {}
+  cephbroker: {}
   cephdriver:
    driver_paths: "/var/vcap/data/voldrivers"
 END_HEREDOC
