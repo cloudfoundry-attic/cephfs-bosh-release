@@ -7,6 +7,10 @@ source $(pwd)/cephfs-bosh-release/scripts/ci/utils.sh
 check_param AWS_DEFAULT_REGION
 check_param AWS_ACCESS_KEY_ID
 check_param AWS_SECRET_ACCESS_KEY
+check_param CF_LOGIN_USERNAME
+check_param CF_LOGIN_PASSWORD
+check_param CF_USERNAME
+check_param CF_PASSWORD
 
 curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
 unzip awscli-bundle.zip
@@ -23,9 +27,9 @@ pushd cf-cli
 
 curl -L "https://cli.run.pivotal.io/stable?release=linux64-binary&source=github" | tar -zx
 
-./cf login --skip-ssl-validation -a api.persi.cf-app.com -u admin -p burrito
+./cf login --skip-ssl-validation -a api.persi.cf-app.com -u ${CF_LOGIN_USERNAME} -p ${CF_LOGIN_PASSWORD}
 
-./cf create-service-broker cephfs admin admin http://${broker_ip}:8999
+./cf create-service-broker cephfs ${CF_USERNAME} ${CF_PASSWORD} http://${broker_ip}:8999
 
 temp=$(./cf service-brokers | grep cephfs)
 if [ "$temp" == "" ]

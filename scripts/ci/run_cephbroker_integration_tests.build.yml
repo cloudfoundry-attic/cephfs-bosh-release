@@ -10,6 +10,10 @@ params:
   AWS_DEFAULT_REGION: replace-me
   AWS_ACCESS_KEY_ID: replace-me
   AWS_SECRET_ACCESS_KEY: replace-me
+  CF_LOGIN_USERNAME: replace-me
+  CF_LOGIN_PASSWORD: replace-me
+  CF_USERNAME: replace-me
+  CF_PASSWORD: replace-me
 
 run:
   path: cephfs-bosh-release/scripts/ci/run_cephbroker_integration_tests
