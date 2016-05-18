@@ -7,7 +7,9 @@ inputs:
   - name: cephfs-bosh-release
 
 params:
-  DEPLOYMENT_NAME: replace-me
+  AWS_DEFAULT_REGION: replace-me
+  AWS_ACCESS_KEY_ID: replace-me
+  AWS_SECRET_ACCESS_KEY: replace-me
 
 run:
   path: cephfs-bosh-release/scripts/ci/run_cephbroker_integration_tests
