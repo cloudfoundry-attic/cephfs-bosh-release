@@ -27,7 +27,7 @@ echo "{
       \"keyring\":\"$ENCODED_KEYRING\",
       \"ip\":\"$CEPH_CLUSTER_IP\",
       \"localMountPoint\":\"$CEPH_ACCEPTANCE_DIR/mountdir\",
-      \"remoteMountPoint\":\"notUsed\"}
+      \"remoteMountPoint\":\"/\"}
   }
 } "  > $CEPHFS_RELEASE_DIR/src/github.com/cloudfoundry-incubator/cephdriver/acceptance/fixture.json
 
