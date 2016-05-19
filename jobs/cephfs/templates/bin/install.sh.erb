@@ -1,6 +1,8 @@
 #!/bin/bash
 
 PWD=`pwd`
+user=vcap
+hostname=`hostname`
 
 echo "Install python 2.7"
 dpkg -i /var/vcap/packages/python27/libpython2.7-minimal_2.7.6-8ubuntu0.2_amd64.deb
@@ -78,14 +80,34 @@ dpkg -i /var/vcap/packages/cephfs/apt-transport-https_1.0.1ubuntu2.11_amd64.deb
 
 dpkg -i /var/vcap/packages/cephfs/uuid-runtime_2.20.1-5.1ubuntu20.7_amd64.deb
 
-echo "Installing ceph fuse"
-dpkg -i /var/vcap/packages/cephfs/libfuse2_2.9.2-4ubuntu4.14.04.1_amd64.deb
-dpkg -i /var/vcap/packages/cephfs/ceph-fuse_9.2.0-1trusty_amd64.deb
+echo "Installing ceph fuse (and fusermount)"
+apt-get update
+apt-get install fuse
+modprobe fuse
+adduser vcap fuse
+chown root:fuse /dev/fuse
+#chmod +x /bin/fusermount
+chown $user:$user /etc/fuse.conf
+cat << EOF > /etc/fuse.conf
+mount_max=10
+user_allow_other
+EOF
+apt-get install ceph-fuse
+#dpkg -i /var/vcap/packages/cephfs/libfuse2_2.9.2-4ubuntu4.14.04.1_amd64.deb
+#dpkg -i /var/vcap/packages/cephfs/ceph-fuse_9.2.0-1trusty_amd64.deb
+
+#
+#ceph-fuse -m ....
+
+#cd >mnt>
+#sudo chown -R vcap: .
+#mkdir base
+#sudo unmount
+#ceph-fuse -r /base
+
 echo "Setup ceph cluster"
 mkdir -p /var/vcap/ceph-cluster
 pushd /var/vcap/ceph-cluster
-user=`whoami`
-hostname=`hostname`
 
 ipaddr=$(ip addr | grep 'state UP' -A2 | tail -n1 | awk '{print $2}' | cut -f1  -d'/')
 echo $ipaddr

@@ -18,6 +18,14 @@ case $1 in
 
     echo `pgrep -f ceph-mon` > $PIDFILE
 
+    # chown cephfs to vcap
+    mkdir /home/vcap/cephfs
+    chown vcap:vcap /home/vcap/cephfs
+    ceph-fuse -m 10.0.0.106:6789 -c /etc/ceph/ceph.client.admin.keyring -r / /home/vcap/cephfs
+    chown -R vcap:vcap /home/vcap/cephfs
+    umount /home/vcap/cephfs
+    rm -rf /home/vcap/cephfs
+
     ;;
 
   stop)
