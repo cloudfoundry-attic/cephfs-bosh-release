@@ -28,11 +28,11 @@ curl -L "https://cli.run.pivotal.io/stable?release=linux64-binary&source=github"
 ./cf login --skip-ssl-validation -a api.persi.cf-app.com -u ${CF_USERNAME} -p ${CF_PASSWORD}
 
 ./cf delete-service-broker -f cephbroker
-temp=$(./cf service-brokers | grep cephbroker)
-if [ "$temp" != "" ]
-    then
-        exit 1
-fi
+# temp=$(./cf service-brokers | grep cephbroker)
+# if [ "$temp" != "" ]
+#     then
+#         exit 1
+# fi
 
 
 ./cf create-service-broker cephbroker ${CF_USERNAME} ${CF_PASSWORD} http://${broker_ip}:8999
