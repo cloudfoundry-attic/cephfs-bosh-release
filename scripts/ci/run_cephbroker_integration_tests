@@ -27,7 +27,8 @@ curl -L "https://cli.run.pivotal.io/stable?release=linux64-binary&source=github"
 
 ./cf login --skip-ssl-validation -a api.persi.cf-app.com -u ${CF_USERNAME} -p ${CF_PASSWORD}
 
-./cf delete-service-broker -f cephbroker
+
+# ./cf delete-service-broker -f cephbroker
 # temp=$(./cf service-brokers | grep cephbroker)
 # if [ "$temp" != "" ]
 #     then
@@ -51,19 +52,30 @@ if [ "$temp" == "" ]
         exit 1
 fi
 
-./cf delete-service -f mycephfs
-temp=$(./cf services | grep mycephfs)
-if [ "$temp" != "" ]
-    then
-        exit 1
-fi
+popd
+pushd persi-wordpress
+../cf-cli/cf push --no-start
+popd
+pushd cf-cli
 
-./cf delete-service-broker -f cephbroker
+./cf bind persi-wordpress mycephfs
 
-temp=$(./cf service-brokers | grep cephbroker)
-echo "temp content"
-echo $temp
+./cf start persi-wordpress
+
+
+# ./cf delete-service -f mycephfs
+# temp=$(./cf services | grep mycephfs)
 # if [ "$temp" != "" ]
+#     then
+#         exit 1
+# fi
+
+# ./cf delete-service-broker -f cephbroker
+
+# temp=$(./cf service-brokers | grep cephbroker)
+# echo "temp content"
+# echo $temp
+# # if [ "$temp" != "" ]
 #     then
 #         exit 1
 # fi
