@@ -133,3 +133,13 @@ sudo mkdir mydir
 sudo sh -c 'echo "something" > myfile'
 cat myfile
 ```
+
+# Intellij Setup
+
+Configure your project to run `gofmt` and `goimports` using the following regex:-
+
+```
+(file[cephfs-bosh-release]:src/github.com/cloudfoundry-incubator/ceph*/*.go||file[cephfs-bosh-release]:src/github.com/cloudfoundry-incubator/volman/*.go||file[cephfs-bosh-release]:src/github.com/cloudfoundry-incubator/volume_driver_cert/*.go)&&!file[cephfs-bosh-release]:src/github.com/cloudfoundry-incubator/volume_driver_cert/vendor//*
+```
+
+NB: This is so that Intellij does not `go fmt` dependent packages which may result in source changes.
