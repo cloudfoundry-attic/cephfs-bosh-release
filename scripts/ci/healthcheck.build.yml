@@ -12,6 +12,7 @@ params:
   BOSH_USERNAME: replace-me
   BOSH_PASSWORD: replace-me
   DEPLOYMENT_NAME: replace-me
+  CEPHFS_IP: replace-me
 
 run:
   path: cephfs-bosh-release/scripts/ci/run_healthcheck

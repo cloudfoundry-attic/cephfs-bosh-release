@@ -10,8 +10,11 @@ jobs:
     instances: 1
     resource_pool: ceph-resourcepool
     networks:
-      - name: ceph-subnet
-        default: [dns, gateway]
+    - name: ceph-vip
+      static_ips:
+      - 52.3.42.29
+    - name: ceph-subnet
+      default: [dns, gateway]
 
     persistent_disk: 25000 # for consul
     templates:
@@ -37,6 +40,9 @@ networks:
     static:
     - 10.10.200.10 - 10.10.200.105
   type: manual
+- name: ceph-vip
+  type: vip
+  cloud_properties: {}
 
 resource_pools:
   - name: ceph-resourcepool
