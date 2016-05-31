@@ -20,7 +20,7 @@ sudo ln -s $(pwd)/spiff_linux_amd64 /usr/bin/spiff
 spawn bosh logout
 expect eof
 
-spawn bosh target https://52.72.95.180:25555
+spawn bosh target https://52.203.76.179:25555
 expect "Your username:"
 send "admin\n"
 expect "password:"
