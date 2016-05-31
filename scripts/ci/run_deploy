@@ -5,6 +5,8 @@ set -x -e
 
 source $(pwd)/cephfs-bosh-release/scripts/ci/utils.sh
 check_param DEPLOYMENT_NAME
+check_param BOSH_USERNAME
+check_param BOSH_PASSWORD
 
 ### Install ruby and the the bosh cli
 sudo apt-get update
@@ -22,16 +24,16 @@ expect eof
 
 spawn bosh target https://52.203.76.179:25555
 expect "Your username:"
-send "admin\n"
+send "${BOSH_USERNAME}\n"
 expect "password:"
-send "admin\n"
+send "${BOSH_PASSWORD}\n"
 expect eof
 
 spawn bosh login
 expect "Your username:"
-send "admin\n"
+send "${BOSH_USERNAME}\n"
 expect "password:"
-send "admin\n"
+send "${BOSH_PASSWORD}\n"
 expect eof
 EOD
 
@@ -48,9 +50,9 @@ expect eof
 
 spawn bosh login
 expect "Your username:"
-send "admin\n"
+send "${BOSH_USERNAME}\n"
 expect "password:"
-send "admin\n"
+send "${BOSH_PASSWORD}\n"
 expect eof
 
 set timeout 300
