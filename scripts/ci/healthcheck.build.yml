@@ -8,7 +8,10 @@ inputs:
   - name: deployments-runtime
 
 params:
+  BOSH_TARGET: replace-me
+  BOSH_USERNAME: replace-me
+  BOSH_PASSWORD: replace-me
   DEPLOYMENT_NAME: replace-me
 
 run:
-  path: cephfs-bosh-release/scripts/ci/run_test
+  path: cephfs-bosh-release/scripts/ci/run_healthcheck

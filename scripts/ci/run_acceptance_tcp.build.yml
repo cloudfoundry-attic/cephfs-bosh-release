@@ -10,6 +10,9 @@ inputs:
 params:
   PACKAGE:
   TRANSPORT: tcp
+  BOSH_TARGET: replace-me
+  BOSH_USERNAME: replace-me
+  BOSH_PASSWORD: replace-me
 
 run:
   path: cephfs-bosh-release/scripts/ci/run_acceptance

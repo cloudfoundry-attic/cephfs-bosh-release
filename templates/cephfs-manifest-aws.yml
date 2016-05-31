@@ -22,18 +22,21 @@ jobs:
 properties:
 
 networks:
-  - name: ceph-subnet
-    type: manual
-    subnets:
-      - range: 10.0.0.0/24
-        gateway: 10.0.0.1
-        dns: [10.0.0.2]
-        reserved:
-        - 10.0.0.2 - 10.0.0.9
-        static:
-        - 10.0.0.10 - 10.0.0.105
-        cloud_properties:
-          subnet: subnet-98b118ee
+- name: ceph-subnet
+  subnets:
+  - cloud_properties:
+      security_groups:
+      - sg-a2945ad9
+      subnet: subnet-8c2365d4
+    dns:
+    - 10.10.0.2
+    gateway: 10.10.200.1
+    range: 10.10.200.0/24
+    reserved:
+    - 10.10.200.2 - 10.10.200.9
+    static:
+    - 10.10.200.10 - 10.10.200.105
+  type: manual
 
 resource_pools:
   - name: ceph-resourcepool
