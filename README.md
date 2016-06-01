@@ -4,7 +4,7 @@
 
 ## Overview
 
-This bosh release comprises two jobs; cephfs and cephdriver.  These are typically deployed separately.  
+This bosh release comprises two jobs; cephfs and cephdriver.  These are typically deployed separately.
 
 ## Installation
 ### Pre-Requisites
@@ -109,7 +109,7 @@ which should report something like this:-
 ```
 {"Volume":{"Name":"","Mountpoint":""},"Err":"unexpected end of JSON input"}
 ```
-NB: Whilst this is an error it proves the server is up and listening for requests.  8080 is the default port.  You may need to replace this with the 
+NB: Whilst this is an error it proves the server is up and listening for requests.  8080 is the default port.  You may need to replace this with the
 port you specified in your deployment manifest.
 
 ## Mount cephfs (using fuse)
@@ -134,7 +134,22 @@ sudo sh -c 'echo "something" > myfile'
 cat myfile
 ```
 
-# Intellij Setup
+# Development Setup
+## Installing the code
+After cloning this repository, you will need to run `./scripts/update` to fetch
+code for all of the submodules.
+## Git Secrets
+The `update` script above also installs git hooks to invoke git-secrets on any
+git commit.  This checks the commit to make sure that it doesn't contain any
+unsafe AWS keys or passwords.  On OS X, the update script also installs git-secrets
+using homebrew.  For other platforms, you will need to build and install it yourself
+following the instructions in the [git-secrets README](https://github.com/awslabs/git-secrets).
+
+Make sure to invoke `git secrets --register-aws --global` after you have installed git-secrets.
+
+It is *not* necessary to run `git secrets --install` as the `./scripts/update` script will 
+perform this step for you.
+## Intellij Setup
 
 Configure your project to run `gofmt` and `goimports` using the following regex:-
 

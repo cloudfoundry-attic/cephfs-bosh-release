@@ -17,10 +17,11 @@ set -x -e
 scripts_dir="$(cd $(dirname $0) && pwd)"
 if uname -a | grep Darwin; then
   brew install git-secrets
-  git secrets --register-aws --global
-  if [ -d "$(dirname "$scripts_dir")/.git" ] ; then
-    "$scripts_dir"/install-git-hooks
-  fi
+  git secrets --register-aws --global || true
+fi
+
+if [ -d "$(dirname "$scripts_dir")/.git" ] ; then
+  "$scripts_dir"/install-git-hooks
 fi
 
 
