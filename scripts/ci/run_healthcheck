@@ -13,7 +13,6 @@ check_param DEPLOYMENT_NAME
 check_param BOSH_TARGET
 check_param BOSH_USERNAME
 check_param BOSH_PASSWORD
-check_param CEPHFS_IP
 
 ### Install ruby and the the bosh cli
 sudo apt-get update
@@ -50,15 +49,19 @@ ls
 ./templates/generate_manifest.sh aws cephfs
 popd
 
+cephfs_ip=$(bosh vms ${DEPLOYMENT_NAME} | grep 'cephfs/0' | awk '{print $11}')
+echo $cephfs_ip
+
+
 eval `ssh-agent -s`
 chmod 600 deployments-runtime/persi-ci/keys/id-rsa-bosh
 ssh-add deployments-runtime/persi-ci/keys/id-rsa-bosh
 
-scp -o StrictHostKeyChecking=no vcap@${CEPHFS_IP}:/etc/ceph/ceph.client.admin.keyring .
-scp -o StrictHostKeyChecking=no vcap@${CEPHFS_IP}:/etc/ceph/ceph.conf .
+scp -o StrictHostKeyChecking=no vcap@${cephfs_ip}:/etc/ceph/ceph.client.admin.keyring .
+scp -o StrictHostKeyChecking=no vcap@${cephfs_ip}:/etc/ceph/ceph.conf .
 
 sudo mkdir ~/mycephfs
-sudo ceph-fuse -k ceph.client.admin.keyring -m ${CEPHFS_IP}:6789 ~/mycephfs
+sudo ceph-fuse -k ceph.client.admin.keyring -m ${cephfs_ip}:6789 ~/mycephfs
 
 pushd ~/mycephfs
 tearDown
@@ -80,7 +83,7 @@ fi
 popd
 
 sudo umount ~/mycephfs
-sudo ceph-fuse -k ceph.client.admin.keyring -m ${CEPHFS_IP}:6789 ~/mycephfs
+sudo ceph-fuse -k ceph.client.admin.keyring -m ${cephfs_ip}:6789 ~/mycephfs
 
 pushd ~/mycephfs
 dir_created=$(ls -d */ | grep test-dir)
