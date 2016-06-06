@@ -41,15 +41,4 @@ expect {
     "Skipped" { puts "Skipped"; exp_continue }
     eof
 }
-
-set timeout 1500
-spawn bosh delete release ${DEPLOYMENT_NAME}
-expect  "(type 'yes' to continue):" { send "yes\n" }
-expect {
-    "Error 30005" { puts "Already done"; exp_continue }
-    "Error" { puts stderr Failed; exit 1 }
-    "Skipped" { puts "Skipped"; exp_continue }
-    "Deleted" { puts "Deleted"; exp_continue }
-    eof
-}
 EOD
