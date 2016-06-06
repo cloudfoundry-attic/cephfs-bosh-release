@@ -38,10 +38,12 @@ send "${BOSH_PASSWORD}\n"
 expect eof
 EOD
 
+director_uuid=$(bosh status --uuid)
+
 pushd cephfs-bosh-release
 echo "Generating Manifest"
 
-./templates/generate_manifest.sh aws cephfs
+./templates/generate_manifest.sh aws cephfs ${BOSH_TARGET} ${BOSH_USERNAME} ${BOSH_PASSWORD}
 echo "Manifest Generated"
 bosh -n create release --force --with-tarball --name ${DEPLOYMENT_NAME}
 
