@@ -22,6 +22,7 @@ EOD
 
 
 director_uuid=$(bosh status --uuid)
+echo "Director:${director_uuid}"
 
 usage () {
     echo "Usage: generate_manifest.sh bosh-lite|aws [cephfs*|cephdriver|both]"
