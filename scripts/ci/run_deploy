@@ -50,7 +50,7 @@ bosh -n create release --force --with-tarball --name ${DEPLOYMENT_NAME}
 /usr/bin/expect <<EOD
 spawn bosh logout
 expect eof
-
+spawn bosh target ${BOSH_TARGET}
 spawn bosh login
 expect "Your username:"
 send "${BOSH_USERNAME}\n"
@@ -59,6 +59,8 @@ send "${BOSH_PASSWORD}\n"
 expect eof
 
 set timeout 300
+spawn bosh deployments
+spawn bosh releases
 spawn bosh upload release
 expect {
     "Error 30014" { puts "Already uploaded"; exp_continue }
