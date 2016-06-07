@@ -46,7 +46,7 @@ sudo ln -s $(pwd)/spiff_linux_amd64 /usr/bin/spiff
 pushd cephfs-bosh-release
 echo "Generating Manifest"
 ls
-./templates/generate_manifest.sh aws cephfs
+./templates/generate_manifest.sh aws cephfs ${BOSH_TARGET} ${BOSH_USERNAME} ${BOSH_PASSWORD}
 popd
 
 cephfs_ip=$(bosh vms ${DEPLOYMENT_NAME} | grep 'cephfs/0' | awk '{print $11}')
