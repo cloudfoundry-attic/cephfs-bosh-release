@@ -5,8 +5,9 @@ image: docker:///cloudfoundry/diego-pipeline
 
 inputs:
   - name: deployments-runtime
+  - name: diego-release
+  - name: diego-ci
   - name: cf-release
-  - name: cephfs-bosh-release
 
 outputs:
   - name: generated-manifest
@@ -15,8 +16,8 @@ params:
   DEPLOYMENTS_DIR: ~
   ENVIRONMENT_NAME: ~
   INFRASTRUCTURE: ~
-  USE_GUARDIAN: false
+  USE_GARDEN_RUNC: false
   USE_SQL: false
 
 run:
-  path: cephfs-bosh-release/scripts/ci/generate_cf_manifest
+  path: diego-ci/concourse/generate_deployment_manifests
