@@ -6,7 +6,7 @@ image: docker:///cloudfoundry/diego-pipeline
 inputs:
   - name: deployments-runtime
   - name: diego-release
-  - name: diego-ci
+  - name: cephfs-bosh-release
   - name: cf-release
 
 outputs:
