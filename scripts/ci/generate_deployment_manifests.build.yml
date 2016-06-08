@@ -20,4 +20,4 @@ params:
   USE_SQL: false
 
 run:
-  path: diego-ci/concourse/generate_deployment_manifests
+  path: cephfs-bosh-release/scripts/ci/generate_deployment_manifests
