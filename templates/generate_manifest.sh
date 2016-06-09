@@ -39,7 +39,7 @@ DIRECTOR_YML=$(cat <<END_HEREDOC
 name: $2
 director_uuid: ${director_uuid}
 releases:
-    - name: cephfs-bosh-release
+    - name: cephfs
 END_HEREDOC
 )
 
@@ -57,9 +57,9 @@ END_HEREDOC
 jobs:
 - name: cephfs
   templates:
-  - release: cephfs-bosh-release
+  - release: cephfs
     name: cephfs
-  - release: cephfs-bosh-release
+  - release: cephfs
     name: cephbroker
 END_HEREDOC
 )
@@ -78,7 +78,7 @@ END_HEREDOC
 jobs:
 - name: cephdriver
   templates:
-  - {release: cephfs-bosh-release, name: cephdriver}
+  - {release: cephfs, name: cephdriver}
 END_HEREDOC
 )
 else
