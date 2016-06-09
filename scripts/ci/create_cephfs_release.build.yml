@@ -8,7 +8,7 @@ inputs:
   - name: version
 
 outputs:
-  - created-cephfs-bosh-release
+  - name: created-cephfs-bosh-release
 
 run:
   path: cephfs-bosh-release/scripts/ci/create_cephfs_release
