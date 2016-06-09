@@ -9,6 +9,9 @@ check_param BOSH_TARGET
 check_param BOSH_USERNAME
 check_param BOSH_PASSWORD
 
+sudo apt-get update
+sudo apt-get --assume-yes install expect
+
 /usr/bin/expect <<EOD
 spawn bosh logout
 expect eof
