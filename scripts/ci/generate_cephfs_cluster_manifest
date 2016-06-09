@@ -17,4 +17,8 @@ pushd cephfs-bosh-release
     echo "Manifest Generated"
 
     mv cephfs-manifest.yml ../generated-manifest/
+
+    echo '============================================'
+    cat ../generated-manifest/cephfs-manifest.yml
+    echo '============================================'
 popd
