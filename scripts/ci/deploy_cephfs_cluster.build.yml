@@ -1,7 +1,7 @@
 ---
 platform: linux
 
-image: docker:///cloudfoundry/inigo-ci
+image: docker:///cloudfoundry/diego-pipeline
 
 inputs:
   - name: cephfs-bosh-release
@@ -13,4 +13,4 @@ params:
   DEPLOYMENT_NAME: replace-me
 
 run:
-  path: cephfs-bosh-release/scripts/ci/run_deploy
+  path: cephfs-bosh-release/scripts/ci/deploy_cephfs_cluster
