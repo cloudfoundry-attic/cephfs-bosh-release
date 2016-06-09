@@ -16,6 +16,5 @@ pushd cephfs-bosh-release
     ./templates/generate_manifest.sh aws cephfs ${BOSH_TARGET} ${BOSH_USERNAME} ${BOSH_PASSWORD}
     echo "Manifest Generated"
 
-    mkdir -p generated-manifest
-    mv cephfs-manifest.yml generated-manifest/
+    mv cephfs-manifest.yml ../generated-manifest/
 popd
