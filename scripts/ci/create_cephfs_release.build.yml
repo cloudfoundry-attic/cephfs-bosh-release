@@ -5,11 +5,10 @@ image: docker:///cloudfoundry/diego-pipeline
 
 inputs:
   - name: cephfs-bosh-release
+  - name: version
 
-params:
-  BOSH_TARGET: replace-me
-  BOSH_USERNAME: replace-me
-  BOSH_PASSWORD: replace-me
+outputs:
+  - created-cephfs-bosh-release
 
 run:
   path: cephfs-bosh-release/scripts/ci/create_cephfs_release
