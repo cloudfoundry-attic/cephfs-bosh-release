@@ -5,11 +5,11 @@ image: docker:///cloudfoundry/diego-pipeline
 
 inputs:
   - name: diego-release
-  - name: diego-ci
+  - name: cephfs-bosh-release
   - name: version
 
 outputs:
   - name: created-diego-release
 
 run:
-  path: diego-ci/concourse/create_diego_dev_release
+  path: cephfs-bosh-release/ci/create_diego_dev_release
