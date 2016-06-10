@@ -1,4 +1,5 @@
 ---
+final_name: cephfs
 blobstore:
   provider: s3
   options:
