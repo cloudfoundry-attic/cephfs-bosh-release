@@ -13,24 +13,7 @@ pushd cephfs-bosh-release
 
 bosh -n --parallel 10 create release --version $version --name cephfs --force --with-tarball
 
-sudo apt-get --assume-yes install expect
-/usr/bin/expect <<EOD
-spawn bosh logout
-expect eof
-spawn bosh target ${BOSH_TARGET}
-expect "Your username:"
-send "${BOSH_USERNAME}\n"
-expect "password:"
-send "${BOSH_PASSWORD}\n"
-expect eof
-spawn bosh login
-expect "Your username:"
-send "${BOSH_USERNAME}\n"
-expect "password:"
-send "${BOSH_PASSWORD}\n"
-expect eof
-spawn bosh upload release dev_releases/cephfs/*.tgz
-EOD
-
+bosh login $BOSH_USERNAME $BOSH_PASSWORD
+bosh upload release dev_releases/cephfs/*.tgz
 mv dev_releases/cephfs/*.tgz ../created-cephfs-bosh-release
 popd
