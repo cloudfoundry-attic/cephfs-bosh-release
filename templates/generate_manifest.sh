@@ -25,7 +25,7 @@ director_uuid=$(bosh status --uuid)
 echo "Director:${director_uuid}"
 
 usage () {
-    echo "Usage: generate_manifest.sh bosh-lite|aws [cephfs*|cephdriver|both]"
+    echo "Usage: generate_manifest.sh bosh-lite|aws [cephfs*|cephdriver]"
     echo " * default"
     exit 1
 }
@@ -35,13 +35,11 @@ if [[  "$1" != "bosh-lite" && "$1" != "aws" ]]
     usage
 fi
 
-ARG2=cephfs-bosh-release
-
 DIRECTOR_YML=$(cat <<END_HEREDOC
-name: ${ARG2}
+name: $2
 director_uuid: ${director_uuid}
 releases:
-    - name: ${ARG2}
+    - name: cephfs-bosh-release
 END_HEREDOC
 )
 
@@ -59,9 +57,9 @@ END_HEREDOC
 jobs:
 - name: cephfs
   templates:
-  - release: ${ARG2}
+  - release: cephfs-bosh-release
     name: cephfs
-  - release: ${ARG2}
+  - release: cephfs-bosh-release
     name: cephbroker
 END_HEREDOC
 )
@@ -80,31 +78,7 @@ END_HEREDOC
 jobs:
 - name: cephdriver
   templates:
-  - {release: ${ARG2}, name: cephdriver}
-END_HEREDOC
-)
-elif [ "$2" == "both" ]
-    then
-    MANIFEST_NAME=ceph-manifest
-    PROPERTIES_YML=$(cat <<END_HEREDOC
-
-properties:
-  cephfs: {}
-  cephbroker: {}
-  cephdriver:
-   driver_paths: "/var/vcap/data/voldrivers"
-END_HEREDOC
-)
-    CEPHFS_AND_CEPHDRIVER_AND_CEPHBROKER_JOB_YML=$(cat <<END_HEREDOC
-
-jobs:
-- name: cephfs
-  templates:
-  - {release: ${ARG2}, name: cephfs}
-  - {release: ${ARG2}, name: cephbroker}
-- name: cephdriver
-  templates:
-  - {release: ${ARG2}, name: cephdriver}
+  - {release: cephfs-bosh-release, name: cephdriver}
 END_HEREDOC
 )
 else
