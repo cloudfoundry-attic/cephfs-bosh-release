@@ -3,10 +3,32 @@
 
 set -x -e
 
+check_param BOSH_TARGET
+check_param BOSH_USERNAME
+check_param BOSH_PASSWORD
+
 version=`cat version/number`
-
 pushd cephfs-bosh-release
-    bosh -n --parallel 10 create release --version $version --name cephfs --force --with-tarball
 
-    mv dev_releases/cephfs/*.tgz ../created-cephfs-bosh-release
+bosh -n --parallel 10 create release --version $version --name cephfs --force --with-tarball
+
+/usr/bin/expect <<EOD
+spawn bosh logout
+expect eof
+spawn bosh target ${BOSH_TARGET}
+expect "Your username:"
+send "${BOSH_USERNAME}\n"
+expect "password:"
+send "${BOSH_PASSWORD}\n"
+expect eof
+spawn bosh login
+expect "Your username:"
+send "${BOSH_USERNAME}\n"
+expect "password:"
+send "${BOSH_PASSWORD}\n"
+expect eof
+spawn bosh upload release dev_releases/cephfs/*.tgz
+EOD
+
+mv dev_releases/cephfs/*.tgz ../created-cephfs-bosh-release
 popd
