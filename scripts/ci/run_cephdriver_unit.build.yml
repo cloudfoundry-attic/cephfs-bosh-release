@@ -10,4 +10,4 @@ params:
   PACKAGE:
 
 run:
-  path: cephfs-bosh-release/scripts/ci/run_unit
+  path: cephfs-bosh-release/scripts/ci/run_cephdriver_unit
