@@ -1,0 +1,43 @@
+#!/bin/bash
+
+set -e -x -u
+
+if [ -z "$ENVIRONMENT_NAME" ]; then
+  environment_path="${PWD}/${DEPLOYMENTS_DIR}"
+else
+  environment_path="${PWD}/${DEPLOYMENTS_DIR}/${ENVIRONMENT_NAME}"
+fi
+
+stubs_path="${environment_path}/stubs"
+templates_path="${environment_path}/templates"
+
+sql_option=""
+if [ "$USE_SQL" == "true" ]; then
+  sql_option="-s ${stubs_path}/diego/diego-sql.yml"
+fi
+
+garden_flag=""
+if [ "$USE_GARDEN_RUNC" == "true" ]; then
+  garden_flag="-g"
+fi
+
+pushd cf-release
+  ./scripts/generate_deployment_manifest \
+    ${INFRASTRUCTURE} \
+    ${stubs_path}/cf/*.yml \
+    > ../generated-manifest/cf-deployment.yml
+popd
+
+pushd diego-release
+  cp ../generated-manifest/cf-deployment.yml /tmp/cf.yml
+
+  ./scripts/generate-deployment-manifest \
+    -c /tmp/cf.yml \
+    -i ${stubs_path}/diego/iaas-settings.yml \
+    -p ${stubs_path}/diego/property-overrides.yml \
+    -n ${stubs_path}/diego/instance-count-overrides.yml \
+    -v ${stubs_path}/diego/release-versions.yml \
+    ${garden_flag} \
+    ${sql_option} \
+    > ../generated-manifest/diego-deployment.yml
+popd
