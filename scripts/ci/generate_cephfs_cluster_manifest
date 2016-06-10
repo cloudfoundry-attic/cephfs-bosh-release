@@ -1,0 +1,20 @@
+#!/bin/bash
+#run_deploy
+
+set -x -e
+
+source $(pwd)/cephfs-bosh-release/scripts/ci/utils.sh
+check_param BOSH_TARGET
+check_param BOSH_USERNAME
+check_param BOSH_PASSWORD
+
+sudo apt-get update
+sudo apt-get --assume-yes install expect
+
+pushd cephfs-bosh-release
+    echo "Generating Manifest"
+    ./templates/generate_manifest.sh aws cephfs ${BOSH_TARGET} ${BOSH_USERNAME} ${BOSH_PASSWORD}
+    echo "Manifest Generated"
+
+    mv cephfs-manifest.yml generated-manifest/
+popd

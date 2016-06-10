@@ -6,11 +6,13 @@ image: docker:///cloudfoundry/diego-pipeline
 inputs:
   - name: cephfs-bosh-release
 
+outputs:
+  - name: generated-manifest
+
 params:
   BOSH_TARGET: replace-me
   BOSH_USERNAME: replace-me
   BOSH_PASSWORD: replace-me
-  DEPLOYMENT_NAME: replace-me
 
 run:
-  path: cephfs-bosh-release/scripts/ci/deploy_cephfs_cluster
+  path: cephfs-bosh-release/scripts/ci/generate_cephfs_cluster_manifest
