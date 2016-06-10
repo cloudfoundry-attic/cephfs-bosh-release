@@ -14,7 +14,7 @@ pushd cephfs-bosh-release
 bosh -n --parallel 10 create release --version $version --name cephfs --force --with-tarball
 
 bosh target ${BOSH_TARGET}
-bosh login ${BOSH_USERNAME} ${BOSH_PASSWORD}
+bosh -n login ${BOSH_USERNAME} ${BOSH_PASSWORD}
 bosh upload release dev_releases/cephfs/*.tgz
 mv dev_releases/cephfs/*.tgz ../created-cephfs-bosh-release
 popd
