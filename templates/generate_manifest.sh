@@ -1,7 +1,28 @@
 #!/bin/bash
 #generate_manifest.sh
+/usr/bin/expect <<EOD
+spawn bosh logout
+expect eof
+
+spawn bosh target $3
+expect "Your username:"
+send "$4\n"
+expect "password:"
+send "$5\n"
+expect eof
+
+spawn bosh login
+expect "Your username:"
+send "$4\n"
+expect "password:"
+send "$5\n"
+expect eof
+EOD
+
+
 
 director_uuid=$(bosh status --uuid)
+echo "Director:${director_uuid}"
 
 usage () {
     echo "Usage: generate_manifest.sh bosh-lite|aws [cephfs*|cephdriver|both]"
@@ -111,5 +132,10 @@ if [ "$1" == "aws" ]
   then
     spiff merge templates/cephfs-manifest-aws.yml <(echo "${SUBSTITUTION}") > $MANIFEST_NAME.yml
 fi
+
+#director_uuid=$(bosh status --uuid)
+
+
+
 
 bosh deployment $MANIFEST_NAME.yml
