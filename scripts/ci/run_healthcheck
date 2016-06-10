@@ -49,7 +49,7 @@ ls
 ./templates/generate_manifest.sh aws cephfs ${BOSH_TARGET} ${BOSH_USERNAME} ${BOSH_PASSWORD}
 popd
 
-cephfs_ip=$(bosh vms ${DEPLOYMENT_NAME} | grep 'cephfs/0' | awk '{print $11}')
+cephfs_ip=$(bosh vms cephfs | grep 'cephfs/0' | awk '{print $11}')
 echo $cephfs_ip
 
 
