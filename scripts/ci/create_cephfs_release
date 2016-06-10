@@ -3,56 +3,10 @@
 
 set -x -e
 
-source $(pwd)/cephfs-bosh-release/scripts/ci/utils.sh
-check_param BOSH_TARGET
-check_param BOSH_USERNAME
-check_param BOSH_PASSWORD
-
-sudo apt-get update
-sudo apt-get --assume-yes install expect
-
-/usr/bin/expect <<EOD
-spawn bosh logout
-expect eof
-
-spawn bosh target ${BOSH_TARGET}
-expect "Your username:"
-send "${BOSH_USERNAME}\n"
-expect "password:"
-send "${BOSH_PASSWORD}\n"
-expect eof
-
-spawn bosh login
-expect "Your username:"
-send "${BOSH_USERNAME}\n"
-expect "password:"
-send "${BOSH_PASSWORD}\n"
-expect eof
-EOD
+version=`cat version/number`
 
 pushd cephfs-bosh-release
-bosh -n create release --force # --with-tarball to send to s3?
+    bosh -n --parallel 10 create release --version $version --force --with-tarball
 
-/usr/bin/expect <<EOD
-spawn bosh logout
-expect eof
-spawn bosh target ${BOSH_TARGET}
-spawn bosh login
-expect "Your username:"
-send "${BOSH_USERNAME}\n"
-expect "password:"
-send "${BOSH_PASSWORD}\n"
-expect eof
-
-set timeout 300
-spawn bosh deployments
-spawn bosh releases
-spawn bosh upload release
-expect {
-    "Error 30014" { puts "Already uploaded"; exp_continue }
-    "Error" { puts stderr Failed; exit 1 }
-    eof
-}
-EOD
-
+    mv dev_releases/cephfs/*.tgz ../created-cephfs-bosh-release
 popd
