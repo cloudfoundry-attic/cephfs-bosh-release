@@ -52,8 +52,8 @@ cephfs_ip=$(bosh vms ${DEPLOYMENT_NAME} | grep 'cephfs/0' | awk '{print $11}')
 echo $cephfs_ip
 
 eval `ssh-agent -s`
-chmod 600 deployments-runtime/persi-ci/keys/id-rsa-bosh
-ssh-add deployments-runtime/persi-ci/keys/id-rsa-bosh
+chmod 600 deployments-runtime/persi-ci/deployments/bosh-director/v1/keys/id-rsa-bosh
+ssh-add deployments-runtime/persi-ci/deployments/bosh-director/v1/keys/id-rsa-bosh
 
 scp -o StrictHostKeyChecking=no vcap@$cephfs_ip:/etc/ceph/ceph.client.admin.keyring .
 scp -o StrictHostKeyChecking=no vcap@$cephfs_ip:/etc/ceph/ceph.conf .
