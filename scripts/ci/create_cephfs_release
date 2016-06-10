@@ -3,6 +3,7 @@
 
 set -x -e
 
+source $(pwd)/cephfs-bosh-release/scripts/ci/utils.sh
 check_param BOSH_TARGET
 check_param BOSH_USERNAME
 check_param BOSH_PASSWORD
