@@ -13,6 +13,7 @@ pushd cephfs-bosh-release
 
 bosh -n --parallel 10 create release --version $version --name cephfs --force --with-tarball
 
+sudo apt-get --assume-yes install expect
 /usr/bin/expect <<EOD
 spawn bosh logout
 expect eof
