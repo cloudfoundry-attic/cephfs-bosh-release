@@ -1,5 +1,17 @@
 #!/bin/bash
 #generate_manifest.sh
+
+usage () {
+    echo "Usage: generate_manifest.sh bosh-lite|aws deployment-name [bosh-target] [bosh-user] [bosh-password]"
+    echo " * default"
+    exit 1
+}
+
+if [[  "$1" != "bosh-lite" && "$1" != "aws" || -z $2 ]]
+  then
+    usage
+fi
+
 /usr/bin/expect <<EOD
 spawn bosh logout
 expect eof
@@ -19,21 +31,8 @@ send "$5\n"
 expect eof
 EOD
 
-
-
 director_uuid=$(bosh status --uuid)
 echo "Director:${director_uuid}"
-
-usage () {
-    echo "Usage: generate_manifest.sh bosh-lite|aws [cephfs*|cephdriver]"
-    echo " * default"
-    exit 1
-}
-
-if [[  "$1" != "bosh-lite" && "$1" != "aws" ]]
-  then
-    usage
-fi
 
 DIRECTOR_YML=$(cat <<END_HEREDOC
 name: $2
@@ -43,47 +42,7 @@ releases:
 END_HEREDOC
 )
 
-if [ "$2" == "cephfs" -o "$2" == "" ]
-    then
-    MANIFEST_NAME=cephfs-manifest
-    CEPHFS_PROPERTIES_YML=$(cat <<END_HEREDOC
-
-properties:
-  cephbroker: {}
-  cephfs: {}
-END_HEREDOC
-)
-    CEPHFS_JOB_YML=$(cat <<END_HEREDOC
-jobs:
-- name: cephfs
-  templates:
-  - release: cephfs
-    name: cephfs
-  - release: cephfs
-    name: cephbroker
-END_HEREDOC
-)
-elif [ "$2" == "cephdriver" ]
-    then
-    MANIFEST_NAME=cephdriver-manifest
-    CEPHDRIVER_PROPERTIES_YML=$(cat <<END_HEREDOC
-
-properties:
- cephdriver:
-  driver_paths: "/var/vcap/data/voldrivers"
-END_HEREDOC
-)
-    CEPHDRIVER_JOB_YML=$(cat <<END_HEREDOC
-
-jobs:
-- name: cephdriver
-  templates:
-  - {release: cephfs, name: cephdriver}
-END_HEREDOC
-)
-else
-    usage
-fi
+MANIFEST_NAME=cephfs-manifest
 
 SUBSTITUTION=$(cat <<END_HEREDOC
 ${DIRECTOR_YML}
@@ -107,9 +66,4 @@ if [ "$1" == "aws" ]
     spiff merge templates/cephfs-manifest-aws.yml <(echo "${SUBSTITUTION}") > $MANIFEST_NAME.yml
 fi
 
-#director_uuid=$(bosh status --uuid)
-
-
-
-
-bosh deployment $MANIFEST_NAME.yml
+echo manifest written to $PWD/$MANIFEST_NAME.yml

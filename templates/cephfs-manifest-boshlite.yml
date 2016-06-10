@@ -14,8 +14,7 @@ jobs:
         static_ips: &web-ips [10.244.8.2]
     persistent_disk: 25000 # for consul
     templates:
-      - {release: , name: }
-      - {release: , name: }
+      - <<: (( merge ))
     properties: {}
 
 properties:

@@ -6,7 +6,20 @@ releases:
     version: latest
 
 jobs:
-  - name:
+  - name: cephfs
+    instances: 1
+    resource_pool: ceph-resourcepool
+    networks:
+    - name: ceph-subnet
+      default: [dns, gateway]
+    persistent_disk: 25000 # for consul
+    templates:
+    - release: cephfs
+      name: cephfs
+    update:
+      serial: true
+
+  - name: cephbroker
     instances: 1
     resource_pool: ceph-resourcepool
     networks:
@@ -15,11 +28,12 @@ jobs:
 
     persistent_disk: 25000 # for consul
     templates:
-      - {release: , name: }
-      - {release: , name: }
-    properties: {}
+    - release: cephfs
+      name: cephbroker
 
 properties:
+  cephfs: {}
+  cephbroker: {}
 
 networks:
 - name: ceph-subnet
