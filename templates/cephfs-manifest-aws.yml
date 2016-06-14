@@ -12,6 +12,8 @@ jobs:
     networks:
     - name: ceph-subnet
       default: [dns, gateway]
+    - name: public
+      static_ips: [52.3.42.29]
     persistent_disk: 25000 # for consul
     templates:
     - release: cephfs
@@ -60,13 +62,14 @@ resource_pools:
       version: latest
     cloud_properties:
       instance_type: m3.medium
-      availability_zone: us-east-1a
+      availability_zone: us-east-1c
 
 compilation:
   workers: 1
   network: ceph-subnet
   reuse_compilation_vms: true
   cloud_properties:
+    availability_zone: us-east-1c
     instance_type: m3.large
     ephemeral_disk:
       size: 10000 # in MB
