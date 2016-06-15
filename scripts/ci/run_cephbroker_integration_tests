@@ -1,32 +1,21 @@
 #!/bin/bash
 # vim: set ft=sh
 
-set -e
+set -e -x
 
 source $(pwd)/cephfs-bosh-release/scripts/ci/utils.sh
-check_param AWS_DEFAULT_REGION
-check_param AWS_ACCESS_KEY_ID
-check_param AWS_SECRET_ACCESS_KEY
 check_param CF_USERNAME
 check_param CF_PASSWORD
-
-curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
-unzip awscli-bundle.zip
-sudo ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
-
-broker_ip=$(aws ec2 describe-instances --filter Name=tag:Name,Values=cephfs/0 --query 'Reservations[0].Instances[0].NetworkInterfaces[0].Association.PublicIp')
-temp="${broker_ip%\"}"
-temp="${temp#\"}"
-broker_ip="$temp"
-echo $broker_ip
 
 mkdir -p cf-cli
 pushd cf-cli
 
 curl -L "https://cli.run.pivotal.io/stable?release=linux64-binary&source=github" | tar -zx
-
-./cf login --skip-ssl-validation -a api.persi.cf-app.com -u ${CF_USERNAME} -p ${CF_PASSWORD}
-
+./cf api --skip-ssl-validation api.persi.cf-app.com
+./cf auth ${CF_USERNAME} ${CF_PASSWORD}
+./cf create-org pats-org
+./cf create-space -o pats-org pats-space
+./cf target -o pats-org -s pats-space
 
 # ./cf delete-service-broker -f cephbroker
 # temp=$(./cf service-brokers | grep cephbroker)
@@ -35,15 +24,14 @@ curl -L "https://cli.run.pivotal.io/stable?release=linux64-binary&source=github"
 #         exit 1
 # fi
 
-
-./cf create-service-broker cephbroker ${CF_USERNAME} ${CF_PASSWORD} http://${broker_ip}:8999
+./cf create-service-broker cephbroker ${CF_USERNAME} ${CF_PASSWORD} http://cephbroker.persi.cf-app.com:8999
 temp=$(./cf service-brokers | grep cephbroker)
 if [ "$temp" == "" ]
     then
         exit 1
 fi
 
-./cf enable-service-access cephfs -o test-org
+./cf enable-service-access cephfs -o pats-org
 
 ./cf create-service cephfs free mycephfs
 temp=$(./cf services | grep mycephfs)
@@ -52,32 +40,31 @@ if [ "$temp" == "" ]
         exit 1
 fi
 
-popd
-pushd persi-wordpress
-../cf-cli/cf push --no-start
-popd
-pushd cf-cli
+#popd
+#pushd persi-wordpress
+#./cf push --no-start
+#popd
+#pushd cf-cli
+#
+#./cf bind persi-wordpress mycephfs
+#
+#./cf start persi-wordpress
 
-./cf bind persi-wordpress mycephfs
 
-./cf start persi-wordpress
+./cf delete-service -f mycephfs
+temp=$(./cf services | grep mycephfs)
+if [ "$temp" != "" ]
+    then
+        exit 1
+fi
 
-
-# ./cf delete-service -f mycephfs
-# temp=$(./cf services | grep mycephfs)
-# if [ "$temp" != "" ]
-#     then
-#         exit 1
-# fi
-
-# ./cf delete-service-broker -f cephbroker
-
-# temp=$(./cf service-brokers | grep cephbroker)
-# echo "temp content"
-# echo $temp
-# # if [ "$temp" != "" ]
-#     then
-#         exit 1
-# fi
+./cf delete-service-broker -f cephbroker
+temp=$(./cf service-brokers | grep cephbroker)
+echo "temp content"
+echo $temp
+if [ "$temp" != "" ]
+     then
+         exit 1
+fi
 
 popd
