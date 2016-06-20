@@ -1,0 +1,57 @@
+#!/bin/bash
+set -e -x
+
+echo "Installing fuse"
+dpkg -i /var/vcap/packages/cephfuse/fuse_2.9.2-4ubuntu4.14.04.1_amd64.deb
+
+modprobe fuse
+adduser vcap fuse
+chown root:fuse /dev/fuse
+chown vcap:vcap /etc/fuse.conf
+cat << EOF > /etc/fuse.conf
+mount_max=10
+user_allow_other
+EOF
+
+echo "Installing ceph-fuse"
+dpkg -i \
+/var/vcap/packages/cephfuse/ceph-fuse_0.80.11-0ubuntu1.14.04.1_amd64.deb \
+/var/vcap/packages/cephfuse/libboost-system1.54.0_1.54.0-4ubuntu3.1_amd64.deb \
+/var/vcap/packages/cephfuse/libboost-thread1.54.0_1.54.0-4ubuntu3.1_amd64.deb \
+/var/vcap/packages/cephfuse/libnspr4_2%3a4.10.10-0ubuntu0.14.04.1_amd64.deb  \
+/var/vcap/packages/cephfuse/libnss3_2%3a3.21-0ubuntu0.14.04.2_amd64.deb    \
+/var/vcap/packages/cephfuse/libnss3-nssdb_2%3a3.21-0ubuntu0.14.04.2_all.deb
+
+sudo mkdir -p /var/vcap/ceph && sudo chown -R vcap:vcap /var/vcap/ceph
+sudo mkdir -p /var/run/ceph && sudo chown -R vcap:vcap /var/run/ceph
+sudo mkdir -p /etc/ceph && sudo chown -R vcap:vcap /etc/ceph
+
+chmod 777 /var/vcap/jobs/cephbroker/keys/ceph.client.admin.keyring
+
+### Ceph configuration
+cat << EOF > /etc/ceph/ceph.conf
+[global]
+fsid = c0162a84-1d21-46a2-8a8e-4507f6ec707f
+auth cluster required = none
+auth service required = none
+auth client required = none
+mon initial members =
+mon host = <%= p("cephbroker.mds") %>
+mon data = /var/lib/ceph/mon/data
+keyring = /var/vcap/jobs/cephbroker/keys/ceph.client.admin.keyring
+filestore xattr use omap = true
+osd pool default size = 2
+osd crush chooseleaf type = 0
+
+[osd.0]
+osd data = /var/vcap/store/storage0
+
+[osd.1]
+osd data = /var/vcap/store/storage1
+
+[osd.2]
+osd data = /var/vcap/store/storage2
+
+[mds]
+mds data = /var/lib/ceph/mds/mds.0
+EOF

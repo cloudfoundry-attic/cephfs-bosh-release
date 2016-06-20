@@ -1,14 +1,14 @@
-name: 
-director_uuid: 
+name: cephfs
+director_uuid:  (( merge ))
 
 releases:
-  - name: 
+  - name: cephfs
     version: latest
 
 jobs:
   - name: cephfs
     instances: 1
-    resource_pool: ceph-resourcepool
+    resource_pool: large
     networks:
     - name: ceph-subnet
       default: [dns, gateway]
@@ -23,7 +23,7 @@ jobs:
 
   - name: cephbroker
     instances: 1
-    resource_pool: ceph-resourcepool
+    resource_pool: medium
     networks:
     - name: ceph-subnet
       default: [dns, gateway]
@@ -35,8 +35,8 @@ jobs:
       name: cephbroker
 
 properties:
-  cephfs: {}
-  cephbroker: {}
+  cephfs: (( merge ))
+  cephbroker: (( merge ))
 
 networks:
 - name: ceph-subnet
@@ -58,7 +58,16 @@ networks:
   type: vip
 
 resource_pools:
-  - name: ceph-resourcepool
+  - name: large
+    network: ceph-subnet
+    stemcell:
+      name: bosh-aws-xen-hvm-ubuntu-trusty-go_agent
+      version: latest
+    cloud_properties:
+      instance_type: m3.large
+      availability_zone: us-east-1c
+
+  - name: medium
     network: ceph-subnet
     stemcell:
       name: bosh-aws-xen-hvm-ubuntu-trusty-go_agent

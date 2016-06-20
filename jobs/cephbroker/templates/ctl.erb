@@ -33,6 +33,23 @@ case $1 in
     mkdir -p $CONFIG_DIR
     chown vcap:vcap $CONFIG_DIR
 
+    MOUNT_DIR=<%= p("cephbroker.default-mount-path") %>
+
+    #make sure that we don't have a leftover mount from before
+    if [ -d "$MOUNT_DIR" ]
+        then
+            umount $MOUNT_DIR || true
+            rm -rf $MOUNT_DIR
+            echo "unmounted"
+    fi
+
+    mkdir -p $MOUNT_DIR
+    chown vcap:vcap $MOUNT_DIR
+    ceph-fuse -m <%= p("cephbroker.mds") %> -c /var/vcap/jobs/cephbroker/keys/ceph.client.admin.keyring -r / $MOUNT_DIR
+    chown -R vcap:vcap $MOUNT_DIR
+    umount $MOUNT_DIR
+    rm -rf $MOUNT_DIR
+
     echo "{}" > $CONFIG_DIR/ServiceBindings.json
     echo "{}" > $CONFIG_DIR/ServiceInstances.json
 
@@ -41,7 +58,7 @@ case $1 in
       --mds="<%= p("cephbroker.mds") %>" \
       --configPath="<%= p("cephbroker.config-path") %>" \
       --defaultMountPath="<%= p("cephbroker.default-mount-path") %>" \
-      --keyringFile="<%= p("cephbroker.keyring-file") %>" \
+      --keyringFile=/var/vcap/jobs/cephbroker/keys/ceph.client.admin.keyring \
       2> >(tee -a $LOG_DIR/cephbroker.stderr.log | logger -p user.error -t vcap.cephbroker) \
       1> >(tee -a $LOG_DIR/cephbroker.stdout.log | logger -p user.info -t vcap.cephbroker)
 

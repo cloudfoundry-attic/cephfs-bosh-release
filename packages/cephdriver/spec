@@ -5,10 +5,9 @@ dependencies:
   - golang
 
 files:
-  - cephfs/**/*
+  - cephfuse/**/*
   - github.com/bmizerany/pat/*.go # gosub
   - github.com/cloudfoundry-incubator/cephdriver/cephlocal/*.go # gosub
-  - github.com/cloudfoundry-incubator/cephdriver/cephlocal/cephfakes/*.go # gosub
   - github.com/cloudfoundry-incubator/cephdriver/cmd/cephdriver/*.go # gosub
   - github.com/cloudfoundry-incubator/cf-debug-server/*.go # gosub
   - github.com/cloudfoundry-incubator/cf-lager/*.go # gosub
@@ -17,9 +16,9 @@ files:
   - github.com/cloudfoundry-incubator/cf_http/unix_transport/*.go # gosub
   - github.com/cloudfoundry-incubator/volman/voldriver/*.go # gosub
   - github.com/cloudfoundry-incubator/volman/voldriver/driverhttp/*.go # gosub
-  - github.com/cloudfoundry/gunk/os_wrap/exec_wrap/**/*.go # gosub
-  - github.com/cloudfoundry/gunk/http_wrap/**/*.go # gosub
-  - github.com/pivotal-golang/clock/**/*.go # gosub
+  - github.com/cloudfoundry/gunk/http_wrap/*.go # gosub
+  - github.com/cloudfoundry/gunk/os_wrap/exec_wrap/*.go # gosub
+  - github.com/pivotal-golang/clock/*.go # gosub
   - github.com/pivotal-golang/lager/*.go # gosub
   - github.com/tedsuo/ifrit/*.go # gosub
   - github.com/tedsuo/ifrit/grouper/*.go # gosub

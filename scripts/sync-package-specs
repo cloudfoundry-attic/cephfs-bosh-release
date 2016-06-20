@@ -36,12 +36,7 @@ function sync_package() {
 }
 
 sync_package cephdriver       -app github.com/cloudfoundry-incubator/cephdriver/cmd/cephdriver
-sync_package acceptance-tests -app github.com/cloudfoundry-incubator/cephdriver/cmd/cephdriver
-#sync_package cf-debug-server  -app github.com/cloudfoundry-incubator/cf-debug-server &
-#sync_package cf-lager         -app github.com/cloudfoundry-incubator/cf-lager &
-#sync_package volman           -app github.com/cloudfoundry-incubator/volman &
-#sync_package lager            -app github.com/pivotal-golang/lager &
-#sync_package ifrit            -app github.com/tedsuo/ifrit
+sync_package cephbroker       -app github.com/cloudfoundry-incubator/cephbroker/main/cephbroker
 
 wait
 

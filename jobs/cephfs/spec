@@ -1,6 +1,7 @@
 ---
 name: cephfs
 templates:
+  keyring.erb: keys/ceph.client.admin.keyring
   bin/install.sh.erb: bin/pre-start
   ctl.erb: bin/ctl
 
@@ -9,4 +10,6 @@ packages:
 - setuptools
 - cephfs
 
-properties: {}
+properties:
+  cephfs.client_keyring:
+    description: "contents of a client keyring to allow to access cephfs"

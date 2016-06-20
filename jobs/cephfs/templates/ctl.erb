@@ -22,7 +22,7 @@ case $1 in
     mkdir /home/vcap/cephfs
     chown vcap:vcap /home/vcap/cephfs
     ipaddr=$(ip addr | grep 'state UP' -A2 | tail -n1 | awk '{print $2}' | cut -f1  -d'/')
-    ceph-fuse -m ${ipaddr}:6789 -c /etc/ceph/ceph.client.admin.keyring -r / /home/vcap/cephfs
+    ceph-fuse -m ${ipaddr}:6789 -c /var/vcap/jobs/cephfs/keys/ceph.client.admin.keyring -r / /home/vcap/cephfs
     chown -R vcap:vcap /home/vcap/cephfs
     umount /home/vcap/cephfs
     rm -rf /home/vcap/cephfs

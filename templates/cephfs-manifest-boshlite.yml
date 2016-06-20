@@ -1,8 +1,8 @@
-name:
-director_uuid:
+name: cephfs
+director_uuid: (( merge ))
 
 releases:
-  - name: 
+  - name: cephfs
     version: latest
 
 jobs:

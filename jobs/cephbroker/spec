@@ -3,11 +3,14 @@ name: cephbroker
 
 templates:
   ctl.erb: bin/cephbroker_ctl
+  pre-start.erb: bin/pre-start
+  keyring.erb: keys/ceph.client.admin.keyring
 
 packages:
 - golang
 - cephfs_pid_utils
 - cephbroker
+- cephfuse
 
 properties:
   cephbroker.listen-addr:
@@ -15,13 +18,12 @@ properties:
     default: "0.0.0.0:8999"
   cephbroker.mds:
     description: "host:port for ceph mds server"
-    default: "10.0.0.106:6789"
+    default: "10.10.200.106:6789"
   cephbroker.config-path:
     description: "config directory to store book-keeping info"
     default: "/tmp/cephbroker"
   cephbroker.default-mount-path:
     description: "local directory to mount within"
     default: "/tmp/cephfs"
-  cephbroker.keyring-file:
-    description: "keyring file for ceph authentication"
-    default: "/etc/ceph/ceph.client.admin.keyring"
+  cephbroker.keyring:
+    description: "contents of a keyring file to use to connect to cephfs"

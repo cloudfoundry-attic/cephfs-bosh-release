@@ -267,3 +267,31 @@ golang/go1.6.linux-amd64.tar.gz:
   object_id: 733b2527-8585-4c85-8985-988ef66baf3d
   sha: 01a6a28dbe31a53103b600979bbbbd63a8104456
   size: 84799480
+cephfuse/ceph-fuse_0.80.11-0ubuntu1.14.04.1_amd64.deb:
+  object_id: 1be6824c-9fd1-4464-b382-42ab69d83786
+  sha: 26e24344b11295222d429d67886886c504008f40
+  size: 1369006
+cephfuse/fuse_2.9.2-4ubuntu4.14.04.1_amd64.deb:
+  object_id: 962a2ffc-32ac-48ed-8350-adea9145cb83
+  sha: d7dde526bc751b118fe296fd8e3d6a7e71251c3c
+  size: 25106
+cephfuse/libboost-system1.54.0_1.54.0-4ubuntu3.1_amd64.deb:
+  object_id: d7544bb9-1b21-4e76-8144-8ee7c0a3d4be
+  sha: 5c9fcf9dd86dbfbe28a3770596fd8b362fd37963
+  size: 10128
+cephfuse/libboost-thread1.54.0_1.54.0-4ubuntu3.1_amd64.deb:
+  object_id: 30cce557-a25b-4f99-9e55-447606e144e6
+  sha: 2a70eda354cff5776222f8fe9162f3ab1823900f
+  size: 26542
+cephfuse/libnspr4_2%3a4.10.10-0ubuntu0.14.04.1_amd64.deb:
+  object_id: fa5dd725-0de0-4ce1-ba40-adf5ebf278a5
+  sha: 26a6de0b89306124be676828df2c7b62d8d398a5
+  size: 110502
+cephfuse/libnss3-nssdb_2%3a3.21-0ubuntu0.14.04.2_all.deb:
+  object_id: e9a9b84f-1dae-4f40-991d-8634539a5ae1
+  sha: 4a78df7d92badf7fe03938146a308f92d34f6e62
+  size: 10550
+cephfuse/libnss3_2%3a3.21-0ubuntu0.14.04.2_amd64.deb:
+  object_id: c26d68d1-0fbb-4923-af56-a368617a57be
+  sha: 341182734a73ef4ed857f81250d8417b819ad31e
+  size: 1102834

@@ -82,23 +82,6 @@ dpkg -i /var/vcap/packages/cephfs/apt-transport-https_1.0.1ubuntu2.11_amd64.deb
 
 dpkg -i /var/vcap/packages/cephfs/uuid-runtime_2.20.1-5.1ubuntu20.7_amd64.deb
 
-echo "Installing ceph fuse (and fusermount)"
-apt-get update
-apt-get install fuse
-modprobe fuse
-adduser vcap fuse
-chown root:fuse /dev/fuse
-#chmod +x /bin/fusermount
-chown $user:$user /etc/fuse.conf
-cat << EOF > /etc/fuse.conf
-mount_max=10
-user_allow_other
-EOF
-apt-get install ceph-fuse
-#dpkg -i /var/vcap/packages/cephfs/libfuse2_2.9.2-4ubuntu4.14.04.1_amd64.deb
-#dpkg -i /var/vcap/packages/cephfs/ceph-fuse_9.2.0-1trusty_amd64.deb
-
-#
 #ceph-fuse -m ....
 
 #cd >mnt>
@@ -149,7 +132,7 @@ auth client required = none
 mon initial members = $hostname
 mon host = $ipaddr
 mon data = /var/lib/ceph/mon/data
-keyring = /etc/ceph/ceph.client.admin.keyring
+keyring = /var/vcap/jobs/cephfs/keys/ceph.client.admin.keyring
 filestore xattr use omap = true
 osd pool default size = 2
 osd crush chooseleaf type = 0
@@ -171,9 +154,8 @@ EOF
 mkdir -p /var/lib/ceph/mon/data
 
 ceph-authtool --create-keyring /tmp/ceph.mon.keyring --gen-key -n mon. --cap mon 'allow *'
-ceph-authtool --create-keyring /etc/ceph/ceph.client.admin.keyring --gen-key -n client.admin --set-uid=0 --cap mon 'allow *' --cap osd 'allow *' --cap mds 'allow'
-ceph-authtool /tmp/ceph.mon.keyring --import-keyring /etc/ceph/ceph.client.admin.keyring
-chmod 777 /etc/ceph/ceph.client.admin.keyring
+ceph-authtool /tmp/ceph.mon.keyring --import-keyring /var/vcap/jobs/cephfs/keys/ceph.client.admin.keyring
+chmod 777 /var/vcap/jobs/cephfs/keys/ceph.client.admin.keyring
 
 monmaptool --create --clobber --add $hostname $ipaddr --fsid c0162a84-1d21-46a2-8a8e-4507f6ec707f /tmp/monmap
 
@@ -190,7 +172,7 @@ mkdir -p /var/vcap/store/journal
 touch /var/vcap/store/journal/store0
 
 ceph-osd -i $osd_id --mkfs --mkkey --osd-uuid $osd_uuid --mkjournal --osd-journal=/var/vcap/store/journal/store0
-ceph auth add osd.$osd_id osd 'allow *' mon 'allow profile osd' -i /etc/ceph/ceph.client.admin.keyring
+ceph auth add osd.$osd_id osd 'allow *' mon 'allow profile osd' -i /var/vcap/jobs/cephfs/keys/ceph.client.admin.keyring
 ceph osd crush add-bucket $hostname host
 ceph osd crush move $hostname root=default
 ceph osd crush add osd.$osd_id 1.0 host=$hostname
@@ -202,7 +184,7 @@ osd_id=$(ceph osd create $osd_uuid)
 touch /var/vcap/store/journal/store1
 
 ceph-osd -i $osd_id --mkfs --mkkey --osd-uuid $osd_uuid --mkjournal --osd-journal=/var/vcap/store/journal/store1
-ceph auth add osd.$osd_id osd 'allow *' mon 'allow profile osd' -i /etc/ceph/ceph.client.admin.keyring
+ceph auth add osd.$osd_id osd 'allow *' mon 'allow profile osd' -i /var/vcap/jobs/cephfs/keys/ceph.client.admin.keyring
 ceph osd crush add-bucket $hostname host
 ceph osd crush move $hostname root=default
 ceph osd crush add osd.$osd_id 1.0 host=$hostname
@@ -214,7 +196,7 @@ osd_id=$(ceph osd create $osd_uuid)
 touch /var/vcap/store/journal/store2
 
 ceph-osd -i $osd_id --mkfs --mkkey --osd-uuid $osd_uuid --mkjournal --osd-journal=/var/vcap/store/journal/store2
-ceph auth add osd.$osd_id osd 'allow *' mon 'allow profile osd' -i /etc/ceph/ceph.client.admin.keyring
+ceph auth add osd.$osd_id osd 'allow *' mon 'allow profile osd' -i /var/vcap/jobs/cephfs/keys/ceph.client.admin.keyring
 ceph osd crush add-bucket $hostname host
 ceph osd crush move $hostname root=default
 ceph osd crush add osd.$osd_id 1.0 host=$hostname

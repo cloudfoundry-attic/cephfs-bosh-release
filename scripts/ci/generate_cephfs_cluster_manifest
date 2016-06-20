@@ -4,19 +4,15 @@
 set -x -e
 
 source $(pwd)/cephfs-bosh-release/scripts/ci/utils.sh
-check_param BOSH_TARGET
-check_param BOSH_USERNAME
-check_param BOSH_PASSWORD
-
-sudo apt-get update
-sudo apt-get --assume-yes install expect
+check_param CEPHFS_KEYRING_STUB
+check_param DIRECTOR_STUB
 
 pushd cephfs-bosh-release
     echo "Generating Manifest"
-    ./templates/generate_manifest.sh aws cephfs ${BOSH_TARGET} ${BOSH_USERNAME} ${BOSH_PASSWORD}
+    ./templates/generate_manifest.sh aws ${CEPHFS_KEYRING_STUB} ${DIRECTOR_STUB}
     echo "Manifest Generated"
 
-    mv cephfs-manifest.yml ../generated-manifest/
+    mv cephfs-aws-manifest.yml ../generated-manifest/cephfs-manifest.yml
 
     echo '============================================'
     cat ../generated-manifest/cephfs-manifest.yml

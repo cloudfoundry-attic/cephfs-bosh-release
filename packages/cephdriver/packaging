@@ -1,7 +1,7 @@
 set -e
 
 # copy deb for pre-install
-cp -a ${BOSH_COMPILE_TARGET}/cephfs/*.deb ${BOSH_INSTALL_TARGET}/
+cp -a ${BOSH_COMPILE_TARGET}/cephfuse/*.deb ${BOSH_INSTALL_TARGET}/
 
 # setup go and install cephdriver server
 mkdir -p ${BOSH_INSTALL_TARGET}/src
