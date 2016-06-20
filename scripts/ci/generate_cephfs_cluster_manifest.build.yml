@@ -5,6 +5,7 @@ image: docker:///cloudfoundry/diego-pipeline
 
 inputs:
   - name: cephfs-bosh-release
+  - name: deployments-runtime
 
 outputs:
   - name: generated-manifest
