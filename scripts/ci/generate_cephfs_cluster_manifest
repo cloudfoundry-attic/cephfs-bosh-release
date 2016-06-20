@@ -9,7 +9,7 @@ check_param DIRECTOR_STUB
 
 pushd cephfs-bosh-release
     echo "Generating Manifest"
-    ./templates/generate_manifest.sh aws ${CEPHFS_KEYRING_STUB} ${DIRECTOR_STUB}
+    ./templates/generate_manifest.sh aws ../${CEPHFS_KEYRING_STUB} ../${DIRECTOR_STUB}
     echo "Manifest Generated"
 
     mv cephfs-aws-manifest.yml ../generated-manifest/cephfs-manifest.yml
