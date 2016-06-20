@@ -57,7 +57,7 @@ eval `ssh-agent -s`
 chmod 600 deployments-runtime/persi-ci/deployments/bosh-director/v1/keys/id-rsa-bosh
 ssh-add deployments-runtime/persi-ci/deployments/bosh-director/v1/keys/id-rsa-bosh
 
-scp -o StrictHostKeyChecking=no vcap@${cephfs_ip}:/etc/ceph/ceph.client.admin.keyring .
+scp -o StrictHostKeyChecking=no vcap@${cephfs_ip}:/var/vcap/jobs/cephfs/keys/ceph.client.admin.keyring .
 scp -o StrictHostKeyChecking=no vcap@${cephfs_ip}:/etc/ceph/ceph.conf .
 
 sudo mkdir ~/mycephfs
