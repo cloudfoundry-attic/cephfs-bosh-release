@@ -12,8 +12,6 @@ tearDown () {
 sudo apt-get update
 sudo apt-get --assume-yes install build-essential expect ruby ruby-dev libxml2-dev libsqlite3-dev libxslt1-dev libpq-dev libmysqlclient-dev zlib1g-dev ceph-fuse
 
-pushd cephfs-bosh-release
-
 eval `ssh-agent -s`
 chmod 600 deployments-runtime/persi-ci/deployments/bosh-director/v1/keys/id-rsa-bosh
 ssh-add deployments-runtime/persi-ci/deployments/bosh-director/v1/keys/id-rsa-bosh
@@ -25,41 +23,41 @@ sudo mkdir ~/mycephfs
 sudo ceph-fuse -k ceph.client.admin.keyring -m cephfs.persi.cf-app.com:6789 ~/mycephfs
 
 pushd ~/mycephfs
-tearDown
-sudo mkdir test-dir
-dir_created=$(ls -d */ | grep test-dir)
-if [ "$dir_created" != "test-dir/" ]
-  then
     tearDown
-    exit 1
-fi
+    sudo mkdir test-dir
+    dir_created=$(ls -d */ | grep test-dir)
+    if [ "$dir_created" != "test-dir/" ]
+      then
+        tearDown
+        exit 1
+    fi
 
-sudo sh -c "echo 'some text' > test.txt"
-file_created=$(cat test.txt)
-if [ "$file_created" != "some text" ]
-  then
-    tearDown
-    exit 1
-fi
+    sudo sh -c "echo 'some text' > test.txt"
+    file_created=$(cat test.txt)
+    if [ "$file_created" != "some text" ]
+      then
+        tearDown
+        exit 1
+    fi
 popd
 
 sudo umount ~/mycephfs
 sudo ceph-fuse -k ceph.client.admin.keyring -m cephfs.persi.cf-app.com:6789 ~/mycephfs
 
 pushd ~/mycephfs
-dir_created=$(ls -d */ | grep test-dir)
-if [ "$dir_created" != "test-dir/" ]
-  then
-    tearDown
-    exit 1
-fi
+    dir_created=$(ls -d */ | grep test-dir)
+    if [ "$dir_created" != "test-dir/" ]
+      then
+        tearDown
+        exit 1
+    fi
 
-file_created=$(cat test.txt)
-if [ "$file_created" != "some text" ]
-  then
-    tearDown
-    exit 1
-fi
+    file_created=$(cat test.txt)
+    if [ "$file_created" != "some text" ]
+      then
+        tearDown
+        exit 1
+    fi
 popd
 
 tearDown

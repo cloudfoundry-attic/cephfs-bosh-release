@@ -6,23 +6,21 @@ set -x -e
 sudo apt-get update
 sudo apt-get --assume-yes install build-essential expect ruby ruby-dev realpath libxml2-dev libsqlite3-dev libxslt1-dev libpq-dev libmysqlclient-dev zlib1g-dev ceph-fuse
 
+eval `ssh-agent -s`
+chmod 600 deployments-runtime/persi-ci/deployments/bosh-director/v1/keys/id-rsa-bosh
+ssh-add deployments-runtime/persi-ci/deployments/bosh-director/v1/keys/id-rsa-bosh
+
+scp -o StrictHostKeyChecking=no vcap@cephfs.persi.cf-app.com:/var/vcap/jobs/cephfs/keys/ceph.client.admin.keyring .
+scp -o StrictHostKeyChecking=no vcap@$cephfs.persi.cf-app.com:/etc/ceph/ceph.conf .
+
+######################################################################################
+#### prepare for acceptance
+######################################################################################
+
+export CEPH_KEYRING=`cat ceph.client.admin.keyring`
+export CEPH_CLUSTER_IP=cephfs.persi.cf-app.com
+
 pushd cephfs-bosh-release
-    eval `ssh-agent -s`
-    chmod 600 deployments-runtime/persi-ci/deployments/bosh-director/v1/keys/id-rsa-bosh
-    ssh-add deployments-runtime/persi-ci/deployments/bosh-director/v1/keys/id-rsa-bosh
-
-    scp -o StrictHostKeyChecking=no vcap@cephfs.persi.cf-app.com:/var/vcap/jobs/cephfs/keys/ceph.client.admin.keyring .
-    scp -o StrictHostKeyChecking=no vcap@$cephfs.persi.cf-app.com:/etc/ceph/ceph.conf .
-
-    ######################################################################################
-    #### prepare for acceptance
-    ######################################################################################
-
-    export CEPH_KEYRING=`cat ceph.client.admin.keyring`
-    export CEPH_CLUSTER_IP=cephfs.persi.cf-app.com
-
-    pushd cephfs-bosh-release
-
     export GOROOT=/usr/local/go
     export PATH=$GOROOT/bin:$PATH
 
