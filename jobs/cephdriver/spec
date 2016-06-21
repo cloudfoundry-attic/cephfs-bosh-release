@@ -9,6 +9,7 @@ packages:
 - golang
 - cephfs_pid_utils
 - cephdriver
+- cephfuse
 
 properties:
   cephdriver.listen_addr:
