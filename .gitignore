@@ -1,5 +1,8 @@
 .blobs
 blobs
+.nvim
+.nvimrc
+scripts/config
 .dev_builds
 .DS_Store
 dev_releases/**/*
