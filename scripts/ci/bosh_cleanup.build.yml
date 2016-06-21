@@ -4,7 +4,7 @@ platform: linux
 image: docker:///cloudfoundry/diego-pipeline
 
 inputs:
-  - name: diego-ci
+  - name: cephfs-bosh-release
 
 params:
   BOSH_PASSWORD: ~
@@ -12,4 +12,4 @@ params:
   BOSH_USER: ~
 
 run:
-  path: diego-ci/concourse/bosh_cleanup
+  path: cephfs-bosh-release/scripts/ci/bosh_cleanup
