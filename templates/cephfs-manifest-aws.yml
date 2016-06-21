@@ -33,6 +33,7 @@ jobs:
     templates:
     - release: cephfs
       name: cephbroker
+    log_level: debug
 
 properties:
   cephfs: (( merge ))
