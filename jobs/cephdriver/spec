@@ -21,6 +21,9 @@ properties:
   cephdriver.driver_paths:
     description: "path to place driver spec/json file for volman to discover"
     default: "/var/vcap/data/voldrivers"
+  cephdriver.cell_mount_path:
+    description: "path to fuse-mount volumes into on the cell"
+    default: "/var/vcap/data/volumes"
   cephdriver.log_level:
     description: "cephdriver log level"
     default: "debug"
