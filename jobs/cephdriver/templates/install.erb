@@ -2,6 +2,18 @@
 
 set -e -x
 
+echo "Installing fuse"
+dpkg -i /var/vcap/packages/cephfuse/fuse_2.9.2-4ubuntu4.14.04.1_amd64.deb
+
+modprobe fuse
+adduser vcap fuse
+chown root:fuse /dev/fuse
+chown vcap:vcap /etc/fuse.conf
+cat << EOF > /etc/fuse.conf
+mount_max=10
+user_allow_other
+EOF
+
 echo "Installing ceph-fuse"
 dpkg -i \
 /var/vcap/packages/cephfuse/ceph-fuse_0.80.11-0ubuntu1.14.04.1_amd64.deb \
@@ -11,6 +23,7 @@ dpkg -i \
 /var/vcap/packages/cephfuse/libnss3_2%3a3.21-0ubuntu0.14.04.2_amd64.deb    \
 /var/vcap/packages/cephfuse/libnss3-nssdb_2%3a3.21-0ubuntu0.14.04.2_all.deb
 
+sudo mkdir -p /var/run/ceph && sudo chown -R vcap:vcap /var/run/ceph
 sudo mkdir -p /etc/ceph && sudo chown -R vcap:vcap /etc/ceph
 
 DATA_DIR=<%= p("cephdriver.driver_paths") %>
