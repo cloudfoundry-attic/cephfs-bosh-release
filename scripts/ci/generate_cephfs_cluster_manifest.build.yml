@@ -13,6 +13,7 @@ outputs:
 params:
   CEPHFS_KEYRING_STUB: replace-me
   DIRECTOR_STUB: replace-me
+  CF_MANIFEST: replace-me
 
 run:
   path: cephfs-bosh-release/scripts/ci/generate_cephfs_cluster_manifest

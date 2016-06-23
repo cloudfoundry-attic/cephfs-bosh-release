@@ -1,8 +1,12 @@
+---
+
 name: cephfs
 director_uuid:  (( merge ))
 
 releases:
   - name: cephfs
+    version: latest
+  - name: cf
     version: latest
 
 jobs:
@@ -30,14 +34,28 @@ jobs:
     - name: public
       static_ips: [52.204.240.224]
     persistent_disk: 25000 # for consul
+    properties:
+      route_registrar:
+        routes:
+          - name: cephbroker
+            port: 8999
+            registration_interval: 20s
+            tags:
+              component: cephbroker
+            uris: # 2 so PATs can test service registration
+            - cephbroker1.persi.cf-app.com
+            - cephbroker2.persi.cf-app.com
     templates:
     - release: cephfs
       name: cephbroker
+    - release: cf
+      name: route_registrar
     log_level: debug
 
 properties:
   cephfs: (( merge ))
   cephbroker: (( merge ))
+  nats: (( merge ))
 
 networks:
 - name: ceph-subnet
