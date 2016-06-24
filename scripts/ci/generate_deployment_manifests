@@ -10,7 +10,7 @@ fi
 
 stubs_path="${environment_path}/stubs"
 templates_path="${environment_path}/templates"
-cephfs_stubs="${DEPLOYMENTS_DIR}/cephfs/stubs/"
+cephfs_stubs="${DEPLOYMENTS_DIR}/cephfs/stubs"
 
 sql_option=""
 if [ "$USE_SQL" == "true" ]; then
