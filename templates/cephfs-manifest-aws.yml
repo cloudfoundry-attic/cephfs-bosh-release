@@ -25,7 +25,7 @@ jobs:
     update:
       serial: true
 
-  - name: cephbroker
+  - name: cephbroker-pats
     instances: 1
     resource_pool: medium
     networks:
@@ -42,8 +42,30 @@ jobs:
             registration_interval: 20s
             tags:
               component: cephbroker
-            uris: # 2 so PATs can test service registration
+            uris:
             - cephbroker1.persi.cf-app.com
+    templates:
+    - release: cephfs
+      name: cephbroker
+    - release: cf
+      name: route_registrar
+    log_level: debug
+
+  - name: cephbroker-acc
+    instances: 1
+    resource_pool: medium
+    networks:
+    - name: ceph-subnet
+      default: [dns, gateway]
+    properties:
+      route_registrar:
+        routes:
+          - name: cephbroker-acc
+            port: 8999
+            registration_interval: 20s
+            tags:
+              component: cephbroker
+            uris:
             - cephbroker2.persi.cf-app.com
     templates:
     - release: cephfs
