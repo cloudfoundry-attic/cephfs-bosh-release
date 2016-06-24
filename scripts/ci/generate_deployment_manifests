@@ -10,6 +10,7 @@ fi
 
 stubs_path="${environment_path}/stubs"
 templates_path="${environment_path}/templates"
+cephfs_stubs="${DEPLOYMENTS_DIR}/cephfs/stubs/"
 
 sql_option=""
 if [ "$USE_SQL" == "true" ]; then
@@ -26,6 +27,14 @@ pushd cf-release
     ${INFRASTRUCTURE} \
     ${stubs_path}/cf/*.yml \
     > ../generated-manifest/cf-deployment.yml
+popd
+
+pushd cephfs-bosh-release
+  ./templates/generate_manifest.sh aws \
+    ../generated-manifest/cf-deployment.yml \
+    ${cephfs_stubs}/*
+
+  mv cephfs-aws-manifest.yml ../generated-manifest/cephfs-manifest.yml
 popd
 
 pushd diego-release
