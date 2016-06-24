@@ -32,7 +32,8 @@ popd
 pushd cephfs-bosh-release
   ./templates/generate_manifest.sh aws \
     ../generated-manifest/cf-deployment.yml \
-    ${cephfs_stubs}/*
+    ${cephfs_stubs}/ceph-client-keyring-stub.yml \
+    ${cephfs_stubs}/director-stub.yml
 
   mv cephfs-aws-manifest.yml ../generated-manifest/cephfs-manifest.yml
 popd
