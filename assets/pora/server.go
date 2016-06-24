@@ -37,13 +37,13 @@ type VCAPApplication struct {
 }
 
 func hello(res http.ResponseWriter, req *http.Request) {
-	fmt.Fprintf(res, "%s", os.Getenv("INSTANCE_INDEX"))
+	fmt.Fprintf(res, "instance index: %s", os.Getenv("INSTANCE_INDEX"))
 }
 
 func write(res http.ResponseWriter, req *http.Request) {
 	mountPointPath := os.Getenv("MOUNT_POINT_DIR") + "/test.txt"
 
-	d1 := []byte("Hello Persistant World!\n")
+	d1 := []byte("Hello Persistent World!\n")
 	err := ioutil.WriteFile(mountPointPath, d1, 0644)
 	if err != nil {
 		res.WriteHeader(http.StatusInternalServerError)
