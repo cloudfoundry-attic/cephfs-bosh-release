@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"os"
+	"regexp"
 	"strings"
 )
 
@@ -41,7 +42,12 @@ func hello(res http.ResponseWriter, req *http.Request) {
 }
 
 func write(res http.ResponseWriter, req *http.Request) {
-	mountPointPath := os.Getenv("MOUNT_POINT_DIR") + "/test.txt"
+	vcapEnv := os.Getenv("VCAP_SERVICES")
+
+	r, _ := regexp.Compile("\"container_path\": \"([^\"]+)\"")
+	match := r.FindStringSubmatch(vcapEnv)
+
+	mountPointPath := match[1] + "/test.txt"
 
 	d1 := []byte("Hello Persistent World!\n")
 	err := ioutil.WriteFile(mountPointPath, d1, 0644)
