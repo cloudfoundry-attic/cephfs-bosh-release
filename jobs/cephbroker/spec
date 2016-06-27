@@ -33,3 +33,12 @@ properties:
   cephbroker.service-id:
     description: "Id of the service to be registered with cf"
     default: "cephfs-service-guid"
+  cephbroker.plan-name:
+    description: "Name of the service plan to be registered with cf"
+    default: "free"
+  cephbroker.plan-id:
+    description: "Id of the service plan to be registered with cf"
+    default: "free-plan-guid"
+  cephbroker.plan-desc:
+    description: "Description of the service plan to be registered with cf"
+    default: "free ceph filesystem"

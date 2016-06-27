@@ -70,6 +70,9 @@ jobs:
       cephbroker:
         service-name: cephbroker-acc
         service-id: cephbroker-acc
+        plan-name: free-acc
+        plan-id: free-acc-plan-guid
+        plan-desc: free ceph filesystem for acceptance testing
     templates:
     - release: cephfs
       name: cephbroker

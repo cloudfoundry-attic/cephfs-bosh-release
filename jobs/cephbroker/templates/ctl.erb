@@ -59,6 +59,9 @@ case $1 in
       --configPath="<%= p("cephbroker.config-path") %>" \
       --serviceName="<%= p("cephbroker.service-name") %>" \
       --serviceId="<%= p("cephbroker.service-id") %>" \
+      --planName="<%= p("cephbroker.plan-name") %>" \
+      --planId="<%= p("cephbroker.plan-id") %>" \
+      --planDesc="<%= p("cephbroker.plan-desc") %>" \
       --defaultMountPath="<%= p("cephbroker.default-mount-path") %>" \
       --keyringFile=/var/vcap/jobs/cephbroker/keys/ceph.client.admin.keyring \
       2> >(tee -a $LOG_DIR/cephbroker.stderr.log | logger -p user.error -t vcap.cephbroker) \
