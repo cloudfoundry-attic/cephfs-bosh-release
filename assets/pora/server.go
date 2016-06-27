@@ -53,6 +53,7 @@ func write(res http.ResponseWriter, req *http.Request) {
 	err := ioutil.WriteFile(mountPointPath, d1, 0644)
 	if err != nil {
 		res.WriteHeader(http.StatusInternalServerError)
+		res.Write([]byte("Writing \n"))
 		res.Write([]byte(err.Error()))
 		return
 	}
@@ -61,6 +62,7 @@ func write(res http.ResponseWriter, req *http.Request) {
 	body, err := ioutil.ReadFile(mountPointPath)
 	if err != nil {
 		res.WriteHeader(http.StatusInternalServerError)
+		res.Write([]byte("Reading \n"))
 		res.Write([]byte(err.Error()))
 		return
 	}
