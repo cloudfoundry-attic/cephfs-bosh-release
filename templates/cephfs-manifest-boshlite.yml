@@ -6,18 +6,34 @@ releases:
     version: latest
 
 jobs:
-  - name:
+  - name: cephbroker-acc
     instances: 1
     resource_pool: ceph-resourcepool
     networks:
-      - name: ceph-net
-        static_ips: &web-ips [10.244.8.2]
-    persistent_disk: 25000 # for consul
+    - name: ceph-net
+      static_ips: &web-ips [10.244.8.2]
+    properties:
+      route_registrar:
+        routes:
+          - name: cephbroker-acc
+            port: 8999
+            registration_interval: 20s
+            tags:
+              component: cephbroker
+            uris:
+            - cephbroker2.persi.cf-app.com
+      cephbroker:
+        service-name: cephbroker-acc
+        service-id: cephbroker-acc
     templates:
-      - <<: (( merge ))
-    properties: {}
+    - release: cephfs
+      name: cephbroker
+    - release: cf
+      name: route_registrar
+    log_level: debug
 
 properties:
+  cephbroker: (( merge ))
 
 networks:
   - name: ceph-net

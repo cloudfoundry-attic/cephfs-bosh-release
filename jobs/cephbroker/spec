@@ -27,3 +27,9 @@ properties:
     default: "/tmp/cephfs"
   cephbroker.keyring:
     description: "contents of a keyring file to use to connect to cephfs"
+  cephbroker.service-name:
+    description: "name of the service to be registered with cf"
+    default: "cephfs"
+  cephbroker.service-id:
+    description: "Id of the service to be registered with cf"
+    default: "cephfs-service-guid"

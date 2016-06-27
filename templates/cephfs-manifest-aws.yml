@@ -67,6 +67,9 @@ jobs:
               component: cephbroker
             uris:
             - cephbroker2.persi.cf-app.com
+      cephbroker:
+        service-name: cephbroker-acc
+        service-id: cephbroker-acc
     templates:
     - release: cephfs
       name: cephbroker
