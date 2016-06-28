@@ -10,7 +10,6 @@ adduser vcap fuse
 chown root:fuse /dev/fuse
 chown vcap:vcap /etc/fuse.conf
 cat << EOF > /etc/fuse.conf
-mount_max=10
 user_allow_other
 EOF
 
