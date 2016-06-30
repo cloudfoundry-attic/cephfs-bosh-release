@@ -1,10 +1,10 @@
 # cephfs-bosh-release
 
-*Tested on bosh-lite and aws*
+*Tested on bosh-lite and AWS...but only actually works on AWS*
 
 ## Overview
 
-This bosh release comprises two jobs; cephfs and cephdriver.  These are typically deployed separately.
+This bosh release comprises three jobs: cephfs, cephbroker and cephdriver.  These are typically deployed separately, and the driver job is typically folded into a diego release using the -d option during diego manifest generation, since it must be colocated on the Diego cell.
 
 ## Installation
 ### Pre-Requisites
@@ -16,6 +16,8 @@ For Bosh-Lite:
 ```
 bosh upload stemcell https://bosh.io/d/stemcells/bosh-warden-boshlite-ubuntu-trusty-go_agent --skip-if-exists
 ```
+NB: As of today, bosh lite deployment has permissions issues with volume mounts, and is not fully operational, so *caveat emptor* and all that.
+
 For AWS:
 ```
 bosh upload stemcell https://bosh.io/d/stemcells/bosh-aws-xen-ubuntu-trusty-go_agent --skip-if-exists
@@ -43,16 +45,10 @@ Generate the manifest for your environment.  Check your `bosh target` is correct
 
 ##### To deploy Cephdriver
 
-Generate the manifest for your environment.  Check your `bosh target` is correct.
+The driver must be colocated with the Diego cell in order to work correctly in a CF/Diego environment.  For details on how to create a drivers stub and include the cephdriver job in the Diego cell VM, [follow these instructions](https://github.com/cloudfoundry/diego-release/blob/develop/examples/aws/OPTIONAL.md#fill-in-drivers-stub).
 ```
 ./templates/generate_manifest.sh bosh-lite|aws cephdriver
 ```
-
-And deploy:-
-```
-bosh deploy
-```
-NB: When prompted, answer `yes`.
 
 ## Verify the install
 
@@ -81,15 +77,15 @@ cluster c0162a84-1d21-46a2-8a8e-4507f6ec707f
              320 active+clean
 ```
 
-#### Cephfs
+#### Cephdriver
 
 SSH onto the bosh release VM
 
-`bosh ssh --gateway_host <your bosh director ip> --gateway_user vcap --strict_host_key_checking=no cephdriver/0`
+`bosh ssh --gateway_host <your bosh director ip> --gateway_user vcap --strict_host_key_checking=no cell_z1/0`
 
 Check the health of the cephdriver service
 
-`monit summary`
+`sudo monit summary`
 
 which should report something like this:-
 
@@ -99,22 +95,29 @@ The Monit daemon 5.2.4 uptime: 15h 24m
 Process 'cephdriver'                running
 System 'system_50b08287-989a-4e81-8c0e-9c22d5cc809e' running
 ```
-NB: You will probably need to be root to do this
 
-You can also curl an endpoint:-
+#### Cephbroker
 
-`curl http://localhost:8080/get`
+SSH onto the bosh release VM
+
+`bosh ssh --gateway_host <your bosh director ip> --gateway_user vcap --strict_host_key_checking=no cell_z1/0`
+
+Check the health of the cephdriver service
+
+`sudo monit summary`
 
 which should report something like this:-
+
 ```
-{"Volume":{"Name":"","Mountpoint":""},"Err":"unexpected end of JSON input"}
+The Monit daemon 5.2.4 uptime: 15h 24m
+
+Process 'cephbroker'                running
+System 'system_50b08287-989a-4e81-8c0e-9c22d5cc809e' running
 ```
-NB: Whilst this is an error it proves the server is up and listening for requests.  8080 is the default port.  You may need to replace this with the
-port you specified in your deployment manifest.
 
 ## Mount cephfs (using fuse)
 
-Perform a quick sanity check.  In the same ssh session:-
+Perform a quick sanity check.  In a driver or broker the same ssh session:-
 
 ```
 sudo mkdir ~/mycephfs
@@ -149,9 +152,10 @@ Make sure to invoke `git secrets --register-aws --global` after you have install
 
 It is *not* necessary to run `git secrets --install` as the `./scripts/update` script will 
 perform this step for you.
+
 ## Intellij Setup
 
-Configure your project to run `gofmt` and `goimports` using the following regex:-
+If you use IntelliJ, configure your project to run `gofmt` and `goimports` using the following regex:-
 
 ```
 (file[cephfs-bosh-release]:src/github.com/cloudfoundry-incubator/ceph*/*.go||file[cephfs-bosh-release]:src/github.com/cloudfoundry-incubator/volman/*.go||file[cephfs-bosh-release]:src/github.com/cloudfoundry-incubator/volume_driver_cert/*.go)&&!file[cephfs-bosh-release]:src/github.com/cloudfoundry-incubator/volume_driver_cert/vendor//*
