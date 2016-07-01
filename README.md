@@ -1,13 +1,31 @@
-# cephfs-bosh-release
+cephfs-bosh-release
+===================
 
 *Tested on bosh-lite and AWS...but only actually works on AWS*
 
 ## Overview
 
-This bosh release comprises three jobs: cephfs, cephbroker and cephdriver.  These are typically deployed separately, and the driver job is typically folded into a diego release using the -d option during diego manifest generation, since it must be colocated on the Diego cell.
+This bosh release includes all of the requisite parts to provide ceph file system volume mounts to a cloudfoundry/Diego deployment.
+
+It comprises three jobs: cephfs, cephbroker and cephdriver.  These are typically deployed to separate VMs, and the driver job must be deployed to a diego cell.  We normally incorporate the driver job into diego using the -d option during diego manifest generation.
 
 ## Installation
 ### Pre-Requisites
+- You will need Go 1.6 or later to install this project.  
+- it is recommended to install [direnv](https://github.com/direnv/direnv) to manage your GOPATH correctly
+- you will need (somewhere) a running [ceph-authtool](http://docs.ceph.com/docs/hammer/man/8/ceph-authtool/) in order to create a ceph keyring file.  This tool only runs on linux, so you may need to use your VM or container technology of choice.
+- you will need a Cloudfoundry/Diego deployment running on AWS.  Instructions for this setup are [here](https://github.com/cloudfoundry/diego-release/blob/develop/examples/aws/README.md).
+
+### Fetching the code
+We have a helper script to pull in all of the required submodules for this project, so we recommend these steps:
+```
+git clone https://github.com/cloudfoundry-incubator/cephfs-bosh-release.git
+cd cephfs-bosh-release
+direnv allow
+./scripts/update
+```
+
+### Preparing bosh director
 ```
 bosh target <your bosh director url>
 ```
@@ -23,32 +41,78 @@ For AWS:
 bosh upload stemcell https://bosh.io/d/stemcells/bosh-aws-xen-ubuntu-trusty-go_agent --skip-if-exists
 ```
 
-### To Install
-Git clone the repo and create a bosh release from it:
-```
-git clone https://github.com/cloudfoundry-incubator/cephfs-bosh-release.git
-bosh create release
-```
-NB: Accept the default name for the release (cephfs-bosh-release)
+### Uploading to bosh
 
-Upload the release to your bosh director.
 ```
+bosh create release
 bosh upload release
 ```
 
-#### To deploy Cephfs
+### Creating Stub files
+#### director.yml
+- determine your bosh director uuid by invoking `bosh status --uuid`
+- create a new `director.yml` file and place the following contents into it:
+
+```
+---
+director_uuid: <your uuid>
+```
+#### ceph-keyring.yml
+- in a shell with `ceph-authtool` installed, type the following commands to generate a keyring file:
+
+```
+ceph-authtool -C -n client.admin --gen-key keyring
+ceph-authtool -n client.admin --cap mds 'allow' --cap osd 'allow *' --cap mon 'allow *' keyring
+ceph-authtool -l keyring
+```
+
+- this should spit out a keyring description that looks something like this:
+
+```
+      [osd.0]
+              key = REDACTED==
+      [osd.1]
+              key = REDACTED==
+      [osd.2]
+              key = REDACTED==
+      [client.admin]
+              key = REDACTED==
+              auid = 0
+              caps mds = "allow"
+              caps mon = "allow *"
+              caps osd = "allow *"
+```
+- create a new `ceph-keyring.yml` file and place the following contents in it:
+
+```
+---
+properties:
+  cephfs:
+    client_keyring: |
+      <YOUR KEYRING DESCRIPTION>
+  cephbroker:
+      <YOUR KEYRING DESCRIPTION AGAIN>
+```
+#### cf.yml
+Our manifest generation scripts require the deployment manifest for your cloudfoundry deployment as an input.  If you have it, you can just use it, otherwise you can pull it from bosh:
+
+```
+bosh download manifest <your cf deplyment name> >cf.yml
+```
+### To deploy cephfs and cephbroker 
 
 Generate the manifest for your environment.  Check your `bosh target` is correct.
 ```
-./templates/generate_manifest.sh bosh-lite|aws
+./templates/generate_manifest.sh aws cf.yml ceph-keyring.yml director.yml
+bosh deployment cephfs-aws-manifest.yml
+bosh deploy
 ```
 
-##### To deploy Cephdriver
+### To deploy cephdriver
 
-The driver must be colocated with the Diego cell in order to work correctly in a CF/Diego environment.  For details on how to create a drivers stub and include the cephdriver job in the Diego cell VM, [follow these instructions](https://github.com/cloudfoundry/diego-release/blob/develop/examples/aws/OPTIONAL.md#fill-in-drivers-stub).
-```
-./templates/generate_manifest.sh bosh-lite|aws cephdriver
-```
+The driver must be colocated with the Diego cell in order to work correctly in a CF/Diego environment.  
+This will require you to regenerate your diego manifest with the driver job included in it, and (re)deploy Diego.
+For details on how to create a drivers stub and include the cephdriver job in the Diego cell VM, [follow these instructions](https://github.com/cloudfoundry/diego-release/blob/develop/examples/aws/OPTIONAL.md#fill-in-drivers-stub).
 
 ## Verify the install
 
@@ -62,7 +126,7 @@ Check the health of the ceph-cluster
 
 `ceph -s`
 
-which should report something like this:-
+which should report something like this:
 
 ```
 cluster c0162a84-1d21-46a2-8a8e-4507f6ec707f
@@ -87,7 +151,7 @@ Check the health of the cephdriver service
 
 `sudo monit summary`
 
-which should report something like this:-
+which should report something like this:
 
 ```
 The Monit daemon 5.2.4 uptime: 15h 24m
@@ -100,13 +164,13 @@ System 'system_50b08287-989a-4e81-8c0e-9c22d5cc809e' running
 
 SSH onto the bosh release VM
 
-`bosh ssh --gateway_host <your bosh director ip> --gateway_user vcap --strict_host_key_checking=no cell_z1/0`
+`bosh ssh --gateway_host <your bosh director ip> --gateway_user vcap --strict_host_key_checking=no cephbroker/0`
 
-Check the health of the cephdriver service
+Check the health of the cephbroker service
 
 `sudo monit summary`
 
-which should report something like this:-
+which should report something like this:
 
 ```
 The Monit daemon 5.2.4 uptime: 15h 24m
@@ -115,9 +179,9 @@ Process 'cephbroker'                running
 System 'system_50b08287-989a-4e81-8c0e-9c22d5cc809e' running
 ```
 
-## Mount cephfs (using fuse)
+#### Manually mounting cephfs (using fuse)
 
-Perform a quick sanity check.  In a driver or broker the same ssh session:-
+You can manually mount a ceph filesystem to perform a quick sanity check.  In a driver or broker VM:
 
 ```
 sudo mkdir ~/mycephfs
@@ -137,11 +201,11 @@ sudo sh -c 'echo "something" > myfile'
 cat myfile
 ```
 
-# Development Setup
-## Installing the code
+## Development Setup
+### Installing the code
 After cloning this repository, you will need to run `./scripts/update` to fetch
 code for all of the submodules.
-## Git Secrets
+### Git Secrets
 The `update` script above also installs git hooks to invoke git-secrets on any
 git commit.  This checks the commit to make sure that it doesn't contain any
 unsafe AWS keys or passwords.  On OS X, the update script also installs git-secrets
@@ -153,9 +217,9 @@ Make sure to invoke `git secrets --register-aws --global` after you have install
 It is *not* necessary to run `git secrets --install` as the `./scripts/update` script will 
 perform this step for you.
 
-## Intellij Setup
+### Intellij Setup
 
-If you use IntelliJ, configure your project to run `gofmt` and `goimports` using the following regex:-
+If you use IntelliJ, configure your project to run `gofmt` and `goimports` using the following regex:
 
 ```
 (file[cephfs-bosh-release]:src/github.com/cloudfoundry-incubator/ceph*/*.go||file[cephfs-bosh-release]:src/github.com/cloudfoundry-incubator/volman/*.go||file[cephfs-bosh-release]:src/github.com/cloudfoundry-incubator/volume_driver_cert/*.go)&&!file[cephfs-bosh-release]:src/github.com/cloudfoundry-incubator/volume_driver_cert/vendor//*
