@@ -8,6 +8,7 @@ files:
   - code.cloudfoundry.org/cfhttp/handlers/*.go # gosub
   - code.cloudfoundry.org/cflager/*.go # gosub
   - code.cloudfoundry.org/debugserver/*.go # gosub
+  - code.cloudfoundry.org/lager/*.go # gosub
   - github.com/bmizerany/pat/*.go # gosub
   - github.com/cloudfoundry-incubator/cephbroker/*.go # gosub
   - github.com/cloudfoundry-incubator/cephbroker/cephbrokerhttp/*.go # gosub
@@ -18,7 +19,6 @@ files:
   - github.com/cloudfoundry/gunk/os_wrap/exec_wrap/*.go # gosub
   - github.com/gorilla/context/*.go # gosub
   - github.com/gorilla/mux/*.go # gosub
-  - github.com/pivotal-golang/lager/*.go # gosub
   - github.com/tedsuo/ifrit/*.go # gosub
   - github.com/tedsuo/ifrit/grouper/*.go # gosub
   - github.com/tedsuo/ifrit/http_server/*.go # gosub
