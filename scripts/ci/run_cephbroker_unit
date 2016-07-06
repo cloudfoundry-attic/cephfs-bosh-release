@@ -11,6 +11,7 @@ export PATH=$GOROOT/bin:$PATH
 export GOPATH=$PWD
 export PATH=$PWD/bin:$PATH
 
-go install github.com/onsi/ginkgo/ginkgo
+go get github.com/onsi/ginkgo/ginkgo
+go get github.com/onsi/gomega
 
 ./scripts/run-cephbroker-unit-tests -race
