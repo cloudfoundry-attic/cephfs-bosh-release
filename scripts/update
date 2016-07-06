@@ -14,10 +14,13 @@ function has_upstream() {
 
 set -x -e
 
-scripts_dir="$(cd $(dirname $0) && pwd)"
 if uname -a | grep Darwin; then
-  brew install git-secrets
-  git secrets --register-aws --global || true
+    if brew list | grep git-secrets; then
+        echo "git secrets already installed"
+    else
+        brew install git-secrets
+    fi
+    git secrets --register-aws --global || true
 fi
 
 if [ -d "$(dirname "$scripts_dir")/.git" ] ; then
