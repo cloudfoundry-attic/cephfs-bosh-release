@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
-
 set -e
+
+${TRANSPORT:?"Usage: run-acceptance: TRANSPORT must be defined and non-empty.  Valid values are tcp|unix"}
 
 scripts_path=./$(dirname $0)
 
-fly -t persi execute -c $scripts_path/ci/run_acceptance_tcp.build.yml -i cephfs-bosh-release=. -i deployments-runtime=/Users/pivotal/workspace/deployments-runtime --privileged
+fly -t persi execute -c $scripts_path/ci/run_acceptance_$TRANSPORT.build.yml -i cephfs-bosh-release=/Users/pivotal/workspace/cephfs-bosh-release -i deployments-runtime=/Users/pivotal/workspace/deployments-runtime --privileged
