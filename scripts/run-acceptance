@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+set -e
+
+scripts_path=./$(dirname $0)
+
+fly -t persi execute -c $scripts_path/ci/run_acceptance_tcp.build.yml -i cephfs-bosh-release=. -i deployments-runtime=/Users/pivotal/workspace/deployments-runtime --privileged

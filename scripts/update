@@ -23,10 +23,10 @@ if uname -a | grep Darwin; then
     git secrets --register-aws --global || true
 fi
 
-if [ -d "$(dirname "$scripts_dir")/.git" ] ; then
+echo "$(dirname "$scripts_dir")/.git"
+if [ -d "$(dirname "$scripts_dir")/../.git" ] ; then
   "$scripts_dir"/install-git-hooks
 fi
-
 
 has_upstream && git pull
 

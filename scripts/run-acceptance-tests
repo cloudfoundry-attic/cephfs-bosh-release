@@ -20,6 +20,7 @@ ENCODED_KEYRING=${ENCODED_KEYRING//^H/\\\b} # \b (backspace)
 
 echo "{
   \"volman_driver_path\": \"~/voldriver_plugins\",
+  \"driver_address\": \"http://0.0.0.0:9750\",
   \"driver_name\": \"cephdriver\",
   \"create_config\": {
     \"Name\": \"ceph-volume-name\",
@@ -38,10 +39,13 @@ cd ../src/github.com/cloudfoundry-incubator/cephdriver
 
 go build -o "acceptance/exec/cephdriver" "cmd/cephdriver/main.go"
 
-/bin/bash acceptance/scripts/startdriver.sh
+mkdir -p ~/voldriver_plugins
+export DRIVERS_PATH=$(realpath ~/voldriver_plugins)
+
+./acceptance/scripts/startdriver.sh
 
 pushd $CEPHFS_RELEASE_DIR/src/github.com/cloudfoundry-incubator/volume_driver_cert
-ginkgo
+    ginkgo
 popd
 
 /bin/bash acceptance/scripts/stopdriver.sh
