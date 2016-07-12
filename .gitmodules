@@ -25,9 +25,6 @@
 [submodule "src/github.com/nu7hatch/gouuid"]
 	path = src/github.com/nu7hatch/gouuid
 	url = https://github.com/nu7hatch/gouuid.git
-[submodule "src/github.com/cloudfoundry-incubator/volume_driver_cert"]
-	path = src/github.com/cloudfoundry-incubator/volume_driver_cert
-	url = https://github.com/cloudfoundry-incubator/volume_driver_cert.git
 [submodule "src/github.com/cloundfoundry/gunk"]
 	path = src/github.com/cloundfoundry/gunk
 	url = https://github.com/cloudfoundry/gunk.git

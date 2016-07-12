@@ -51,6 +51,8 @@ cd ../src/github.com/cloudfoundry-incubator/cephdriver
 
 go build -o "acceptance/exec/cephdriver" "cmd/cephdriver/main.go"
 
+go get -t github.com/cloudfoundry-incubator/volume_driver_cert
+
 echo $listen_address
 echo $drivers_path
 /bin/bash acceptance/scripts/startdriver.sh $listen_address $drivers_path

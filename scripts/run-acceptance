@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
 set -e
 
-${TRANSPORT:?"Usage: run-acceptance: TRANSPORT must be defined and non-empty.  Valid values are tcp|unix"}
+if [ -z "$TRANSPORT" ]; then
+  echo "Usage: run-acceptance: TRANSPORT must be defined and non-empty.  Valid values are tcp|unix"
+  exit 1
+fi
 
 scripts_path=./$(dirname $0)
 
