@@ -35,15 +35,20 @@ jobs:
       static_ips: [52.204.240.224]
     persistent_disk: 25000 # for consul
     properties:
+      cephbroker:
+        service-id: pats-ceph-volume
+        service-name: pats-service
+        plan-name: pats-plan
+        plan-id: pats-plan-id
       route_registrar:
         routes:
-          - name: cephbroker
+          - name: pats-broker
             port: 8999
             registration_interval: 20s
             tags:
-              component: cephbroker
+              component: pats-broker
             uris:
-            - cephbroker1.persi.cf-app.com
+            - pats-broker.persi.cf-app.com
     templates:
     - release: cephfs
       name: cephbroker
