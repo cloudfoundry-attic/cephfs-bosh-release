@@ -1,0 +1,19 @@
+#!/bin/bash
+
+set -e -x
+
+# ensure gosub is installed (this will recompile it only if necessary)
+go get github.com/vito/gosub
+go install github.com/vito/gosub
+
+{
+  gosub list -app github.com/cloudfoundry-incubator/cephdriver/cmd/...
+  gosub list -app github.com/cloudfoundry-incubator/cephbroker/cmd/...
+
+  # separate test and binary dependencies
+  gosub list -test github.com/cloudfoundry-incubator/cephdriver/...
+  gosub list -test github.com/cloudfoundry-incubator/cephbroker/...
+  gosub list -test github.com/cloudfoundry-incubator/volume_driver_cert/...
+} > /tmp/packages
+
+cat /tmp/packages | xargs gosub sync

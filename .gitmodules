@@ -1,24 +1,27 @@
 [submodule "src/github.com/cloudfoundry-incubator/cephdriver"]
 	path = src/github.com/cloudfoundry-incubator/cephdriver
-	url = https://github.com/cloudfoundry-incubator/cephdriver.git
+	url = https://github.com/cloudfoundry-incubator/cephdriver
+	branch = master
 [submodule "src/github.com/onsi/ginkgo"]
 	path = src/github.com/onsi/ginkgo
-	url = https://github.com/onsi/ginkgo.git
+	url = https://github.com/onsi/ginkgo
+	branch = master
 [submodule "src/github.com/onsi/gomega"]
 	path = src/github.com/onsi/gomega
-	url = https://github.com/onsi/gomega.git
+	url = https://github.com/onsi/gomega
+	branch = master
 [submodule "src/github.com/cloudfoundry-incubator/volman"]
 	path = src/github.com/cloudfoundry-incubator/volman
 	url = https://github.com/cloudfoundry-incubator/volman.git
 [submodule "src/github.com/tedsuo/rata"]
 	path = src/github.com/tedsuo/rata
-	url = https://github.com/tedsuo/rata.git
+	url = https://github.com/tedsuo/rata
 [submodule "src/github.com/bmizerany/pat"]
 	path = src/github.com/bmizerany/pat
-	url = https://github.com/bmizerany/pat.git
+	url = https://github.com/bmizerany/pat
 [submodule "src/github.com/tedsuo/ifrit"]
 	path = src/github.com/tedsuo/ifrit
-	url = https://github.com/tedsuo/ifrit.git
+	url = https://github.com/tedsuo/ifrit
 [submodule "src/github.com/jessevdk/go-flags"]
 	path = src/github.com/jessevdk/go-flags
 	url = https://github.com/jessevdk/go-flags.git
@@ -30,10 +33,10 @@
 	url = https://github.com/cloudfoundry/gunk.git
 [submodule "src/github.com/cloudfoundry/gunk"]
 	path = src/github.com/cloudfoundry/gunk
-	url = https://github.com/cloudfoundry/gunk.git
+	url = https://github.com/cloudfoundry/gunk
 [submodule "src/github.com/cloudfoundry-incubator/cephbroker"]
 	path = src/github.com/cloudfoundry-incubator/cephbroker
-	url = http://github.com/cloudfoundry-incubator/cephbroker
+	url = https://github.com/cloudfoundry-incubator/cephbroker
 [submodule "src/github.com/fatih/motion"]
 	path = src/github.com/fatih/motion
 	url = http://github.com/fatih/motion
@@ -45,7 +48,8 @@
 	url = http://github.com/gorilla/mux
 [submodule "src/github.com/cloudfoundry-incubator/voldriver"]
 	path = src/github.com/cloudfoundry-incubator/voldriver
-	url = https://github.com/cloudfoundry-incubator/voldriver.git
+	url = https://github.com/cloudfoundry-incubator/voldriver
+	branch = master
 [submodule "src/github.com/cloudfoundry/dropsonde"]
 	path = src/github.com/cloudfoundry/dropsonde
 	url = https://github.com/cloudfoundry/dropsonde.git
@@ -60,16 +64,24 @@
 	url = https://github.com/cloudfoundry/cfhttp.git
 [submodule "src/code.cloudfoundry.org/cflager"]
 	path = src/code.cloudfoundry.org/cflager
-	url = https://github.com/cloudfoundry/cflager.git
+	url = https://github.com/cloudfoundry/cflager
+	branch = master
 [submodule "src/code.cloudfoundry.org/debugserver"]
 	path = src/code.cloudfoundry.org/debugserver
-	url = https://github.com/cloudfoundry/debugserver.git
+	url = https://github.com/cloudfoundry/debugserver
+	branch = master
 [submodule "src/code.cloudfoundry.org/runtimeschema"]
 	path = src/code.cloudfoundry.org/runtimeschema
 	url = https://github.com/cloudfoundry/runtimeschema.git
 [submodule "src/code.cloudfoundry.org/clock"]
 	path = src/code.cloudfoundry.org/clock
-	url = https://github.com/cloudfoundry/clock.git
+	url = https://github.com/cloudfoundry/clock
+	branch = master
 [submodule "src/code.cloudfoundry.org/lager"]
 	path = src/code.cloudfoundry.org/lager
-	url = https://github.com/cloudfoundry/lager.git
+	url = https://github.com/cloudfoundry/lager
+	branch = master
+[submodule "src/gopkg.in/yaml.v2"]
+	path = src/gopkg.in/yaml.v2
+	url = https://gopkg.in/yaml.v2
+	branch = v2
