@@ -10,7 +10,7 @@ inputs:
   - name: cf-release
 
 outputs:
-  - name: generated-manifest
+  - name: generated-manifest-ceph
 
 params:
   DEPLOYMENTS_DIR: ~

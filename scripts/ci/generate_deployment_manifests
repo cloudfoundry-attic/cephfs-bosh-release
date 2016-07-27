@@ -26,20 +26,20 @@ pushd cf-release
   ./scripts/generate_deployment_manifest \
     ${INFRASTRUCTURE} \
     ${stubs_path}/cf/*.yml \
-    > ../generated-manifest/cf-deployment.yml
+    > ../generated-manifest-ceph/cf-deployment.yml
 popd
 
 pushd cephfs-bosh-release
   ./templates/generate_manifest.sh aws \
-    ../generated-manifest/cf-deployment.yml \
+    ../generated-manifest-ceph/cf-deployment.yml \
     ${cephfs_stubs}/ceph-client-keyring-stub.yml \
     ${cephfs_stubs}/director-uuid.yml
 
-  mv cephfs-aws-manifest.yml ../generated-manifest/cephfs-manifest.yml
+  mv cephfs-aws-manifest.yml ../generated-manifest-ceph/cephfs-manifest.yml
 popd
 
 pushd diego-release
-  cp ../generated-manifest/cf-deployment.yml /tmp/cf.yml
+  cp ../generated-manifest-ceph/cf-deployment.yml /tmp/cf.yml
 
   ./scripts/generate-deployment-manifest \
     -c /tmp/cf.yml \
@@ -50,5 +50,5 @@ pushd diego-release
     -d ${stubs_path}/diego/drivers.yml \
     ${garden_flag} \
     ${sql_option} \
-    > ../generated-manifest/diego-deployment.yml
+    > ../generated-manifest-ceph/diego-deployment.yml
 popd
