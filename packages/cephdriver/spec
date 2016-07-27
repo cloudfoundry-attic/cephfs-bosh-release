@@ -2,7 +2,7 @@
 name: cephdriver
 
 dependencies:
-  - golang
+  - golang-ceph
 
 files:
   - cephfuse/**/*

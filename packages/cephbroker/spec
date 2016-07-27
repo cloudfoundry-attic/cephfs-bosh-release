@@ -2,7 +2,7 @@
 name: cephbroker
 
 dependencies:
-  - golang
+  - golang-ceph
 
 files:
   - code.cloudfoundry.org/cfhttp/handlers/*.go # gosub
