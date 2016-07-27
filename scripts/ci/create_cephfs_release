@@ -8,7 +8,7 @@ check_param BOSH_TARGET
 check_param BOSH_USERNAME
 check_param BOSH_PASSWORD
 
-version=`cat version/number`
+version=`cat ceph-version/number`
 pushd cephfs-bosh-release
 
 bosh -n --parallel 10 create release --version $version --name cephfs --force --with-tarball

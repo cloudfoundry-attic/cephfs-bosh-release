@@ -5,7 +5,7 @@ image: docker:///cloudfoundry/diego-pipeline
 
 inputs:
   - name: cephfs-bosh-release
-  - name: version
+  - name: ceph-version
 
 outputs:
   - name: created-cephfs-bosh-release
