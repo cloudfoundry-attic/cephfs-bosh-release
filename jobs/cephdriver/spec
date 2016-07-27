@@ -6,7 +6,7 @@ templates:
   ctl.erb: bin/cephdriver_ctl
 
 packages:
-- golang
+- golang-ceph
 - cephfs_pid_utils
 - cephdriver
 - cephfuse

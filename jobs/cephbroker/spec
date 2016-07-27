@@ -7,7 +7,7 @@ templates:
   keyring.erb: keys/ceph.client.admin.keyring
 
 packages:
-- golang
+- golang-ceph
 - cephfs_pid_utils
 - cephbroker
 - cephfuse
