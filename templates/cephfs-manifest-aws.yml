@@ -48,7 +48,7 @@ jobs:
             tags:
               component: pats-broker
             uris:
-            - pats-broker.ceph.persi.cf-app.com
+            - pats-broker.persi.cf-app.com
     templates:
     - release: cephfs
       name: cephbroker
