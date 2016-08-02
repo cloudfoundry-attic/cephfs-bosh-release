@@ -6,6 +6,8 @@ dependencies:
 
 files:
   - cephfuse/**/*
+  - code.cloudfoundry.org/cephdriver/cephlocal/*.go # gosub
+  - code.cloudfoundry.org/cephdriver/cmd/cephdriver/*.go # gosub
   - code.cloudfoundry.org/cfhttp/*.go # gosub
   - code.cloudfoundry.org/cfhttp/handlers/*.go # gosub
   - code.cloudfoundry.org/cfhttp/unix_transport/*.go # gosub
@@ -16,8 +18,6 @@ files:
   - code.cloudfoundry.org/voldriver/*.go # gosub
   - code.cloudfoundry.org/voldriver/driverhttp/*.go # gosub
   - github.com/bmizerany/pat/*.go # gosub
-  - github.com/cloudfoundry-incubator/cephdriver/cephlocal/*.go # gosub
-  - github.com/cloudfoundry-incubator/cephdriver/cmd/cephdriver/*.go # gosub
   - github.com/cloudfoundry/gunk/http_wrap/*.go # gosub
   - github.com/cloudfoundry/gunk/os_wrap/exec_wrap/*.go # gosub
   - github.com/tedsuo/ifrit/*.go # gosub

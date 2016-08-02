@@ -66,3 +66,9 @@
 	path = src/code.cloudfoundry.org/voldriver
 	url = https://github.com/cloudfoundry-incubator/voldriver
 	branch = master
+[submodule "src/code.cloudfoundry.org/cephbroker"]
+	path = src/code.cloudfoundry.org/cephbroker
+	url = http://github.com/cloudfoundry-incubator/cephbroker
+[submodule "src/code.cloudfoundry.org/cephdriver"]
+	path = src/code.cloudfoundry.org/cephdriver
+	url = http://github.com/cloudfoundry-incubator/cephdriver

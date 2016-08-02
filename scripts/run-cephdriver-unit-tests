@@ -8,7 +8,7 @@ eval $($scripts_path/get_paths.sh)
 if [ -n "$PACKAGE" ]; then
   ginkgo -r -p "$@" "./src/${PACKAGE}"
 else
-  pushd $CEPHFS_RELEASE_DIR/src/github.com/cloudfoundry-incubator/cephdriver
+  pushd $CEPHFS_RELEASE_DIR/src/code.cloudfoundry.org/cephdriver
     ginkgo -r -keepGoing -p -trace -randomizeAllSpecs -progress --race "$@"
   popd
 fi
