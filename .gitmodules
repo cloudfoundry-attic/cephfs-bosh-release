@@ -85,3 +85,9 @@
 	path = src/gopkg.in/yaml.v2
 	url = https://gopkg.in/yaml.v2
 	branch = v2
+[submodule "src/code.cloudfoundry.com/voldriver"]
+	path = src/code.cloudfoundry.com/voldriver
+	url = https://github.com/cloudfoundry-incubator/voldriver
+[submodule "src/code.cloudfoundry.org/voldriver"]
+	path = src/code.cloudfoundry.org/voldriver
+	url = https://github.com/cloudfoundry-incubator/voldriver
