@@ -28,4 +28,13 @@ src/github.com/klauspost/
 src/github.com/nsf/
 src/github.com/rogpeppe/
 src/golang.org/
+
+#intellij goo
 cephfs-bosh-release.iml
+
+# gosub and friends
+src/github.com/vito/gosub
+src/github.com/codegangsta/cli
+
+# certs suite for locally running tests
+src/code.cloudfoundry.org/volume_driver_cert/
