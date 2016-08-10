@@ -6,11 +6,11 @@ scripts_path=./$(dirname $0)
 eval $($scripts_path/get_paths.sh)
 
 usage () {
-    echo "Usage: run-pats admin_user admin_password api_host apps_domain test_application_path name_prefix"
+    echo "Usage: run-pats admin_user admin_password api_host apps_domain service_name plan_name broker_url broker_user broker_password test_application_path"
     exit 1
 }
 
-if [[ "$#" -le 4 ]]
+if [[ "$#" -le 9 ]]
     then
         usage
 fi
@@ -35,16 +35,21 @@ pushd `dirname $0`
     fi
 
     echo "{
-      \"admin_user\": \"$1\",
-      \"admin_password\": \"$2\",
-      \"api\": \"$3\",
-      \"apps_domain\": \"$4\",
+      \"admin_user\": \"${1}\",
+      \"admin_password\": \"${2}\",
+      \"api\": \"${3}\",
+      \"apps_domain\": \"${4}\",
+      \"service_name\": \"${5}\",
+      \"plan_name\": \"${6}\",
+      \"broker_url\": \"${7}\",
+      \"broker_user\": \"${8}\",
+      \"broker_password\": \"${9}\",
       \"skip_ssl_validation\": true,
       \"default_timeout\": 30,
-      \"name_prefix\": \"$6\"
+      \"name_prefix\": \"PATs\"
     } "  > ${CONFIG}
 
-    export TEST_APPLICATION_PATH=$5
+    export TEST_APPLICATION_PATH=${10}
 
     pushd  ../src/code.cloudfoundry.org/persi-acceptance-tests
         CONFIG=${CONFIG} ginkgo -p -r -v .

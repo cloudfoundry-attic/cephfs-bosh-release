@@ -26,7 +26,11 @@ check_param CF_PASSWORD
 check_param CF_API_ENDPOINT
 check_param APPS_DOMAIN
 check_param APPLICATION_PATH
-check_param NAME_PREFIX
+check_param SERVICE_NAME
+check_param PLAN_NAME
+check_param BROKER_URL
+check_param BROKER_USER
+check_param BROKER_PASSWORD
 
 if [ -z "$APPLICATION_PATH" ]; then
     echo "APPLICATION_PATH cannot be blank"
@@ -35,4 +39,14 @@ fi
 
 go get github.com/onsi/ginkgo/ginkgo
 
-${scripts_path}/run-pats ${CF_USERNAME} ${CF_PASSWORD} ${CF_API_ENDPOINT} ${APPS_DOMAIN} ${base_path}/../../../${APPLICATION_PATH} ${NAME_PREFIX}
+${scripts_path}/run-pats \
+${CF_USERNAME} \
+${CF_PASSWORD} \
+${CF_API_ENDPOINT} \
+${APPS_DOMAIN} \
+${SERVICE_NAME} \
+${PLAN_NAME} \
+${BROKER_URL} \
+${BROKER_USER} \
+${BROKER_PASSWORD} \
+${base_path}/../../../${APPLICATION_PATH}
