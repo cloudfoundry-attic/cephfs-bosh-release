@@ -14,6 +14,8 @@ files:
   - code.cloudfoundry.org/cfhttp/handlers/*.go # gosub
   - code.cloudfoundry.org/cflager/*.go # gosub
   - code.cloudfoundry.org/debugserver/*.go # gosub
+  - code.cloudfoundry.org/goshims/ioutil/*.go # gosub
+  - code.cloudfoundry.org/goshims/os/*.go # gosub
   - code.cloudfoundry.org/lager/*.go # gosub
   - github.com/bmizerany/pat/*.go # gosub
   - github.com/cloudfoundry/gunk/os_wrap/exec_wrap/*.go # gosub
