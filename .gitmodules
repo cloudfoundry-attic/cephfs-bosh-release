@@ -70,9 +70,11 @@
 [submodule "src/code.cloudfoundry.org/cephbroker"]
 	path = src/code.cloudfoundry.org/cephbroker
 	url = https://github.com/cloudfoundry-incubator/cephbroker
+	branch = master
 [submodule "src/code.cloudfoundry.org/cephdriver"]
 	path = src/code.cloudfoundry.org/cephdriver
 	url = https://github.com/cloudfoundry-incubator/cephdriver
+	branch = master
 [submodule "src/code.cloudfoundry.org/persi-acceptance-tests"]
 	path = src/code.cloudfoundry.org/persi-acceptance-tests
 	url = https://github.com/cloudfoundry-incubator/persi-acceptance-tests
