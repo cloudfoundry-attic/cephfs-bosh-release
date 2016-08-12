@@ -17,7 +17,7 @@ jobs:
     - name: ceph-subnet
       default: [dns, gateway]
     - name: public
-      static_ips: [52.3.42.29]
+      static_ips: [52.87.131.200]
     persistent_disk: 25000 # for consul
     templates:
     - release: cephfs
@@ -32,7 +32,7 @@ jobs:
     - name: ceph-subnet
       default: [dns, gateway]
     - name: public
-      static_ips: [52.204.240.224]
+      static_ips: [50.16.112.201]
     persistent_disk: 25000 # for consul
     properties:
       cephbroker:
