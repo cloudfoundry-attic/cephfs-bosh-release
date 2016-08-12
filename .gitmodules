@@ -87,3 +87,7 @@
 	path = src/code.cloudfoundry.org/goshims
 	url = https://github.com/cloudfoundry-incubator/goshims
 	branch = master
+[submodule "src/github.com/nu7hatch/gouuid"]
+	path = src/github.com/nu7hatch/gouuid
+	url = https://github.com/nu7hatch/gouuid
+	branch = master
