@@ -5,7 +5,7 @@ image: docker:///cloudfoundry/inigo-ci
 
 inputs:
   - name: cephfs-bosh-release
-  - name: deployments-runtime
+  - name: deployments-diego
 
 params:
   TRANSPORT: unix
