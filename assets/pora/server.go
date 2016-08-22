@@ -44,7 +44,7 @@ func hello(res http.ResponseWriter, req *http.Request) {
 func write(res http.ResponseWriter, req *http.Request) {
 	vcapEnv := os.Getenv("VCAP_SERVICES")
 
-	r, _ := regexp.Compile("\"container_path\": \"([^\"]+)\"")
+	r, _ := regexp.Compile("\"container_dir\": \"([^\"]+)\"")
 	match := r.FindStringSubmatch(vcapEnv)
 
 	mountPointPath := match[1] + "/test.txt"
