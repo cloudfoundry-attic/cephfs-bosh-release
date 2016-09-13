@@ -1,4 +1,0 @@
----
-  buildpack: go_buildpack
-  env:
-    GOPACKAGENAME: pora
