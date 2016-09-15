@@ -295,3 +295,7 @@ cephfuse/libnss3_2%3a3.21-0ubuntu0.14.04.2_amd64.deb:
   object_id: c26d68d1-0fbb-4923-af56-a368617a57be
   sha: 341182734a73ef4ed857f81250d8417b819ad31e
   size: 1102834
+golang/go1.7.linux-amd64.tar.gz:
+  object_id: 9c62b8e8-541e-4dd4-98f9-091f68352ab9
+  sha: a744e29da97fc3aadad1ee0d7d89b0d899645e50
+  size: 81573766
