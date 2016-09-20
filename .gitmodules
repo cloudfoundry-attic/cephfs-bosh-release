@@ -24,10 +24,6 @@
 [submodule "src/github.com/cloundfoundry/gunk"]
 	path = src/github.com/cloundfoundry/gunk
 	url = https://github.com/cloudfoundry/gunk.git
-[submodule "src/github.com/cloudfoundry/gunk"]
-	path = src/github.com/cloudfoundry/gunk
-	url = https://github.com/cloudfoundry/gunk
-	branch = master
 [submodule "src/github.com/cloudfoundry-incubator/cephbroker"]
 	path = src/github.com/cloudfoundry-incubator/cephbroker
 	url = https://github.com/cloudfoundry-incubator/cephbroker
@@ -90,4 +86,8 @@
 [submodule "src/github.com/nu7hatch/gouuid"]
 	path = src/github.com/nu7hatch/gouuid
 	url = https://github.com/nu7hatch/gouuid
+	branch = master
+[submodule "src/github.com/pivotal-cf/brokerapi"]
+	path = src/github.com/pivotal-cf/brokerapi
+	url = https://github.com/lwoydziak/brokerapi
 	branch = master
