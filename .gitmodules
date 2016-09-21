@@ -66,7 +66,7 @@
 [submodule "src/code.cloudfoundry.org/cephbroker"]
 	path = src/code.cloudfoundry.org/cephbroker
 	url = https://github.com/cloudfoundry-incubator/cephbroker
-	branch = master
+	branch = wip-130749827
 [submodule "src/code.cloudfoundry.org/cephdriver"]
 	path = src/code.cloudfoundry.org/cephdriver
 	url = https://github.com/cloudfoundry-incubator/cephdriver
@@ -86,4 +86,15 @@
 [submodule "src/github.com/nu7hatch/gouuid"]
 	path = src/github.com/nu7hatch/gouuid
 	url = https://github.com/nu7hatch/gouuid
+	branch = master
+[submodule "src/github.com/pivotal-cf/brokerapi"]
+	path = src/github.com/pivotal-cf/brokerapi
+	url = https://github.com/lwoydziak/brokerapi
+[submodule "src/github.com/gorilla/mux/"]
+	path = src/github.com/gorilla/mux/
+	url = https://github.com/gorilla/mux
+	branch = master
+[submodule "src/github.com/gorilla/mux"]
+	path = src/github.com/gorilla/mux
+	url = https://github.com/gorilla/mux
 	branch = master
