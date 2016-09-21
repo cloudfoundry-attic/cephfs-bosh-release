@@ -87,7 +87,3 @@
 	path = src/github.com/nu7hatch/gouuid
 	url = https://github.com/nu7hatch/gouuid
 	branch = master
-[submodule "src/github.com/pivotal-cf/brokerapi"]
-	path = src/github.com/pivotal-cf/brokerapi
-	url = https://github.com/lwoydziak/brokerapi
-	branch = master
