@@ -5,20 +5,20 @@ dependencies:
   - golang-ceph
 
 files:
-  - code.cloudfoundry.org/cephbroker/*.go # gosub
-  - code.cloudfoundry.org/cephbroker/cephbrokerhttp/*.go # gosub
-  - code.cloudfoundry.org/cephbroker/cephbrokerlocal/*.go # gosub
+  - code.cloudfoundry.org/cephbroker/cephbroker/*.go # gosub
   - code.cloudfoundry.org/cephbroker/main/cephbroker/*.go # gosub
-  - code.cloudfoundry.org/cephbroker/model/*.go # gosub
   - code.cloudfoundry.org/cephbroker/utils/*.go # gosub
-  - code.cloudfoundry.org/cfhttp/handlers/*.go # gosub
   - code.cloudfoundry.org/cflager/*.go # gosub
   - code.cloudfoundry.org/debugserver/*.go # gosub
   - code.cloudfoundry.org/goshims/execshim/*.go # gosub
   - code.cloudfoundry.org/goshims/ioutil/*.go # gosub
   - code.cloudfoundry.org/goshims/os/*.go # gosub
   - code.cloudfoundry.org/lager/*.go # gosub
+  - code.cloudfoundry.org/voldriver/*.go # gosub
   - github.com/bmizerany/pat/*.go # gosub
+  - github.com/gorilla/mux/*.go # gosub
+  - github.com/pivotal-cf/brokerapi/*.go # gosub
+  - github.com/pivotal-cf/brokerapi/auth/*.go # gosub
   - github.com/tedsuo/ifrit/*.go # gosub
   - github.com/tedsuo/ifrit/grouper/*.go # gosub
   - github.com/tedsuo/ifrit/http_server/*.go # gosub
