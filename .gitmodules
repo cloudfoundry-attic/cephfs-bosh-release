@@ -66,7 +66,7 @@
 [submodule "src/code.cloudfoundry.org/cephbroker"]
 	path = src/code.cloudfoundry.org/cephbroker
 	url = https://github.com/cloudfoundry-incubator/cephbroker
-	branch = wip-130749827
+	branch = master
 [submodule "src/code.cloudfoundry.org/cephdriver"]
 	path = src/code.cloudfoundry.org/cephdriver
 	url = https://github.com/cloudfoundry-incubator/cephdriver
