@@ -89,7 +89,7 @@
 	branch = master
 [submodule "src/github.com/pivotal-cf/brokerapi"]
 	path = src/github.com/pivotal-cf/brokerapi
-	url = https://github.com/lwoydziak/brokerapi
+	url = https://github.com/pivotal-cf/brokerapi
 	branch = master
 [submodule "src/github.com/gorilla/mux/"]
 	path = src/github.com/gorilla/mux/
