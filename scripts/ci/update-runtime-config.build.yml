@@ -5,8 +5,11 @@ image: docker:///cloudfoundry/diego-pipeline
 
 inputs:
   - name: deployments-diego
+  - name: cephfs-bosh-release
   - name: cephfs-bosh-release-tarball
+  - name: efs-volume-release
   - name: efs-volume-release-tarball
+  - name: local-volume-release
   - name: local-volume-release-tarball
 
 outputs: []
