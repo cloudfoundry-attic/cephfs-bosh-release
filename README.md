@@ -11,7 +11,7 @@ It comprises three jobs: cephfs, cephbroker and cephdriver.  These are typically
 
 ## Installation
 ### Pre-Requisites
-- You will need Go 1.6 or later to install this project.  
+- You will need Go 1.7 or later to install this project.  
 - it is recommended to install [direnv](https://github.com/direnv/direnv) to manage your GOPATH correctly
 - you will need (somewhere) a running [ceph-authtool](http://docs.ceph.com/docs/hammer/man/8/ceph-authtool/) in order to create a ceph keyring file.  This tool only runs on linux, so you may need to use your VM or container technology of choice.
 - you will need a Cloudfoundry/Diego deployment running on AWS.  Instructions for this setup are [here](https://github.com/cloudfoundry/diego-release/blob/develop/examples/aws/README.md).
@@ -110,11 +110,44 @@ bosh deployment cephfs-aws-manifest.yml
 bosh deploy
 ```
 
-### To deploy cephdriver
+### To deploy cephdriver THE OLD WAY :thumbsdown:
+If your bosh director version is older than `259` then you will need to follow these steps. (type `bosh status` to check the version of your director)
 
 The driver must be colocated with the Diego cell in order to work correctly in a CF/Diego environment.  
 This will require you to regenerate your diego manifest with the driver job included in it, and (re)deploy Diego.
 For details on how to create a drivers stub and include the cephdriver job in the Diego cell VM, [follow these instructions](https://github.com/cloudfoundry/diego-release/blob/develop/examples/aws/OPTIONAL.md#fill-in-drivers-stub).
+
+### To deploy cephdriver THE NEW WAY :thumbsup:
+If you have a new bosh director (version 259 or later) then you can deploy the driver to diego as an add-on, without changing your diego manifest.  The driver must still be colocated on the diego cell, but bosh is now capable of targeting add-ons to specific VMs using filtering.
+  
+- Create a new `runtime-config.yml` with the following content:
+   
+```yaml
+---
+releases:
+- name: cephfs
+  version: <YOUR VERSION HERE>
+addons:
+- name: voldrivers
+  include:
+    deployments: 
+    - <YOUR DIEGO DEPLOYMENT NAME>
+    jobs: 
+    - name: rep
+      release: diego
+  jobs:
+  - name: cephdriver
+    release: cephfs
+    properties: {}
+```
+
+- Set the runtime config, and redeploy diego
+
+```bash
+bosh update runtime-config runtime-config.yml
+bosh download manifest <YOUR DIEGO DEPLOYMENT NAME> diego.yml
+bosh -d diego.yml deploy
+```
 
 ## Verify the install
 
