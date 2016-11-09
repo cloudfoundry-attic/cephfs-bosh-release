@@ -3,18 +3,10 @@
 
 set -x -e
 
-source $(pwd)/cephfs-bosh-release/scripts/ci/utils.sh
-check_param BOSH_TARGET
-check_param BOSH_USERNAME
-check_param BOSH_PASSWORD
-
 version=`cat ceph-version/number`
 pushd cephfs-bosh-release
 
 bosh -n --parallel 10 create release --version $version --name cephfs --force --with-tarball
 
-bosh -n target ${BOSH_TARGET}
-bosh -n login ${BOSH_USERNAME} ${BOSH_PASSWORD}
-bosh upload release dev_releases/cephfs/*.tgz
 mv dev_releases/cephfs/*.tgz ../created-cephfs-bosh-release
 popd

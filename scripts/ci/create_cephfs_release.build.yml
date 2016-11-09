@@ -10,10 +10,7 @@ inputs:
 outputs:
   - name: created-cephfs-bosh-release
 
-params:
-  BOSH_TARGET: replace-me
-  BOSH_USERNAME: replace-me
-  BOSH_PASSWORD: replace-me
+params: []
 
 run:
   path: cephfs-bosh-release/scripts/ci/create_cephfs_release
