@@ -47,7 +47,6 @@ pushd diego-release
     -p ${stubs_path}/diego/property-overrides.yml \
     -n ${stubs_path}/diego/instance-count-overrides.yml \
     -v ${stubs_path}/diego/release-versions.yml \
-    -d ${stubs_path}/diego/drivers.yml \
     ${garden_flag} \
     ${sql_option} \
     > ../generated-manifest-ceph/diego-deployment.yml
