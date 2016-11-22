@@ -95,7 +95,7 @@ networks:
   subnets:
   - cloud_properties:
       security_groups:
-      - sg-a2945ad9
+      - sg-18931265
       subnet: subnet-8c2365d4
     dns:
     - 10.10.0.2
