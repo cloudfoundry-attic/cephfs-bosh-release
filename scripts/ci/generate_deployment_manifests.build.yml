@@ -4,7 +4,7 @@ platform: linux
 image: docker:///cloudfoundry/diego-pipeline
 
 inputs:
-  - name: deployments-diego
+  - name: deployments-persi
   - name: diego-release
   - name: cephfs-bosh-release
   - name: cf-release

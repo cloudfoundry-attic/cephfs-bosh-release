@@ -4,7 +4,7 @@ platform: linux
 image: docker:///cloudfoundry/diego-pipeline
 
 inputs:
-  - name: deployments-diego
+  - name: deployments-persi
   - name: cephfs-bosh-release
   - name: cephfs-bosh-release-tarball
   - name: efs-volume-release

@@ -13,8 +13,8 @@ sudo apt-get update
 sudo apt-get --assume-yes install build-essential expect ruby ruby-dev libxml2-dev libsqlite3-dev libxslt1-dev libpq-dev libmysqlclient-dev zlib1g-dev ceph-fuse
 
 eval `ssh-agent -s`
-chmod 600 deployments-diego/persi-ci/deployments/bosh-director/v1/keys/persi-bosh.pem
-ssh-add deployments-diego/persi-ci/deployments/bosh-director/v1/keys/persi-bosh.pem
+chmod 600 deployments-persi/persi-ci/deployments/bosh-director/v1/keys/persi-bosh.pem
+ssh-add deployments-persi/persi-ci/deployments/bosh-director/v1/keys/persi-bosh.pem
 
 scp -o StrictHostKeyChecking=no vcap@cephfs.persi.cf-app.com:/var/vcap/jobs/cephfs/keys/ceph.client.admin.keyring .
 scp -o StrictHostKeyChecking=no vcap@cephfs.persi.cf-app.com:/etc/ceph/ceph.conf .

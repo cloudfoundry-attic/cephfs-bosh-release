@@ -8,4 +8,4 @@ fi
 
 scripts_path=./$(dirname $0)
 
-fly -t persi execute -c $scripts_path/ci/run_acceptance_$TRANSPORT.build.yml -i cephfs-bosh-release=/Users/pivotal/workspace/cephfs-bosh-release -i deployments-diego=/Users/pivotal/workspace/deployments-diego --privileged
+fly -t persi execute -c $scripts_path/ci/run_acceptance_$TRANSPORT.build.yml -i cephfs-bosh-release=/Users/pivotal/workspace/cephfs-bosh-release -i deployments-persi=/Users/pivotal/workspace/deployments-persi --privileged
