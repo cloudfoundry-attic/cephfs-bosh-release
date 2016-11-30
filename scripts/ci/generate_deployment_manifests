@@ -2,7 +2,7 @@
 
 set -e -x -u
 
-source $(pwd)/cephfs-volume-release/scripts/ci/utils.sh
+source $(pwd)/cephfs-bosh-release/scripts/ci/utils.sh
 check_param PATS_BROKER_USERNAME
 check_param PATS_BROKER_PASSWORD
 
