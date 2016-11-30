@@ -18,6 +18,8 @@ params:
   INFRASTRUCTURE: ~
   USE_GARDEN_RUNC: false
   USE_SQL: false
+  PATS_BROKER_USERNAME: ~
+  PATS_BROKER_PASSWORD: ~
 
 run:
   path: cephfs-bosh-release/scripts/ci/generate_deployment_manifests

@@ -64,6 +64,8 @@ case $1 in
       --planDesc="<%= p("cephbroker.plan-desc") %>" \
       --baseMountPath="<%= p("cephbroker.default-mount-path") %>" \
       --keyringFile=/var/vcap/jobs/cephbroker/keys/ceph.client.admin.keyring \
+      --username="<%= p("cephbroker.username") %>" \
+      --password="<%= p("cephbroker.password") %>" \
       2> >(tee -a $LOG_DIR/cephbroker.stderr.log | logger -p user.error -t vcap.cephbroker) \
       1> >(tee -a $LOG_DIR/cephbroker.stdout.log | logger -p user.info -t vcap.cephbroker)
 

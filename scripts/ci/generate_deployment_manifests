@@ -2,6 +2,10 @@
 
 set -e -x -u
 
+source $(pwd)/cephfs-volume-release/scripts/ci/utils.sh
+check_param PATS_BROKER_USERNAME
+check_param PATS_BROKER_PASSWORD
+
 if [ -z "$ENVIRONMENT_NAME" ]; then
   environment_path="${PWD}/${DEPLOYMENTS_DIR}"
 else
@@ -29,11 +33,21 @@ pushd cf-release
     > ../generated-manifest-ceph/cf-deployment.yml
 popd
 
+
 pushd cephfs-bosh-release
+
+cat > ${PWD}/cephbroker-creds.yml << EOF
+---
+credentials:
+  username: ${PATS_BROKER_USERNAME}
+  password: ${PATS_BROKER_PASSWORD}
+EOF
+
   ./templates/generate_manifest.sh aws \
     ../generated-manifest-ceph/cf-deployment.yml \
     ${cephfs_stubs}/ceph-client-keyring-stub.yml \
-    ${cephfs_stubs}/director-uuid.yml
+    ${cephfs_stubs}/director-uuid.yml \
+    ${PWD}/cephbroker-creds.yml
 
   mv cephfs-aws-manifest.yml ../generated-manifest-ceph/cephfs-manifest.yml
 popd

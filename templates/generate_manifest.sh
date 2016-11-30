@@ -2,7 +2,7 @@
 #generate_manifest.sh
 
 usage () {
-    echo "Usage: generate_manifest.sh bosh-lite|aws cf-manifest ceph-client-keyring-stub director-stub"
+    echo "Usage: generate_manifest.sh bosh-lite|aws cf-manifest ceph-client-keyring-stub director-stub broker-creds"
     echo " * default"
     exit 1
 }
@@ -32,6 +32,7 @@ if [ "$1" == "aws" ]
     $2 \
     $3 \
     $4 \
+    $5 \
     ${templates}/stubs/toplevel-manifest-overrides.yml \
     > $PWD/$MANIFEST_NAME.yml
 fi

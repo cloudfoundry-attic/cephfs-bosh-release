@@ -40,6 +40,8 @@ jobs:
         service-name: pats-service
         plan-name: pats-plan
         plan-id: pats-plan-id
+        username: (( credentials.username ))
+        password: (( credentials.password ))
       route_registrar:
         routes:
           - name: pats-broker
@@ -146,3 +148,5 @@ update:
   serial: false
   canary_watch_time: 1000-30000
   update_watch_time: 1000-30000
+
+credentials: (( merge ))

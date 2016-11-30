@@ -42,3 +42,9 @@ properties:
   cephbroker.plan-desc:
     description: "Description of the service plan to be registered with cf"
     default: "free ceph filesystem"
+  cephbroker.username:
+    description: "The brokers basic auth username that will be used to verify incoming Service Broker requests"
+    default: "admin"
+  cephbroker.password:
+    description: "The brokers basic auth password that will be used ti verify incoming Service Broker requests"
+    default: "admin"
