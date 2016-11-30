@@ -20,7 +20,9 @@ files:
   - code.cloudfoundry.org/goshims/osshim/*.go # gosub
   - code.cloudfoundry.org/lager/*.go # gosub
   - code.cloudfoundry.org/voldriver/*.go # gosub
+  - code.cloudfoundry.org/voldriver/backoff/*.go # gosub
   - code.cloudfoundry.org/voldriver/driverhttp/*.go # gosub
+  - code.cloudfoundry.org/voldriver/invoker/*.go # gosub
   - github.com/bmizerany/pat/*.go # gosub
   - github.com/gorilla/mux/*.go # gosub
   - github.com/pivotal-cf/brokerapi/*.go # gosub
