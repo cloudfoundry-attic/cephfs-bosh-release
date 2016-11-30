@@ -101,11 +101,22 @@ Our manifest generation scripts require the deployment manifest for your cloudfo
 ```
 bosh download manifest <your cf deplyment name> >cf.yml
 ```
+
+#### creds.yml
+- create a new `creds.yml` file and place the following contents in it:
+
+```
+---
+credentials:
+  username: <USERNAME>
+  password: <PASSWORD>
+```
+
 ### To deploy cephfs and cephbroker 
 
 Generate the manifest for your environment.  Check your `bosh target` is correct.
 ```
-./templates/generate_manifest.sh aws cf.yml ceph-keyring.yml director.yml
+./templates/generate_manifest.sh aws cf.yml ceph-keyring.yml director.yml creds.yml
 bosh deployment cephfs-aws-manifest.yml
 bosh deploy
 ```
