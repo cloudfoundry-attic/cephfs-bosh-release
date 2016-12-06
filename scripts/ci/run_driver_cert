@@ -2,7 +2,7 @@
 
 set -x -e
 
-### Install ruby and the the bosh cli
+### Install ceph-fuse and other junk
 sudo apt-get update
 sudo apt-get --assume-yes install build-essential expect ruby ruby-dev realpath libxml2-dev libsqlite3-dev libxslt1-dev libpq-dev libmysqlclient-dev zlib1g-dev ceph-fuse
 
@@ -12,10 +12,6 @@ ssh-add deployments-persi/persi-ci/deployments/bosh-director/v1/keys/persi-bosh.
 
 scp -o StrictHostKeyChecking=no vcap@cephfs.persi.cf-app.com:/var/vcap/jobs/cephfs/keys/ceph.client.admin.keyring .
 scp -o StrictHostKeyChecking=no vcap@cephfs.persi.cf-app.com:/etc/ceph/ceph.conf .
-
-######################################################################################
-#### prepare for acceptance
-######################################################################################
 
 export CEPH_KEYRING=`cat ceph.client.admin.keyring`
 export CEPH_CLUSTER_IP=cephfs.persi.cf-app.com
@@ -30,5 +26,5 @@ pushd cephfs-bosh-release
     go get github.com/onsi/ginkgo/ginkgo
     go get github.com/onsi/gomega
 
-    ./scripts/run-acceptance-tests -race
+    ./scripts/run-driver-cert-tests -race
 popd
