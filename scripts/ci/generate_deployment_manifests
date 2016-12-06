@@ -16,11 +16,6 @@ stubs_path="${environment_path}/stubs"
 templates_path="${environment_path}/templates"
 cephfs_stubs="${PWD}/${DEPLOYMENTS_DIR}/cephfs/stubs"
 
-sql_option=""
-if [ "$USE_SQL" == "true" ]; then
-  sql_option="-s ${stubs_path}/diego/diego-sql.yml"
-fi
-
 garden_flag=""
 if [ "$USE_GARDEN_RUNC" == "true" ]; then
   garden_flag="-g"
@@ -61,7 +56,7 @@ pushd diego-release
     -p ${stubs_path}/diego/property-overrides.yml \
     -n ${stubs_path}/diego/instance-count-overrides.yml \
     -v ${stubs_path}/diego/release-versions.yml \
-    ${garden_flag} \
-    ${sql_option} \
+    -s ${stubs_path}/diego/diego-sql.yml -x \
+       ${garden_flag} \
     > ../generated-manifest-ceph/diego-deployment.yml
 popd
