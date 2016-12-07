@@ -46,17 +46,3 @@ EOF
 
   mv cephfs-aws-manifest.yml ../generated-manifest-ceph/cephfs-manifest.yml
 popd
-
-pushd diego-release
-  cp ../generated-manifest-ceph/cf-deployment.yml /tmp/cf.yml
-
-  ./scripts/generate-deployment-manifest \
-    -c /tmp/cf.yml \
-    -i ${stubs_path}/diego/iaas-settings.yml \
-    -p ${stubs_path}/diego/property-overrides.yml \
-    -n ${stubs_path}/diego/instance-count-overrides.yml \
-    -v ${stubs_path}/diego/release-versions.yml \
-    -s ${stubs_path}/diego/diego-sql.yml -x \
-       ${garden_flag} \
-    > ../generated-manifest-ceph/diego-deployment.yml
-popd
