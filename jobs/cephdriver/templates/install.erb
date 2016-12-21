@@ -3,7 +3,7 @@
 set -e -x
 
 echo "Installing fuse"
-dpkg -i /var/vcap/packages/cephfuse/fuse_2.9.2-4ubuntu4.14.04.1_amd64.deb
+dpkg  --force-confdef -i /var/vcap/packages/cephfuse/fuse_2.9.2-4ubuntu4.14.04.1_amd64.deb
 
 modprobe fuse
 adduser vcap fuse
@@ -14,7 +14,7 @@ user_allow_other
 EOF
 
 echo "Installing ceph-fuse"
-dpkg -i \
+dpkg  --force-confdef -i \
 /var/vcap/packages/cephfuse/ceph-fuse_0.80.11-0ubuntu1.14.04.1_amd64.deb \
 /var/vcap/packages/cephfuse/libboost-system1.54.0_1.54.0-4ubuntu3.1_amd64.deb \
 /var/vcap/packages/cephfuse/libboost-thread1.54.0_1.54.0-4ubuntu3.1_amd64.deb \
