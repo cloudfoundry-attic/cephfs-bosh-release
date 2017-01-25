@@ -8,10 +8,10 @@ dpkg  --force-confdef -i /var/vcap/packages/cephfuse/fuse_2.9.2-4ubuntu4.14.04.1
 modprobe fuse
 adduser vcap fuse
 chown root:fuse /dev/fuse
-chown vcap:vcap /etc/fuse.conf
 cat << EOF > /etc/fuse.conf
 user_allow_other
 EOF
+chmod 644 /etc/fuse.conf
 
 echo "Installing ceph-fuse"
 dpkg  --force-confdef -i \
