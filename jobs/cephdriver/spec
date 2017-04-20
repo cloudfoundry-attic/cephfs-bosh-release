@@ -26,4 +26,4 @@ properties:
     default: "/var/vcap/data/volumes"
   cephdriver.log_level:
     description: "cephdriver log level"
-    default: "debug"
+    default: "info"
