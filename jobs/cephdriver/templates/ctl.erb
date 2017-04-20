@@ -29,6 +29,8 @@ case $1 in
     # Allowed number of open file descriptors
     ulimit -n 100000
 
+    export PATH=/bin:$PATH
+
     exec chpst -u vcap:vcap /var/vcap/packages/cephdriver/bin/cephdriver \
       --listenAddr="<%= p("cephdriver.listen_addr") %>" \
       --transport="tcp" \
