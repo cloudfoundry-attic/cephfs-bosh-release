@@ -3,6 +3,18 @@
 set -e -x
 
 echo "Installing fuse"
+
+VOL_DIR=<%= p("cephdriver.cell_mount_path") %>
+mkdir -p $VOL_DIR
+chown vcap:vcap $VOL_DIR
+
+# clean up any old lingering mounts/directories
+pkill ceph-fuse || true
+pushd $VOL_DIR
+  for d in */; do umount $d || true; done
+  for d in */; do rm -rf $d || true; done
+popd
+
 dpkg  --force-confdef -i /var/vcap/packages/cephfuse/fuse_2.9.2-4ubuntu4.14.04.1_amd64.deb
 
 modprobe fuse
