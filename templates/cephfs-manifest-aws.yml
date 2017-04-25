@@ -16,8 +16,6 @@ jobs:
     networks:
     - name: ceph-subnet
       default: [dns, gateway]
-    - name: public
-      static_ips: [52.206.175.169]
     persistent_disk: 25000 # for consul
     templates:
     - release: cephfs
@@ -31,8 +29,6 @@ jobs:
     networks:
     - name: ceph-subnet
       default: [dns, gateway]
-#    - name: public
-#      static_ips: [50.16.112.201]
     persistent_disk: 25000 # for consul
     properties:
       cephbroker:
@@ -84,8 +80,6 @@ networks:
     static:
     - 10.10.200.10 - 10.10.200.105
   type: manual
-- name: public
-  type: vip
 
 resource_pools:
   - name: large
