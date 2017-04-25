@@ -25,7 +25,7 @@ jobs:
 
   - name: cephbroker
     instances: 1
-    resource_pool: medium
+    resource_pool: small
     networks:
     - name: ceph-subnet
       default: [dns, gateway]
@@ -98,6 +98,15 @@ resource_pools:
       version: latest
     cloud_properties:
       instance_type: m3.medium
+      availability_zone: us-east-1c
+
+  - name: small
+    network: ceph-subnet
+    stemcell:
+      name: bosh-aws-xen-hvm-ubuntu-trusty-go_agent
+      version: latest
+    cloud_properties:
+      instance_type: t2.micro
       availability_zone: us-east-1c
 
 compilation:
