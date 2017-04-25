@@ -25,61 +25,32 @@ jobs:
     update:
       serial: true
 
-  - name: cephbroker-pats
+  - name: cephbroker
     instances: 1
     resource_pool: medium
     networks:
     - name: ceph-subnet
       default: [dns, gateway]
-    - name: public
-      static_ips: [50.16.112.201]
+#    - name: public
+#      static_ips: [50.16.112.201]
     persistent_disk: 25000 # for consul
     properties:
       cephbroker:
-        service-id: pats-ceph-volume
-        service-name: pats-service
-        plan-name: pats-plan
-        plan-id: pats-plan-id
+        service-id: ceph-volume
+        service-name: ceph-service
+        plan-name: ceph-plan
+        plan-id: ceph-plan-id
         username: (( credentials.username ))
         password: (( credentials.password ))
       route_registrar:
         routes:
-          - name: pats-broker
+          - name: ceph-broker
             port: 8999
             registration_interval: 20s
             tags:
-              component: pats-broker
+              component: ceph-broker
             uris:
-            - pats-broker.persi.cf-app.com
-    templates:
-    - release: cephfs
-      name: cephbroker
-    - release: cf
-      name: route_registrar
-    log_level: debug
-
-  - name: cephbroker-acc
-    instances: 1
-    resource_pool: medium
-    networks:
-    - name: ceph-subnet
-      default: [dns, gateway]
-    properties:
-      route_registrar:
-        routes:
-          - name: cephbroker-acc
-            port: 8999
-            registration_interval: 20s
-            tags:
-              component: cephbroker
-            uris:
-            - cephbroker2.persi.cf-app.com
-      cephbroker:
-        service-name: cephbroker-acc
-        service-id: cephbroker-acc
-        plan-name: free-acc
-        plan-id: free-acc-plan-guid
-        plan-desc: free ceph filesystem for acceptance testing
+            - ceph-broker.persi.cf-app.com
     templates:
     - release: cephfs
       name: cephbroker
