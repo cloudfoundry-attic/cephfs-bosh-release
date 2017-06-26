@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-git secrets --pre_commit_hook -- "$@"
 
 modified_packages=$(./scripts/sync-package-specs)
 

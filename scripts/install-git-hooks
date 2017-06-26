@@ -5,5 +5,3 @@ RELEASE=$(cd $(dirname $0)/.. && pwd)
 mkdir -p ${RELEASE}/.git/hooks
 
 ln -fs ${RELEASE}/git-hooks/pre-commit ${RELEASE}/.git/hooks/pre-commit
-ln -fs ${RELEASE}/git-hooks/pre-push ${RELEASE}/.git/hooks/pre-push
-ln -fs ${RELEASE}/git-hooks/prepare-commit-message ${RELEASE}/.git/hooks/prepare-commit-message
