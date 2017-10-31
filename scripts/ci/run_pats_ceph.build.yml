@@ -9,7 +9,7 @@ inputs:
 
 params:
   CF_USERNAME: replace-me
-  CF_PASSWORD: replace-me
+  CF_PASSWORD:
   CF_API_ENDPOINT: replace-me
   APPS_DOMAIN: replace-me
   APPLICATION_PATH: replace-me
