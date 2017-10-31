@@ -36,6 +36,12 @@ if [ -z "$CF_PASSWORD" ]; then
     fi
 fi
 
+if [ -z "$BROKER_PASSWORD" ]; then
+    if [ -e "vars-store/deployment-vars.yml" ]; then
+        BROKER_PASSWORD=`grep cephfs-broker-password vars-store/deployment-vars.yml | awk  '{print $2}'`
+    fi
+fi
+
 go get github.com/onsi/ginkgo/ginkgo
 
 ${scripts_path}/run-pats \
