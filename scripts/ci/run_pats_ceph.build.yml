@@ -5,6 +5,7 @@ rootfs_uri: docker:///cloudfoundry/diego-pipeline
 
 inputs:
   - name: cephfs-bosh-release
+  - name: vars-store
 
 params:
   CF_USERNAME: replace-me
