@@ -7,9 +7,10 @@ sudo apt-get update
 sudo apt-get --assume-yes install build-essential expect ruby ruby-dev realpath libxml2-dev libsqlite3-dev libxslt1-dev libpq-dev libmysqlclient-dev zlib1g-dev ceph-fuse
 
 source bosh-env/set-env.sh
+chmod 400 bosh-env/ssh-key
 
-bosh -d cephfs scp cephfs:/var/vcap/jobs/cephfs/keys/ceph.client.admin.keyring .
-bosh -d cephfs scp cephfs:/etc/ceph/ceph.conf .
+bosh -d cephfs scp --gw-private-key=bosh-env/ssh-key cephfs:/var/vcap/jobs/cephfs/keys/ceph.client.admin.keyring .
+bosh -d cephfs scp --gw-private-key=bosh-env/ssh-key cephfs:/etc/ceph/ceph.conf .
 
 export CEPH_KEYRING=`cat ceph.client.admin.keyring`
 export CEPH_CLUSTER_IP=cephfs.gorgophone.cf-app.com
