@@ -13,7 +13,7 @@ bosh -d cephfs scp --gw-private-key=bosh-env/ssh-key cephfs:/var/vcap/jobs/cephf
 bosh -d cephfs scp --gw-private-key=bosh-env/ssh-key cephfs:/etc/ceph/ceph.conf .
 
 export CEPH_KEYRING=`cat ceph.client.admin.keyring`
-export CEPH_CLUSTER_IP=cephfs.gorgophone.cf-app.com
+export CEPH_CLUSTER_IP=`bosh -d cephfs instances|grep cephfs|awk '{print $4}'`
 
 pushd cephfs-bosh-release
     export GOROOT=/usr/local/go
