@@ -20,12 +20,12 @@ pushd cephfs-bosh-release
 
     echo "Installing ceph-fuse"
     dpkg  --force-confdef -i \
-        packages/cephfuse/ceph-fuse_0.80.11-0ubuntu1.14.04.1_amd64.deb \
-        packages/cephfuse/libboost-system1.54.0_1.54.0-4ubuntu3.1_amd64.deb \
-        packages/cephfuse/libboost-thread1.54.0_1.54.0-4ubuntu3.1_amd64.deb \
-        packages/cephfuse/libnspr4_2%3a4.10.10-0ubuntu0.14.04.1_amd64.deb  \
-        packages/cephfuse/libnss3_2%3a3.21-0ubuntu0.14.04.2_amd64.deb    \
-        packages/cephfuse/libnss3-nssdb_2%3a3.21-0ubuntu0.14.04.2_all.deb
+        blobs/cephfuse/ceph-fuse_0.80.11-0ubuntu1.14.04.1_amd64.deb \
+        blobs/cephfuse/libboost-system1.54.0_1.54.0-4ubuntu3.1_amd64.deb \
+        blobs/cephfuse/libboost-thread1.54.0_1.54.0-4ubuntu3.1_amd64.deb \
+        blobs/cephfuse/libnspr4_2%3a4.10.10-0ubuntu0.14.04.1_amd64.deb  \
+        blobs/cephfuse/libnss3_2%3a3.21-0ubuntu0.14.04.2_amd64.deb    \
+        blobs/cephfuse/libnss3-nssdb_2%3a3.21-0ubuntu0.14.04.2_all.deb
 
     export GOROOT=/usr/local/go
     export PATH=$GOROOT/bin:$PATH
