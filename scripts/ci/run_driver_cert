@@ -4,7 +4,7 @@ set -x -e
 
 ### Install ceph-fuse and other junk
 sudo apt-get update
-sudo apt-get --assume-yes install build-essential expect ruby ruby-dev realpath libxml2-dev libsqlite3-dev libxslt1-dev libpq-dev libmysqlclient-dev zlib1g-dev ceph-fuse
+sudo apt-get --assume-yes install build-essential expect ruby ruby-dev realpath libxml2-dev libsqlite3-dev libxslt1-dev libpq-dev libmysqlclient-dev zlib1g-dev
 
 source bosh-env/set-env.sh
 chmod 400 bosh-env/ssh-key
@@ -16,6 +16,17 @@ export CEPH_KEYRING=`cat ceph.client.admin.keyring`
 export CEPH_CLUSTER_IP=`bosh -d cephfs instances|grep cephfs|awk '{print $4}'`
 
 pushd cephfs-bosh-release
+    bosh sync-blobs
+
+    echo "Installing ceph-fuse"
+    dpkg  --force-confdef -i \
+        packages/cephfuse/ceph-fuse_0.80.11-0ubuntu1.14.04.1_amd64.deb \
+        packages/cephfuse/libboost-system1.54.0_1.54.0-4ubuntu3.1_amd64.deb \
+        packages/cephfuse/libboost-thread1.54.0_1.54.0-4ubuntu3.1_amd64.deb \
+        packages/cephfuse/libnspr4_2%3a4.10.10-0ubuntu0.14.04.1_amd64.deb  \
+        packages/cephfuse/libnss3_2%3a3.21-0ubuntu0.14.04.2_amd64.deb    \
+        packages/cephfuse/libnss3-nssdb_2%3a3.21-0ubuntu0.14.04.2_all.deb
+
     export GOROOT=/usr/local/go
     export PATH=$GOROOT/bin:$PATH
 
