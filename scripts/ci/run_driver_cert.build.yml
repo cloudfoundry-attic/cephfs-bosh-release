@@ -4,11 +4,16 @@ platform: linux
 rootfs_uri: docker:///cloudfoundry/inigo-ci
 
 inputs:
-  - name: cephfs-bosh-release
-  - name: bosh-env
+- name: cephfs-bosh-release
+- name: deployments-persi
+- name: director-state
 
 params:
   TRANSPORT: tcp
+  BBL_IAAS: aws
+  BBL_AWS_REGION:
+  BBL_AWS_ACCESS_KEY_ID:
+  BBL_AWS_SECRET_ACCESS_KEY:
 
 run:
   path: cephfs-bosh-release/scripts/ci/run_driver_cert
