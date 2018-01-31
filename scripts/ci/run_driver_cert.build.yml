@@ -5,7 +5,6 @@ rootfs_uri: docker:///cloudfoundry/inigo-ci
 
 inputs:
 - name: cephfs-bosh-release
-- name: deployments-persi
 - name: director-state
 
 params:
