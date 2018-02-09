@@ -1,0 +1,67 @@
+- type: replace
+  path: /releases/-
+  value:
+    name: cephfs
+    version: latest
+
+- type: replace
+  path: /instance_groups/name=diego-cell/jobs/-
+  value:
+    name: cephdriver
+    release: cephfs
+    properties: {}
+
+- type: replace
+  path: /instance_groups/name=api/jobs/name=cloud_controller_ng/properties/cc/volume_services_enabled?
+  value: true
+
+- type: replace
+  path: /instance_groups/name=cc-worker/jobs/name=cloud_controller_worker/properties/cc/volume_services_enabled?
+  value: true
+
+- type: replace
+  path: /instance_groups/name=scheduler/jobs/name=cloud_controller_clock/properties/cc/volume_services_enabled?
+  value: true
+
+- type: replace
+  path: /instance_groups/-
+  value:
+    name: cephbroker
+    azs:
+    - z1
+    instances: 1
+    vm_type: minimal
+    stemcell: default
+    networks:
+      - name: default
+    jobs:
+    - name: cephbroker
+      release: cephfs
+      properties:
+        cephbroker:
+          password: ((cephfs-broker-password))
+          plan-id: ceph-plan-id
+          plan-name: ceph-plan
+          service-id: ceph-volume
+          service-name: ceph-service
+          username: admin
+          keyring: ((cephfs-keyring))
+          mds: ((cephfs-mds))
+    - name: route_registrar
+      release: routing
+      properties:
+        route_registrar:
+          routes:
+          - name: ceph-broker
+            port: 8999
+            registration_interval: 20s
+            tags:
+              component: ceph-broker
+            uris:
+            - ceph-broker.gorgophone.cf-app.com
+
+- type: replace
+  path: /variables/-
+  value:
+    name: cephfs-broker-password
+    type: password
