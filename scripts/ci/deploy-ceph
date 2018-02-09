@@ -9,8 +9,8 @@ trap finish EXIT
 source persi-ci/scripts/ci/bbl_get_bosh_env
 source bosh-env/set-env.sh
 
-mkdir ops-files
-cp cephfs-bosh-release-tarball/*.tgz ops-files/cephfs.tgz
+mkdir releases
+cp cephfs-bosh-release-tarball/*.tgz releases/cephfs.tgz
 
 generate_cephfs_vars() {
     cat << EOF > ./cephfs-vars.yml
