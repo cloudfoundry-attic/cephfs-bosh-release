@@ -24,7 +24,7 @@ generate_cephfs_vars
 
 bosh \
   -n \
-  interpolate vars-store/manifest/cephfs.yml \
+  interpolate cephfs-bosh-release/manifest/cephfs.yml \
   --vars-file=./cephfs-vars.yml \
   > interpolated_manifest.yml
 
