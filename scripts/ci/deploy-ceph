@@ -1,0 +1,44 @@
+#!/bin/bash -eu
+set -ex
+
+function finish {
+  pkill ssh || true
+}
+trap finish EXIT
+
+source persi-ci/scripts/ci/bbl_get_bosh_env
+source bosh-env/set-env.sh
+
+mkdir ops-files
+cp cephfs-bosh-release-tarball/*.tgz ops-files/cephfs.tgz
+
+generate_cephfs_vars() {
+    cat << EOF > ./cephfs-vars.yml
+---
+cephfs-keyring: |
+`echo ${CEPHFS_KEYRING}|sed 's/^/  /'`
+EOF
+}
+
+generate_cephfs_vars
+
+bosh \
+  -n \
+  interpolate vars-store/manifest/cephfs.yml \
+  --vars-file=./cephfs-vars.yml \
+  > interpolated_manifest.yml
+
+bosh \
+  -n \
+  -d cephfs \
+  delete-deployment || true
+
+bosh \
+  -n \
+  -d cephfs \
+  deploy interpolated_manifest.yml
+
+bosh \
+  -n \
+  -d cf \
+  restart cephbroker || true

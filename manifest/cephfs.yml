@@ -1,0 +1,34 @@
+---
+instance_groups:
+- azs:
+  - z1
+  instances: 1
+  jobs:
+  - name: cephfs
+    release: cephfs
+    properties:
+      cephfs:
+        client_keyring: ((cephfs-keyring))
+  name: cephfs
+  vm_type: default
+  stemcell: default
+  persistent_disk_type: 50GB
+  networks:
+    - name: default
+
+name: cephfs
+releases:
+- name: cephfs
+  url: releases/cephfs.tgz
+  version: latest
+stemcells:
+- alias: default
+  os: ubuntu-trusty
+  version: latest
+update:
+  canaries: 1
+  canary_watch_time: 30000-1200000
+  max_in_flight: 5
+  serial: false
+  update_watch_time: 5000-1200000
+variables: []
