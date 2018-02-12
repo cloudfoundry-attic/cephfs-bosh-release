@@ -31,7 +31,7 @@ bosh \
 bosh \
   -n \
   -d cf \
-  start cephbroker || true
+  stop cephbroker || true
 
 bosh \
   -n \
