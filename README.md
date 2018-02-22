@@ -15,16 +15,16 @@ The instructions below will help you to install cephfs-bosh-release into your cl
 
 ### Uploading to bosh
 
-    ```bash
-    cd ~/workspace
-    git clone https://github.com/cloudfoundry-incubator/cephfs-bosh-release.git
-    cd cephfs-bosh-release
-    direnv allow
-    ./scripts/update
-    git submodule init && git submodule update
-    bosh -n create-release
-    bosh -n upload-release
-    ```
+```bash
+cd ~/workspace
+git clone https://github.com/cloudfoundry-incubator/cephfs-bosh-release.git
+cd cephfs-bosh-release
+direnv allow
+./scripts/update
+git submodule init && git submodule update
+bosh -n create-release
+bosh -n upload-release
+```
 
 ### Creating a keyring file
 #### ceph-keyring.yml
