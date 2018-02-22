@@ -11,7 +11,7 @@ The instructions below will help you to install cephfs-bosh-release into your cl
 - You will need Go 1.7 or later to install this project.  
 - it is recommended to install [direnv](https://github.com/direnv/direnv) to manage your GOPATH correctly
 - you will need (somewhere) a running [ceph-authtool](http://docs.ceph.com/docs/hammer/man/8/ceph-authtool/) in order to create a ceph keyring file.  This tool only runs on linux, so you may need to use your VM or container technology of choice.
-- you will need to install Cloud Foundry, or start from an existing CF deployment.  If you are starting from scratch, the article [Deploying CF and Diego to AWS](https://docs.cloudfoundry.org/deploying/index.html) provides detailed instructions.
+- you will need to install Cloud Foundry, or start from an existing CF deployment.  If you are starting from scratch, the article [Overview of Deploying Cloud Foundry](https://docs.cloudfoundry.org/deploying/index.html) provides detailed instructions.
 
 ### Uploading to bosh
 
@@ -126,7 +126,7 @@ The instructions below will help you to install cephfs-bosh-release into your cl
 > * **mount:** By default, volumes are mounted into the application container in an arbitrarily named folder under /var/vcap/data.  If you prefer to mount your directory to some specific path where your application expects it, you can control the container mount path by specifying the `mount` option.  The resulting bind command would look something like 
 > ``` cf bind-service pora myVolume -c '{"mount":"/var/my/path"}'```
 
-### test the app to make sure that it can access your volume
+### Test the app to make sure that it can access your volume
 * to check if the app is running, `curl http://pora.YOUR.DOMAIN.com` should return the instance index for your app
 * to check if the app can access the shared volume `curl http://pora.YOUR.DOMAIN.com/write` writes a file to the share and then reads it back out again.
 
