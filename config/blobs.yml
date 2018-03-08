@@ -1,297 +1,296 @@
----
 cephfs/apt-transport-https_1.0.1ubuntu2.11_amd64.deb:
+  size: 25044
   object_id: 67812bee-b590-4994-8890-5165779a0bdd
   sha: 60dbaa40254072f6ba093daf9f1ffcd009c3da87
-  size: 25044
 cephfs/ca-certificates_20141019ubuntu0.14.04.1_all.deb:
+  size: 189272
   object_id: 51d9198b-b682-4baa-b7b2-8e3a9173cb1b
   sha: 11e5913e99c57e94cea15cf2178aa3c3236469bb
-  size: 189272
-cephfs/ceph-deploy_1.5.31_all.deb:
-  object_id: e2f16d5c-f85d-4931-9fa2-683e673d3071
-  sha: 674dca66b339e829bb02708019999ac215dad3e0
-  size: 92178
-cephfs/ceph-fuse_9.2.0-1trusty_amd64.deb:
-  object_id: f1c18501-a6fe-4653-be54-7422b372a76b
-  sha: 9995a1ba7b1dead2f54b77258fd649d49769c41c
-  size: 2440610
-cephfs/ceph-mds_9.2.0-1trusty_amd64.deb:
-  object_id: c6839d17-2024-4bc1-9c5b-931d75703cd2
-  sha: dddfcab60e34327d2b9e0f45e59a1484a06ec440
-  size: 9694668
-cephfs/ceph_9.2.0-1trusty_amd64.deb:
-  object_id: 6c76f58d-9fe6-441f-8958-96d53ba09538
-  sha: ef99249aaf0d0646b9c51b41f0a1fc30289018c1
-  size: 12201364
-cephfs/cryptsetup-bin_2%3a1.6.1-1ubuntu1_amd64.deb:
-  object_id: 8e029432-135a-4e1a-a1fb-b28b2256bdc9
-  sha: 9f3d3f38f23116fe4d863bd5c7d6280fe25a4e6e
-  size: 80440
-cephfs/cryptsetup_2%3a1.6.1-1ubuntu1_amd64.deb:
-  object_id: 5d43658b-cf86-4dd4-a73b-9717c4c93c5b
-  sha: a40907ff48fcd934b78dee5cd8628c0bbee7903e
-  size: 115458
-cephfs/gdisk_0.8.8-1ubuntu0.1_amd64.deb:
-  object_id: 8b4f851a-9c26-4824-a9ad-949548ca8779
-  sha: cdcba632584900c9158c9fa464bc01372f213971
-  size: 185450
-cephfs/hdparm_9.43-1ubuntu3_amd64.deb:
-  object_id: 6c4e089a-cbfa-41da-97bc-090d4953e899
-  sha: d8cc0f98d7fc6ce575507e3a989e8db64c2cf492
-  size: 95132
-cephfs/libbabeltrace-ctf1_1.2.1-2_amd64.deb:
-  object_id: 3b6637da-bf18-4dfb-beec-6e6fb8cead62
-  sha: e55d9773899041f430e3bcc0be631ca53b3e21f4
-  size: 88322
-cephfs/libbabeltrace1_1.2.1-2_amd64.deb:
-  object_id: 89ff187c-8e03-43bf-b604-97d71fc148eb
-  sha: 81c2486ebdd3086017e8436a9b6b66d6097d86b7
-  size: 33924
-cephfs/libboost-program-options1.54.0_1.54.0-4ubuntu3.1_amd64.deb:
-  object_id: 592331f0-d5b8-43e5-87cf-1db0dd238aba
-  sha: 5b5119f79c99ac3f10135ee059fe52c6112c021a
-  size: 115234
-cephfs/libboost-random1.54.0_1.54.0-4ubuntu3.1_amd64.deb:
-  object_id: fbb98321-a75a-48c6-bdba-33201d1cdfaa
-  sha: fc59a3f26ea394d15a3dc3c93546338aae6f41bc
-  size: 9834
-cephfs/libboost-system1.54.0_1.54.0-4ubuntu3.1_amd64.deb:
-  object_id: 431bf8df-c7ee-471b-a727-31412a39493d
-  sha: 5c9fcf9dd86dbfbe28a3770596fd8b362fd37963
-  size: 10128
-cephfs/libboost-thread1.54.0_1.54.0-4ubuntu3.1_amd64.deb:
-  object_id: 35b27aa8-89eb-458b-959a-ee3f64c76f92
-  sha: 2a70eda354cff5776222f8fe9162f3ab1823900f
-  size: 26542
-cephfs/libcephfs1_9.2.0-1trusty_amd64.deb:
-  object_id: 1b87b18d-6f38-4e3a-939e-52fb44d6c996
-  sha: f919e193b8e567b00a0b1bd7105047c5f18fdec4
-  size: 2459858
-cephfs/libcryptsetup4_2%3a1.6.1-1ubuntu1_amd64.deb:
-  object_id: 54789e2e-4f20-41ea-b9a2-b1945b6f840c
-  sha: a8e2f635fc0caee0d90d67b0f0a0bd931eb7c48d
-  size: 77020
-cephfs/libcurl3-gnutls_7.35.0-1ubuntu2.6_amd64.deb:
-  object_id: a50fa49f-819b-4021-991e-4ac551f1960f
-  sha: 2eaf645c2b266127701e40950c5ac3f2c48d03cb
-  size: 165276
-cephfs/libfuse2_2.9.2-4ubuntu4.14.04.1_amd64.deb:
-  object_id: 610d1953-a5da-4b2a-8caa-faafa6d4b08a
-  sha: 1ed58e3a9a2b90f015bbea3774603181aaa9252f
-  size: 87404
-cephfs/libgoogle-perftools4_2.1-2ubuntu1.1_amd64.deb:
-  object_id: ab97439d-c72f-4aad-b6dd-8f7865ae0356
-  sha: 0af1a995be72017a994a5bc4a2bf08672168d19a
-  size: 184230
-cephfs/libicu52_52.1-3ubuntu0.4_amd64.deb:
-  object_id: 26b017ae-73ce-4c14-88da-f84b9c4e756d
-  sha: 75caf725dd1dc543caeb991f3d7ed1ca9446d79c
-  size: 6751826
-cephfs/libjs-jquery_1.7.2+dfsg-2ubuntu1_all.deb:
-  object_id: a609c3fb-f3cb-4f99-b753-17ade9c22705
-  sha: 7ff557527ac4b97356d5dd1db1a73c4e5cd7362e
-  size: 78758
-cephfs/libleveldb1_1.15.0-2_amd64.deb:
-  object_id: 3fa47cd9-b0c4-4b44-a9f1-51a96728106f
-  sha: bdb8734913909ed0db24edf4a4b35e8df3103ae2
-  size: 117456
-cephfs/liblttng-ust-ctl2_2.4.0-4ubuntu1_amd64.deb:
-  object_id: d8302f43-8012-423f-98b8-2f41236566c8
-  sha: c33bc90258af82f453737cbd5de3ea783bfd9380
-  size: 61738
-cephfs/liblttng-ust0_2.4.0-4ubuntu1_amd64.deb:
-  object_id: 27cad6d8-3382-405e-b55f-c769dea3ca96
-  sha: 044a1af25f2e02895b48721293ac9433188a0b26
-  size: 106002
-cephfs/libnspr4-0d_2%3a4.10.10-0ubuntu0.14.04.1_amd64.deb:
-  object_id: 8f884c0e-bcb4-4125-963e-6efa8a4a904b
-  sha: 044baf36f8dc60294ef7497cc8ec3b47a2f17ed5
-  size: 6578
-cephfs/libnspr4_2%3a4.10.10-0ubuntu0.14.04.1_amd64.deb:
-  object_id: 46ff4ab8-693a-4bac-b471-d2042fc32f8e
-  sha: 26a6de0b89306124be676828df2c7b62d8d398a5
-  size: 110502
-cephfs/libnss3-1d_2%3a3.19.2.1-0ubuntu0.14.04.2_amd64.deb:
-  object_id: e023747b-3086-4db4-a30e-b4bdd069b155
-  sha: 619c68fb8774307b19364511e39989d6be6bfa96
-  size: 9296
-cephfs/libnss3-nssdb_2%3a3.19.2.1-0ubuntu0.14.04.2_all.deb:
-  object_id: 44084d99-cacc-4ce9-b96c-0d2c2afc7957
-  sha: f9724632184fd1330e80dce8b907fd183409fe64
-  size: 10562
-cephfs/libnss3_2%3a3.19.2.1-0ubuntu0.14.04.2_amd64.deb:
-  object_id: 33b93165-1727-4e43-a880-2c8c1f9fdb16
-  sha: 2689af33309e9b3b68bbe65f840d03f12b415f0c
-  size: 1103374
-cephfs/librados2_9.2.0-1trusty_amd64.deb:
-  object_id: 100bc4ac-ef1d-4e63-90a6-79cb1ae34e39
-  sha: 57bd2c9d1a08aabcd565819d59695289e56c2f98
-  size: 2374344
-cephfs/libradosstriper1_9.2.0-1trusty_amd64.deb:
-  object_id: b1a082a1-098e-423f-98eb-9b65aa5c4792
-  sha: 78f8cb1445e63a029e02e8b95c9651e1f24cabd6
-  size: 2434148
-cephfs/librbd1_9.2.0-1trusty_amd64.deb:
-  object_id: ce568565-68d5-48aa-8ec2-a0545123be23
-  sha: 0a30909abe3820878602c8519f7ca11e77fbf30b
-  size: 2505774
-cephfs/libreadline5_5.2+dfsg-2_amd64.deb:
-  object_id: f4c5a32c-c8c7-4d48-8b07-07fe950edcb7
-  sha: 5e0e4d8cbad5302244c06f79f74497a30754f8af
-  size: 130428
-cephfs/libsnappy1_1.1.0-1ubuntu1_amd64.deb:
-  object_id: ad3058c9-c80c-4dd5-9de8-e3d1adf26eb2
-  sha: 91ecd4736b00cfd64ff3a38bb97c7cae4f597259
-  size: 11152
-cephfs/libtcmalloc-minimal4_2.1-2ubuntu1.1_amd64.deb:
-  object_id: d746a38d-5a17-4696-aebe-2bc325c78861
-  sha: 21e3560cee7cc522cb2f4e6b3353050b5c2bc080
-  size: 103390
-cephfs/libunwind8_1.1-2.2ubuntu3_amd64.deb:
-  object_id: 4168ac98-6754-40cc-a581-54ae6b475ac6
-  sha: 0e4fdaf969a4226898f6c242d72931bedacc4043
-  size: 48294
-cephfs/liburcu1_0.7.12-0ubuntu2_amd64.deb:
-  object_id: 1c311825-bd88-4400-b002-9ba8bc8412fd
-  sha: 2ac3e285032f428b9f67c3993054ed463fb4e6ab
-  size: 34852
-cephfs/python-cephfs_9.2.0-1trusty_amd64.deb:
-  object_id: d4bbef8b-07df-4941-986b-f34f9a15ce08
-  sha: e089cccdf5a99f528c917cee0793da98e015d0c3
-  size: 865420
-cephfs/python-chardet_2.0.1-2build2_all.deb:
-  object_id: 4a629aeb-ece0-452e-ba23-d5ea94430ac6
-  sha: 3b8d252416dbe56bfab86d380085d657803f396f
-  size: 106256
-cephfs/python-flask_0.10.1-2build1_all.deb:
-  object_id: d9cdf00d-f14d-4150-998c-68c1ad9dc9bc
-  sha: 73db69c1b4dad8681433c94cfedebcd312736a3c
-  size: 51728
-cephfs/python-itsdangerous_0.22+dfsg1-1build1_all.deb:
-  object_id: efa1820a-e43c-4725-9652-eea6403d498f
-  sha: 1cb686225d50727fc066943a07761c7d5fad4ba9
-  size: 11546
-cephfs/python-jinja2_2.7.2-2_all.deb:
-  object_id: ea08ec72-451a-4b0e-a313-f3615eb1b7ac
-  sha: 833733bf8fd25c66ad83d8fd49160adac60ab63f
-  size: 160620
-cephfs/python-markupsafe_0.18-1build2_amd64.deb:
-  object_id: 49562bb6-eca9-433a-9566-d7ee3dd0ce5f
-  sha: 9bf02f8a0d5b6504da191587d160a6f29c828c66
-  size: 14308
-cephfs/python-rados_9.2.0-1trusty_amd64.deb:
-  object_id: ac76f884-0c8d-49e9-84e7-1d399ef9743f
-  sha: 6d5ef2cd7a64d299ab63ac8fbf183c5feaa59603
-  size: 874652
-cephfs/python-rbd_9.2.0-1trusty_amd64.deb:
-  object_id: 8a5d3256-da71-4708-a392-c79287f73ec7
-  sha: 3b08c65d9d8f8857662f89134b391c09133fd651
-  size: 869498
-cephfs/python-requests_2.2.1-1ubuntu0.3_all.deb:
-  object_id: e32c6c70-5943-4728-933c-5003cb8e87bb
-  sha: 2fa81f5b7995e50e52822db4d6a46326b9cbc58c
-  size: 43140
-cephfs/python-six_1.5.2-1ubuntu1_all.deb:
-  object_id: f4064061-269a-4552-aa93-28fd7d3f381b
-  sha: 4ccdb4e9cd2101312de47771153336f7f8a00bc9
-  size: 8238
-cephfs/python-urllib3_1.7.1-1ubuntu4_all.deb:
-  object_id: c6abdfdb-1513-4e06-91af-221aea821ace
-  sha: 118967ed1c76c8516d7278859c21bbd00813fce9
-  size: 39488
-cephfs/python-werkzeug_0.9.4+dfsg-1.1ubuntu2_all.deb:
-  object_id: 184f265a-0a99-494e-8353-f99f3a89005c
-  sha: bb8394a4e72b40e0f65688b6da51efd9ce957c6b
-  size: 236108
-cephfs/sdparm_1.07-1_amd64.deb:
-  object_id: fdc2f371-35e2-48ed-be0c-80d59d42a391
-  sha: 4d044a2c458bf45620f25cce05f64e6e2dabd462
-  size: 109852
-cephfs/upstart_1.12.1-0ubuntu4.2_amd64.deb:
-  object_id: f5d54659-4501-4f62-990f-dba9beebbf0b
-  sha: 2829030248e19d5861fb547841e231b646960751
-  size: 389562
-cephfs/uuid-runtime_2.20.1-5.1ubuntu20.7_amd64.deb:
-  object_id: c9464b16-516b-4c60-bf58-ee58e38ff140
-  sha: cd52248729efdbe150ec23e091617d58ef653333
-  size: 12304
-cephfs/xfsprogs_3.1.9ubuntu2_amd64.deb:
-  object_id: 99418534-55b8-470e-aecc-a706edc65631
-  sha: c0b0000a524e5e90b73d0eb05578b1ef8414e1e1
-  size: 508136
-python27/libpython-stdlib_2.7.5-5ubuntu3_amd64.deb:
-  object_id: 6fc31933-12c5-43f8-8de9-72718ac5fe01
-  sha: 8893ea97d8b962a56d88ff8c6234c25c1cdb2a84
-  size: 7012
-python27/libpython2.7-minimal_2.7.6-8ubuntu0.2_amd64.deb:
-  object_id: c0cda7c2-84d6-4f78-9a0d-03c164791705
-  sha: d8dcfb156026bbf451502eef0fc0376fa3fabefc
-  size: 307916
-python27/libpython2.7-stdlib_2.7.6-8ubuntu0.2_amd64.deb:
-  object_id: 647ad52b-cbb2-4eea-a8d5-47699c63b6ce
-  sha: b3a639145df0e1fd76a98cb4c6f1ac08f2c4de2f
-  size: 1869374
-python27/python-minimal_2.7.5-5ubuntu3_amd64.deb:
-  object_id: fbbb18a4-32dd-418c-ab47-e37cf3f88559
-  sha: 5fd061c8e2ad05737ce421ebeb7a2d4231a07fc3
-  size: 27500
-python27/python2.7-minimal_2.7.6-8ubuntu0.2_amd64.deb:
-  object_id: 364c3925-7301-4090-95d7-27fd102e6201
-  sha: 984bfe30245a2e757341b0c9abb16f97ae51b0b8
-  size: 1185096
-python27/python2.7_2.7.6-8ubuntu0.2_amd64.deb:
-  object_id: d87f3583-2d7a-453f-93fc-a5616ef6bea4
-  sha: b87ff6940cd17466e867a5e1e6f70fbca14cfe0c
-  size: 195822
-python27/python_2.7.5-5ubuntu3_amd64.deb:
-  object_id: e45c4efd-be8f-4bc8-bcec-7b2d7afbf1f0
-  sha: 5337fb1bc17f737839115c80217cf4be4ce4f39b
-  size: 133698
-setuptools/python-pkg-resources_3.3-1ubuntu2_all.deb:
-  object_id: f516a09a-ea5f-405c-89dc-fb74aa09d6d2
-  sha: 5ca65ea801c538cd41f737c5c075288d1ff1cfac
-  size: 61910
-setuptools/python-setuptools_3.3-1ubuntu2_all.deb:
-  object_id: 8f2cbbdc-efe8-474f-bdaa-cf86b3f5ff80
-  sha: c0b0426d3c4bb8f45e61a9fb8f76021ee394f45b
-  size: 230056
 cephfs/ceph-common_9.2.0-1trusty_amd64.deb:
+  size: 5997694
   object_id: feb04f33-226e-4ed0-a704-5b57be0a9387
   sha: ddd7082716047e536351eaab5b7f733f2c6466bc
-  size: 5997694
+cephfs/ceph-deploy_1.5.31_all.deb:
+  size: 92178
+  object_id: e2f16d5c-f85d-4931-9fa2-683e673d3071
+  sha: 674dca66b339e829bb02708019999ac215dad3e0
 cephfs/ceph-fs-common_9.2.0-1trusty_amd64.deb:
+  size: 882452
   object_id: 18713b32-bf47-4ad6-98c9-43ded6322a01
   sha: 65c6996566fd45aec52c02a76599013d58ebfdf5
-  size: 882452
+cephfs/ceph-fuse_9.2.0-1trusty_amd64.deb:
+  size: 2440610
+  object_id: f1c18501-a6fe-4653-be54-7422b372a76b
+  sha: 9995a1ba7b1dead2f54b77258fd649d49769c41c
+cephfs/ceph-mds_9.2.0-1trusty_amd64.deb:
+  size: 9694668
+  object_id: c6839d17-2024-4bc1-9c5b-931d75703cd2
+  sha: dddfcab60e34327d2b9e0f45e59a1484a06ec440
+cephfs/ceph_9.2.0-1trusty_amd64.deb:
+  size: 12201364
+  object_id: 6c76f58d-9fe6-441f-8958-96d53ba09538
+  sha: ef99249aaf0d0646b9c51b41f0a1fc30289018c1
+cephfs/cryptsetup-bin_2%3a1.6.1-1ubuntu1_amd64.deb:
+  size: 80440
+  object_id: 8e029432-135a-4e1a-a1fb-b28b2256bdc9
+  sha: 9f3d3f38f23116fe4d863bd5c7d6280fe25a4e6e
+cephfs/cryptsetup_2%3a1.6.1-1ubuntu1_amd64.deb:
+  size: 115458
+  object_id: 5d43658b-cf86-4dd4-a73b-9717c4c93c5b
+  sha: a40907ff48fcd934b78dee5cd8628c0bbee7903e
+cephfs/gdisk_0.8.8-1ubuntu0.1_amd64.deb:
+  size: 185450
+  object_id: 8b4f851a-9c26-4824-a9ad-949548ca8779
+  sha: cdcba632584900c9158c9fa464bc01372f213971
+cephfs/hdparm_9.43-1ubuntu3_amd64.deb:
+  size: 95132
+  object_id: 6c4e089a-cbfa-41da-97bc-090d4953e899
+  sha: d8cc0f98d7fc6ce575507e3a989e8db64c2cf492
+cephfs/libbabeltrace-ctf1_1.2.1-2_amd64.deb:
+  size: 88322
+  object_id: 3b6637da-bf18-4dfb-beec-6e6fb8cead62
+  sha: e55d9773899041f430e3bcc0be631ca53b3e21f4
+cephfs/libbabeltrace1_1.2.1-2_amd64.deb:
+  size: 33924
+  object_id: 89ff187c-8e03-43bf-b604-97d71fc148eb
+  sha: 81c2486ebdd3086017e8436a9b6b66d6097d86b7
+cephfs/libboost-program-options1.54.0_1.54.0-4ubuntu3.1_amd64.deb:
+  size: 115234
+  object_id: 592331f0-d5b8-43e5-87cf-1db0dd238aba
+  sha: 5b5119f79c99ac3f10135ee059fe52c6112c021a
+cephfs/libboost-random1.54.0_1.54.0-4ubuntu3.1_amd64.deb:
+  size: 9834
+  object_id: fbb98321-a75a-48c6-bdba-33201d1cdfaa
+  sha: fc59a3f26ea394d15a3dc3c93546338aae6f41bc
+cephfs/libboost-system1.54.0_1.54.0-4ubuntu3.1_amd64.deb:
+  size: 10128
+  object_id: 431bf8df-c7ee-471b-a727-31412a39493d
+  sha: 5c9fcf9dd86dbfbe28a3770596fd8b362fd37963
+cephfs/libboost-thread1.54.0_1.54.0-4ubuntu3.1_amd64.deb:
+  size: 26542
+  object_id: 35b27aa8-89eb-458b-959a-ee3f64c76f92
+  sha: 2a70eda354cff5776222f8fe9162f3ab1823900f
+cephfs/libcephfs1_9.2.0-1trusty_amd64.deb:
+  size: 2459858
+  object_id: 1b87b18d-6f38-4e3a-939e-52fb44d6c996
+  sha: f919e193b8e567b00a0b1bd7105047c5f18fdec4
+cephfs/libcryptsetup4_2%3a1.6.1-1ubuntu1_amd64.deb:
+  size: 77020
+  object_id: 54789e2e-4f20-41ea-b9a2-b1945b6f840c
+  sha: a8e2f635fc0caee0d90d67b0f0a0bd931eb7c48d
+cephfs/libcurl3-gnutls_7.35.0-1ubuntu2.6_amd64.deb:
+  size: 165276
+  object_id: a50fa49f-819b-4021-991e-4ac551f1960f
+  sha: 2eaf645c2b266127701e40950c5ac3f2c48d03cb
+cephfs/libfuse2_2.9.2-4ubuntu4.14.04.1_amd64.deb:
+  size: 87404
+  object_id: 610d1953-a5da-4b2a-8caa-faafa6d4b08a
+  sha: 1ed58e3a9a2b90f015bbea3774603181aaa9252f
+cephfs/libgoogle-perftools4_2.1-2ubuntu1.1_amd64.deb:
+  size: 184230
+  object_id: ab97439d-c72f-4aad-b6dd-8f7865ae0356
+  sha: 0af1a995be72017a994a5bc4a2bf08672168d19a
+cephfs/libicu52_52.1-3ubuntu0.4_amd64.deb:
+  size: 6751826
+  object_id: 26b017ae-73ce-4c14-88da-f84b9c4e756d
+  sha: 75caf725dd1dc543caeb991f3d7ed1ca9446d79c
+cephfs/libjs-jquery_1.7.2+dfsg-2ubuntu1_all.deb:
+  size: 78758
+  object_id: a609c3fb-f3cb-4f99-b753-17ade9c22705
+  sha: 7ff557527ac4b97356d5dd1db1a73c4e5cd7362e
+cephfs/libleveldb1_1.15.0-2_amd64.deb:
+  size: 117456
+  object_id: 3fa47cd9-b0c4-4b44-a9f1-51a96728106f
+  sha: bdb8734913909ed0db24edf4a4b35e8df3103ae2
+cephfs/liblttng-ust-ctl2_2.4.0-4ubuntu1_amd64.deb:
+  size: 61738
+  object_id: d8302f43-8012-423f-98b8-2f41236566c8
+  sha: c33bc90258af82f453737cbd5de3ea783bfd9380
+cephfs/liblttng-ust0_2.4.0-4ubuntu1_amd64.deb:
+  size: 106002
+  object_id: 27cad6d8-3382-405e-b55f-c769dea3ca96
+  sha: 044a1af25f2e02895b48721293ac9433188a0b26
+cephfs/libnspr4-0d_2%3a4.10.10-0ubuntu0.14.04.1_amd64.deb:
+  size: 6578
+  object_id: 8f884c0e-bcb4-4125-963e-6efa8a4a904b
+  sha: 044baf36f8dc60294ef7497cc8ec3b47a2f17ed5
+cephfs/libnspr4_2%3a4.10.10-0ubuntu0.14.04.1_amd64.deb:
+  size: 110502
+  object_id: 46ff4ab8-693a-4bac-b471-d2042fc32f8e
+  sha: 26a6de0b89306124be676828df2c7b62d8d398a5
+cephfs/libnss3-1d_2%3a3.19.2.1-0ubuntu0.14.04.2_amd64.deb:
+  size: 9296
+  object_id: e023747b-3086-4db4-a30e-b4bdd069b155
+  sha: 619c68fb8774307b19364511e39989d6be6bfa96
+cephfs/libnss3-nssdb_2%3a3.19.2.1-0ubuntu0.14.04.2_all.deb:
+  size: 10562
+  object_id: 44084d99-cacc-4ce9-b96c-0d2c2afc7957
+  sha: f9724632184fd1330e80dce8b907fd183409fe64
+cephfs/libnss3_2%3a3.19.2.1-0ubuntu0.14.04.2_amd64.deb:
+  size: 1103374
+  object_id: 33b93165-1727-4e43-a880-2c8c1f9fdb16
+  sha: 2689af33309e9b3b68bbe65f840d03f12b415f0c
+cephfs/librados2_9.2.0-1trusty_amd64.deb:
+  size: 2374344
+  object_id: 100bc4ac-ef1d-4e63-90a6-79cb1ae34e39
+  sha: 57bd2c9d1a08aabcd565819d59695289e56c2f98
+cephfs/libradosstriper1_9.2.0-1trusty_amd64.deb:
+  size: 2434148
+  object_id: b1a082a1-098e-423f-98eb-9b65aa5c4792
+  sha: 78f8cb1445e63a029e02e8b95c9651e1f24cabd6
+cephfs/librbd1_9.2.0-1trusty_amd64.deb:
+  size: 2505774
+  object_id: ce568565-68d5-48aa-8ec2-a0545123be23
+  sha: 0a30909abe3820878602c8519f7ca11e77fbf30b
+cephfs/libreadline5_5.2+dfsg-2_amd64.deb:
+  size: 130428
+  object_id: f4c5a32c-c8c7-4d48-8b07-07fe950edcb7
+  sha: 5e0e4d8cbad5302244c06f79f74497a30754f8af
+cephfs/libsnappy1_1.1.0-1ubuntu1_amd64.deb:
+  size: 11152
+  object_id: ad3058c9-c80c-4dd5-9de8-e3d1adf26eb2
+  sha: 91ecd4736b00cfd64ff3a38bb97c7cae4f597259
+cephfs/libtcmalloc-minimal4_2.1-2ubuntu1.1_amd64.deb:
+  size: 103390
+  object_id: d746a38d-5a17-4696-aebe-2bc325c78861
+  sha: 21e3560cee7cc522cb2f4e6b3353050b5c2bc080
+cephfs/libunwind8_1.1-2.2ubuntu3_amd64.deb:
+  size: 48294
+  object_id: 4168ac98-6754-40cc-a581-54ae6b475ac6
+  sha: 0e4fdaf969a4226898f6c242d72931bedacc4043
+cephfs/liburcu1_0.7.12-0ubuntu2_amd64.deb:
+  size: 34852
+  object_id: 1c311825-bd88-4400-b002-9ba8bc8412fd
+  sha: 2ac3e285032f428b9f67c3993054ed463fb4e6ab
+cephfs/python-cephfs_9.2.0-1trusty_amd64.deb:
+  size: 865420
+  object_id: d4bbef8b-07df-4941-986b-f34f9a15ce08
+  sha: e089cccdf5a99f528c917cee0793da98e015d0c3
+cephfs/python-chardet_2.0.1-2build2_all.deb:
+  size: 106256
+  object_id: 4a629aeb-ece0-452e-ba23-d5ea94430ac6
+  sha: 3b8d252416dbe56bfab86d380085d657803f396f
+cephfs/python-flask_0.10.1-2build1_all.deb:
+  size: 51728
+  object_id: d9cdf00d-f14d-4150-998c-68c1ad9dc9bc
+  sha: 73db69c1b4dad8681433c94cfedebcd312736a3c
+cephfs/python-itsdangerous_0.22+dfsg1-1build1_all.deb:
+  size: 11546
+  object_id: efa1820a-e43c-4725-9652-eea6403d498f
+  sha: 1cb686225d50727fc066943a07761c7d5fad4ba9
+cephfs/python-jinja2_2.7.2-2_all.deb:
+  size: 160620
+  object_id: ea08ec72-451a-4b0e-a313-f3615eb1b7ac
+  sha: 833733bf8fd25c66ad83d8fd49160adac60ab63f
+cephfs/python-markupsafe_0.18-1build2_amd64.deb:
+  size: 14308
+  object_id: 49562bb6-eca9-433a-9566-d7ee3dd0ce5f
+  sha: 9bf02f8a0d5b6504da191587d160a6f29c828c66
+cephfs/python-rados_9.2.0-1trusty_amd64.deb:
+  size: 874652
+  object_id: ac76f884-0c8d-49e9-84e7-1d399ef9743f
+  sha: 6d5ef2cd7a64d299ab63ac8fbf183c5feaa59603
+cephfs/python-rbd_9.2.0-1trusty_amd64.deb:
+  size: 869498
+  object_id: 8a5d3256-da71-4708-a392-c79287f73ec7
+  sha: 3b08c65d9d8f8857662f89134b391c09133fd651
+cephfs/python-requests_2.2.1-1ubuntu0.3_all.deb:
+  size: 43140
+  object_id: e32c6c70-5943-4728-933c-5003cb8e87bb
+  sha: 2fa81f5b7995e50e52822db4d6a46326b9cbc58c
+cephfs/python-six_1.5.2-1ubuntu1_all.deb:
+  size: 8238
+  object_id: f4064061-269a-4552-aa93-28fd7d3f381b
+  sha: 4ccdb4e9cd2101312de47771153336f7f8a00bc9
+cephfs/python-urllib3_1.7.1-1ubuntu4_all.deb:
+  size: 39488
+  object_id: c6abdfdb-1513-4e06-91af-221aea821ace
+  sha: 118967ed1c76c8516d7278859c21bbd00813fce9
+cephfs/python-werkzeug_0.9.4+dfsg-1.1ubuntu2_all.deb:
+  size: 236108
+  object_id: 184f265a-0a99-494e-8353-f99f3a89005c
+  sha: bb8394a4e72b40e0f65688b6da51efd9ce957c6b
+cephfs/sdparm_1.07-1_amd64.deb:
+  size: 109852
+  object_id: fdc2f371-35e2-48ed-be0c-80d59d42a391
+  sha: 4d044a2c458bf45620f25cce05f64e6e2dabd462
+cephfs/upstart_1.12.1-0ubuntu4.2_amd64.deb:
+  size: 389562
+  object_id: f5d54659-4501-4f62-990f-dba9beebbf0b
+  sha: 2829030248e19d5861fb547841e231b646960751
+cephfs/uuid-runtime_2.20.1-5.1ubuntu20.7_amd64.deb:
+  size: 12304
+  object_id: c9464b16-516b-4c60-bf58-ee58e38ff140
+  sha: cd52248729efdbe150ec23e091617d58ef653333
+cephfs/xfsprogs_3.1.9ubuntu2_amd64.deb:
+  size: 508136
+  object_id: 99418534-55b8-470e-aecc-a706edc65631
+  sha: c0b0000a524e5e90b73d0eb05578b1ef8414e1e1
 cephfuse/ceph-fuse_0.80.11-0ubuntu1.14.04.1_amd64.deb:
+  size: 1369006
   object_id: 1be6824c-9fd1-4464-b382-42ab69d83786
   sha: 26e24344b11295222d429d67886886c504008f40
-  size: 1369006
 cephfuse/fuse_2.9.2-4ubuntu4.14.04.1_amd64.deb:
+  size: 25106
   object_id: 962a2ffc-32ac-48ed-8350-adea9145cb83
   sha: d7dde526bc751b118fe296fd8e3d6a7e71251c3c
-  size: 25106
 cephfuse/libboost-system1.54.0_1.54.0-4ubuntu3.1_amd64.deb:
+  size: 10128
   object_id: d7544bb9-1b21-4e76-8144-8ee7c0a3d4be
   sha: 5c9fcf9dd86dbfbe28a3770596fd8b362fd37963
-  size: 10128
 cephfuse/libboost-thread1.54.0_1.54.0-4ubuntu3.1_amd64.deb:
+  size: 26542
   object_id: 30cce557-a25b-4f99-9e55-447606e144e6
   sha: 2a70eda354cff5776222f8fe9162f3ab1823900f
-  size: 26542
 cephfuse/libnspr4_2%3a4.10.10-0ubuntu0.14.04.1_amd64.deb:
+  size: 110502
   object_id: fa5dd725-0de0-4ce1-ba40-adf5ebf278a5
   sha: 26a6de0b89306124be676828df2c7b62d8d398a5
-  size: 110502
 cephfuse/libnss3-nssdb_2%3a3.21-0ubuntu0.14.04.2_all.deb:
+  size: 10550
   object_id: e9a9b84f-1dae-4f40-991d-8634539a5ae1
   sha: 4a78df7d92badf7fe03938146a308f92d34f6e62
-  size: 10550
 cephfuse/libnss3_2%3a3.21-0ubuntu0.14.04.2_amd64.deb:
+  size: 1102834
   object_id: c26d68d1-0fbb-4923-af56-a368617a57be
   sha: 341182734a73ef4ed857f81250d8417b819ad31e
-  size: 1102834
-golang/go1.8.3.linux-amd64.tar.gz:
-  object_id: b5d87f3d-c31d-493f-a64b-c5caf1cea01e
-  sha: 838c415896ef5ecd395dfabde5e7e6f8ac943c8e
-  size: 90029041
+golang/go1.10.linux-amd64.tar.gz:
+  size: 119905205
+  object_id: 0442456a-147c-4920-531f-61cababc6b61
+  sha: 693e2dfd99ef2d608b41c450efd9d277bf2a7f2f
+python27/libpython-stdlib_2.7.5-5ubuntu3_amd64.deb:
+  size: 7012
+  object_id: 6fc31933-12c5-43f8-8de9-72718ac5fe01
+  sha: 8893ea97d8b962a56d88ff8c6234c25c1cdb2a84
+python27/libpython2.7-minimal_2.7.6-8ubuntu0.2_amd64.deb:
+  size: 307916
+  object_id: c0cda7c2-84d6-4f78-9a0d-03c164791705
+  sha: d8dcfb156026bbf451502eef0fc0376fa3fabefc
+python27/libpython2.7-stdlib_2.7.6-8ubuntu0.2_amd64.deb:
+  size: 1869374
+  object_id: 647ad52b-cbb2-4eea-a8d5-47699c63b6ce
+  sha: b3a639145df0e1fd76a98cb4c6f1ac08f2c4de2f
+python27/python-minimal_2.7.5-5ubuntu3_amd64.deb:
+  size: 27500
+  object_id: fbbb18a4-32dd-418c-ab47-e37cf3f88559
+  sha: 5fd061c8e2ad05737ce421ebeb7a2d4231a07fc3
+python27/python_2.7.5-5ubuntu3_amd64.deb:
+  size: 133698
+  object_id: e45c4efd-be8f-4bc8-bcec-7b2d7afbf1f0
+  sha: 5337fb1bc17f737839115c80217cf4be4ce4f39b
+python27/python2.7-minimal_2.7.6-8ubuntu0.2_amd64.deb:
+  size: 1185096
+  object_id: 364c3925-7301-4090-95d7-27fd102e6201
+  sha: 984bfe30245a2e757341b0c9abb16f97ae51b0b8
+python27/python2.7_2.7.6-8ubuntu0.2_amd64.deb:
+  size: 195822
+  object_id: d87f3583-2d7a-453f-93fc-a5616ef6bea4
+  sha: b87ff6940cd17466e867a5e1e6f70fbca14cfe0c
+setuptools/python-pkg-resources_3.3-1ubuntu2_all.deb:
+  size: 61910
+  object_id: f516a09a-ea5f-405c-89dc-fb74aa09d6d2
+  sha: 5ca65ea801c538cd41f737c5c075288d1ff1cfac
+setuptools/python-setuptools_3.3-1ubuntu2_all.deb:
+  size: 230056
+  object_id: 8f2cbbdc-efe8-474f-bdaa-cf86b3f5ff80
+  sha: c0b0426d3c4bb8f45e61a9fb8f76021ee394f45b
