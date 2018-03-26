@@ -4,9 +4,9 @@
 set -x -e
 
 version=`cat ceph-version/number`
+tarball_name=cephfs-$version.tgz
+
 pushd cephfs-bosh-release
-
-bosh -n --parallel 10 create release --version $version --name cephfs --force --with-tarball
-
-mv dev_releases/cephfs/*.tgz ../created-cephfs-bosh-release
+  bosh -n create-release --version=$version --force --tarball=$tarball_name
+  mv $tarball_name ../created-cephfs-bosh-release
 popd
