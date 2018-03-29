@@ -19,6 +19,7 @@ pushd `dirname $0`
     CONFIG=${PWD}/config
     mkdir -p ${CONFIG}
     CONFIG=${CONFIG}/pats.json
+    randval=`openssl rand -hex 3`
 
     set +e
     which cf
@@ -46,7 +47,7 @@ pushd `dirname $0`
       \"broker_password\": \"${9}\",
       \"skip_ssl_validation\": true,
       \"default_timeout\": 30,
-      \"name_prefix\": \"PATs\"
+      \"name_prefix\": \"${randval}\"
     } "  > ${CONFIG}
 
     export TEST_APPLICATION_PATH="${PWD}/../src/code.cloudfoundry.org/persi-acceptance-tests/assets/pora"
