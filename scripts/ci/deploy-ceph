@@ -6,8 +6,10 @@ function finish {
 }
 trap finish EXIT
 
-source persi-ci/scripts/ci/bbl_get_bosh_env
-source bosh-env/set-env.sh
+pushd vars-store/${BBL_STATE_DIR}
+  bbl print-env > set-env.sh 
+  source set-env.sh
+popd
 
 mkdir releases
 cp cephfs-bosh-release-tarball/*.tgz releases/cephfs.tgz
