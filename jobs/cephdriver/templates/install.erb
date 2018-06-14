@@ -17,9 +17,15 @@ popd
 
 codename=$(lsb_release -c | awk '{print $2}')
 if [ "$codename" == "trusty" ]; then
+  (
+  flock -x 200
   dpkg  --force-confdef -i /var/vcap/packages/cephfuse/fuse_2.9.2-4ubuntu4.14.04.1_amd64.deb
+  ) 200>/var/vcap/data/dpkg.lock
 elif [ "$codename" == "xenial" ]; then
+  (
+  flock -x 200
   dpkg  --force-confdef -i /var/vcap/packages/cephfuse/fuse_2.9.4-1ubuntu3.1_amd64.deb
+  ) 200>/var/vcap/data/dpkg.lock
 fi
 
 modprobe fuse
@@ -33,6 +39,8 @@ chmod 644 /etc/fuse.conf
 
 echo "Installing ceph-fuse"
 if [ "$codename" == "trusty" ]; then
+  (
+  flock -x 200
   dpkg  --force-confdef -i \
   /var/vcap/packages/cephfuse/ceph-fuse_0.80.11-0ubuntu1.14.04.1_amd64.deb \
   /var/vcap/packages/cephfuse/libboost-system1.54.0_1.54.0-4ubuntu3.1_amd64.deb \
@@ -40,7 +48,10 @@ if [ "$codename" == "trusty" ]; then
   /var/vcap/packages/cephfuse/libnspr4_2%3a4.10.10-0ubuntu0.14.04.1_amd64.deb  \
   /var/vcap/packages/cephfuse/libnss3_2%3a3.21-0ubuntu0.14.04.2_amd64.deb    \
   /var/vcap/packages/cephfuse/libnss3-nssdb_2%3a3.21-0ubuntu0.14.04.2_all.deb
+  ) 200>/var/vcap/data/dpkg.lock
 elif [ "$codename" == "xenial" ]; then
+  (
+  flock -x 200
   dpkg  --force-confdef -i \
   /var/vcap/packages/cephfuse/ceph-fuse_10.2.9-0ubuntu0.16.04.1_amd64.deb \
   /var/vcap/packages/cephfuse/libunwind8_1.1-4.1_amd64.deb \
@@ -54,6 +65,7 @@ elif [ "$codename" == "xenial" ]; then
   /var/vcap/packages/cephfuse/libnss3-1d_2%3a3.28.4-0ubuntu0.16.04.3_amd64.deb \
   /var/vcap/packages/cephfuse/libnss3-nssdb_2%3a3.28.4-0ubuntu0.16.04.3_all.deb \
   /var/vcap/packages/cephfuse/libnss3_2%3a3.28.4-0ubuntu0.16.04.3_amd64.deb
+  ) 200>/var/vcap/data/dpkg.lock
 fi
 
 sudo mkdir -p /var/run/ceph && sudo chown -R vcap:vcap /var/run/ceph
