@@ -2,3 +2,4 @@
 set -e -x
 
 cp -a ${BOSH_COMPILE_TARGET}/cephfuse/*.deb ${BOSH_INSTALL_TARGET}/
+cp -a ${BOSH_COMPILE_TARGET}/cephfuse/xenial/*.deb ${BOSH_INSTALL_TARGET}/

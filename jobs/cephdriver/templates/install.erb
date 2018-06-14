@@ -15,9 +15,15 @@ pushd $VOL_DIR
   for d in *; do rm -rf $d || true; done
 popd
 
-dpkg  --force-confdef -i /var/vcap/packages/cephfuse/fuse_2.9.2-4ubuntu4.14.04.1_amd64.deb
+codename=$(lsb_release -c | awk '{print $2}')
+if [ "$codename" == "trusty" ]; then
+  dpkg  --force-confdef -i /var/vcap/packages/cephfuse/fuse_2.9.2-4ubuntu4.14.04.1_amd64.deb
+elif [ "$codename" == "xenial" ]; then
+  dpkg  --force-confdef -i /var/vcap/packages/cephfuse/fuse_2.9.4-1ubuntu3.1_amd64.deb
+fi
 
 modprobe fuse
+groupadd fuse || true
 adduser vcap fuse
 chown root:fuse /dev/fuse
 cat << EOF > /etc/fuse.conf
@@ -26,13 +32,29 @@ EOF
 chmod 644 /etc/fuse.conf
 
 echo "Installing ceph-fuse"
-dpkg  --force-confdef -i \
-/var/vcap/packages/cephfuse/ceph-fuse_0.80.11-0ubuntu1.14.04.1_amd64.deb \
-/var/vcap/packages/cephfuse/libboost-system1.54.0_1.54.0-4ubuntu3.1_amd64.deb \
-/var/vcap/packages/cephfuse/libboost-thread1.54.0_1.54.0-4ubuntu3.1_amd64.deb \
-/var/vcap/packages/cephfuse/libnspr4_2%3a4.10.10-0ubuntu0.14.04.1_amd64.deb  \
-/var/vcap/packages/cephfuse/libnss3_2%3a3.21-0ubuntu0.14.04.2_amd64.deb    \
-/var/vcap/packages/cephfuse/libnss3-nssdb_2%3a3.21-0ubuntu0.14.04.2_all.deb
+if [ "$codename" == "trusty" ]; then
+  dpkg  --force-confdef -i \
+  /var/vcap/packages/cephfuse/ceph-fuse_0.80.11-0ubuntu1.14.04.1_amd64.deb \
+  /var/vcap/packages/cephfuse/libboost-system1.54.0_1.54.0-4ubuntu3.1_amd64.deb \
+  /var/vcap/packages/cephfuse/libboost-thread1.54.0_1.54.0-4ubuntu3.1_amd64.deb \
+  /var/vcap/packages/cephfuse/libnspr4_2%3a4.10.10-0ubuntu0.14.04.1_amd64.deb  \
+  /var/vcap/packages/cephfuse/libnss3_2%3a3.21-0ubuntu0.14.04.2_amd64.deb    \
+  /var/vcap/packages/cephfuse/libnss3-nssdb_2%3a3.21-0ubuntu0.14.04.2_all.deb
+elif [ "$codename" == "xenial" ]; then
+  dpkg  --force-confdef -i \
+  /var/vcap/packages/cephfuse/ceph-fuse_10.2.9-0ubuntu0.16.04.1_amd64.deb \
+  /var/vcap/packages/cephfuse/libunwind8_1.1-4.1_amd64.deb \
+  /var/vcap/packages/cephfuse/libtcmalloc-minimal4_2.4-0ubuntu5.16.04.1_amd64.deb \
+  /var/vcap/packages/cephfuse/libgoogle-perftools4_2.4-0ubuntu5.16.04.1_amd64.deb \
+  /var/vcap/packages/cephfuse/libboost-iostreams1.58.0_1.58.0+dfsg-5ubuntu3.1_amd64.deb \
+  /var/vcap/packages/cephfuse/libboost-system1.58.0_1.58.0+dfsg-5ubuntu3.1_amd64.deb \
+  /var/vcap/packages/cephfuse/libboost-thread1.58.0_1.58.0+dfsg-5ubuntu3.1_amd64.deb \
+  /var/vcap/packages/cephfuse/libnspr4-0d_2%3a4.13.1-0ubuntu0.16.04.1_amd64.deb \
+  /var/vcap/packages/cephfuse/libnspr4_2%3a4.13.1-0ubuntu0.16.04.1_amd64.deb \
+  /var/vcap/packages/cephfuse/libnss3-1d_2%3a3.28.4-0ubuntu0.16.04.3_amd64.deb \
+  /var/vcap/packages/cephfuse/libnss3-nssdb_2%3a3.28.4-0ubuntu0.16.04.3_all.deb \
+  /var/vcap/packages/cephfuse/libnss3_2%3a3.28.4-0ubuntu0.16.04.3_amd64.deb
+fi
 
 sudo mkdir -p /var/run/ceph && sudo chown -R vcap:vcap /var/run/ceph
 sudo mkdir -p /etc/ceph && sudo chown -R vcap:vcap /etc/ceph

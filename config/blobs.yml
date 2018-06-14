@@ -254,10 +254,82 @@ cephfuse/libnss3_2%3a3.21-0ubuntu0.14.04.2_amd64.deb:
   size: 1102834
   object_id: c26d68d1-0fbb-4923-af56-a368617a57be
   sha: 341182734a73ef4ed857f81250d8417b819ad31e
+cephfuse/xenial/ceph-fuse_10.2.9-0ubuntu0.16.04.1_amd64.deb:
+  size: 1799768
+  object_id: 85327e1a-3f24-4cf5-6721-a9dcbb127b82
+  sha: 5e17ac18d62ab1e9a104d4fcf30ee3b0ff34e8d1
+cephfuse/xenial/fuse_2.9.4-1ubuntu3.1_amd64.deb:
+  size: 24430
+  object_id: 123b4fd5-c1f6-4cd6-44d1-11a31ab1464a
+  sha: 7bc57e8c73e931d9fbeb9a9c116e0088c76b46d3
+cephfuse/xenial/libboost-iostreams1.58.0_1.58.0+dfsg-5ubuntu3.1_amd64.deb:
+  size: 28954
+  object_id: cc579650-4916-468a-7a20-57f9a262024c
+  sha: 72c57fbe577a0cf6dd52268637e20e319da77a49
+cephfuse/xenial/libboost-system1.58.0_1.58.0+dfsg-5ubuntu3.1_amd64.deb:
+  size: 9146
+  object_id: d9f22373-e8e6-488a-4ab6-1cdf35ab868f
+  sha: d42da3466bc4a2836529bc9b7f5cdeb97412f5be
+cephfuse/xenial/libboost-thread1.58.0_1.58.0+dfsg-5ubuntu3.1_amd64.deb:
+  size: 47010
+  object_id: d00a295c-a5a8-4a31-62a4-9eed0b0b692d
+  sha: 47175b91895cd1462e06d1704f4f1331a47855f3
+cephfuse/xenial/libgoogle-perftools4_2.4-0ubuntu5.16.04.1_amd64.deb:
+  size: 186648
+  object_id: 705c2193-78aa-4947-6781-f31923993823
+  sha: 62b0ccfbfe547db2e5b90ab4e8a4d9d6eff9ad8c
+cephfuse/xenial/libnspr4-0d_2%3a4.13.1-0ubuntu0.16.04.1_amd64.deb:
+  size: 6602
+  object_id: 46f28a70-7865-428c-4034-c82082e03bc4
+  sha: 4e2e8f8a193c5aa0fd9d6f5e22cbf909dbddfbe0
+cephfuse/xenial/libnspr4_2%3a4.13.1-0ubuntu0.16.04.1_amd64.deb:
+  size: 111946
+  object_id: 409f8a0e-adfe-439f-6b8e-00911cc2f5e2
+  sha: bd32e95788a07d2253d5e6233320192a288f38da
+cephfuse/xenial/libnss3-1d_2%3a3.28.4-0ubuntu0.16.04.3_amd64.deb:
+  size: 9316
+  object_id: 9ed1d718-4eaf-4b31-50f1-45b0bd4682d4
+  sha: 1c3b6461cb13837df598e72c9c48540c8e9321ac
+cephfuse/xenial/libnss3-nssdb_2%3a3.28.4-0ubuntu0.16.04.3_all.deb:
+  size: 10610
+  object_id: fbf98c7e-b648-476e-7875-0908e93f42e8
+  sha: 315b34e3a83d1e9c4acc291177a92698a31cec20
+cephfuse/xenial/libnss3_2%3a3.28.4-0ubuntu0.16.04.3_amd64.deb:
+  size: 1147818
+  object_id: 281fe7cc-2691-43ec-7b4f-b313bdb42a6d
+  sha: 888925c938224c82b29caee471c744c78698db7d
+cephfuse/xenial/libtcmalloc-minimal4_2.4-0ubuntu5.16.04.1_amd64.deb:
+  size: 105106
+  object_id: 12daa08e-69f8-4ba1-7542-2019572635e7
+  sha: c5e2d138d5995576a4ecea8b1b8684872f270e75
+cephfuse/xenial/libunwind8_1.1-4.1_amd64.deb:
+  size: 46536
+  object_id: 9c49b22b-026a-4770-5168-1bfbe6a8079f
+  sha: 482dad3da931d087e61c9c460c59efda202b3d0c
 golang/go1.10.linux-amd64.tar.gz:
   size: 119905205
   object_id: 0442456a-147c-4920-531f-61cababc6b61
   sha: 693e2dfd99ef2d608b41c450efd9d277bf2a7f2f
+nfs-debs/keyutils_1.5.9-8ubuntu1_amd64.deb:
+  size: 47054
+  object_id: be3c2bc8-9365-4f85-5c6b-3ddf9f040b82
+  sha: ec2e96e73feb5215605c9f0254cad05d9cc5688a
+nfs-debs/libevent-2.0-5_2.0.21-stable-2ubuntu0.16.04.1_amd64.deb:
+  size: 114014
+  object_id: 88bb2577-0542-432f-76da-7ae4465a9e2a
+  sha: 57d69f44f3e058e48a7b79595d36076eb21f5942
+nfs-debs/libnfsidmap2_0.25-5_amd64.deb:
+  size: 32182
+  object_id: 8cff2d86-a25f-4146-6f51-079b9f277060
+  sha: f28b7370542daaf81cefb44d9057fa9b3fb43064
+nfs-debs/nfs-common_1%3a1.2.8-9ubuntu12.1_amd64.deb:
+  size: 184334
+  object_id: c7a94fd7-95bb-4d16-5f7b-ee8c5b7c36e6
+  sha: 38f7234fade7c15ffecf4c043c877b01ead92d3d
+nfs-debs/rpcbind_0.2.3-0.2_amd64.deb:
+  size: 40252
+  object_id: 0a8c49d9-79e0-4cf5-57fa-ff4bbadb486a
+  sha: 8fa58cfcb1862c6d337d10496fada5f1a6e94a03
 python27/libpython-stdlib_2.7.5-5ubuntu3_amd64.deb:
   size: 7012
   object_id: 6fc31933-12c5-43f8-8de9-72718ac5fe01
