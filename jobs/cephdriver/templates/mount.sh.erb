@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# Due to http://tracker.ceph.com/issues/18157 present in 10.2.9 (included in xenial)
+
+codename=$(lsb_release -c | awk '{print $2}')
+
+ceph-fuse -c /tmp/ceph.conf $1 $2 $3 $4 $5 $6 $7
+rv=`echo $?`
+if [ "$codename" == "xenial" ] && [ $rv -eq 134 ]; then
+  exit 0
+fi
+exit $rv

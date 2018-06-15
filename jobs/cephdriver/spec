@@ -4,6 +4,7 @@ name: cephdriver
 templates:
   install.erb: bin/pre-start
   ctl.erb: bin/cephdriver_ctl
+  mount.sh.erb: scripts/mount.sh
 
 packages:
 - golang-ceph
