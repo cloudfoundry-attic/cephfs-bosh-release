@@ -4,7 +4,7 @@
 
 codename=$(lsb_release -c | awk '{print $2}')
 
-ceph-fuse -c /tmp/ceph.conf $1 $2 $3 $4 $5 $6 $7
+ceph-fuse $1 $2 $3 $4 $5 $6 $7
 rv=`echo $?`
 if [ "$codename" == "xenial" ] && [ $rv -eq 134 ]; then
   exit 0

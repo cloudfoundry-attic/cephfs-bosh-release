@@ -79,4 +79,8 @@ mkdir -p $VOL_DIR
 chown vcap:vcap $VOL_DIR
 
 echo "Installed ceph-fuse"
+
+# make sure the mount scripts is executable
+chmod +x /var/vcap/jobs/cephdriver/scripts/mount.sh
+
 exit 0

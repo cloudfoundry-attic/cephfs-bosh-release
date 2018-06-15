@@ -21,6 +21,11 @@ bosh -d cephfs scp --gw-private-key=bosh-env/ssh-key cephfs:/etc/ceph/ceph.conf 
 export CEPH_KEYRING=`cat ceph.client.admin.keyring`
 export CEPH_CLUSTER_IP=`bosh -d cephfs instances|grep cephfs|awk '{print $4}'`
 
+### Install the mounter script
+mkdir -p /var/vcap/jobs/cephdriver/scripts/
+cp cephfs-bosh-release/jobs/cephdriver/templates/mount.sh.erb /var/vcap/jobs/cephdriver/scripts/mount.sh
+chmod +x /var/vcap/jobs/cephdriver/scripts/mount.sh
+
 pushd cephfs-bosh-release
     bosh sync-blobs
 
