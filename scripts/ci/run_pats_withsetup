@@ -44,7 +44,7 @@ fi
 
 go get github.com/onsi/ginkgo/ginkgo
 
-${scripts_path}/run-pats \
+PARALLEL_NODES=4 ${scripts_path}/run-pats \
 ${CF_USERNAME} \
 ${CF_PASSWORD} \
 ${CF_API_ENDPOINT} \
