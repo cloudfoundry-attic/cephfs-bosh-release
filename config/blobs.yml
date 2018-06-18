@@ -258,6 +258,10 @@ cephfuse/xenial/ceph-fuse_10.2.9-0ubuntu0.16.04.1_amd64.deb:
   size: 1799768
   object_id: 85327e1a-3f24-4cf5-6721-a9dcbb127b82
   sha: 5e17ac18d62ab1e9a104d4fcf30ee3b0ff34e8d1
+cephfuse/xenial/ceph-fuse_10.2.10-1xenial_amd64.deb:
+  size: 2925594
+  object_id: 7388cdfa-bcca-4255-55df-1cdf2c28e621
+  sha: 99fd635bcc11d3e0a4cc6a219869964d38449828
 cephfuse/xenial/fuse_2.9.4-1ubuntu3.1_amd64.deb:
   size: 24430
   object_id: 123b4fd5-c1f6-4cd6-44d1-11a31ab1464a
