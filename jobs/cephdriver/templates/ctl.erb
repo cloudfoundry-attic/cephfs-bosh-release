@@ -35,6 +35,9 @@ case $1 in
       --debugAddr="<%= p("cephdriver.debug_addr") %>" \
       --driversPath="<%= p("cephdriver.driver_paths") %>" \
       --logLevel="<%= p("cephdriver.log_level") %>" \
+      <% p("cephdriver.fuse_args").each do |fuse_arg| %> \
+      --fuseArg="<%= fuse_arg %>" \
+      <% end %> \
       2> >(tee -a $LOG_DIR/cephdriver.stderr.log | logger -p user.error -t vcap.cephdriver) \
       1> >(tee -a $LOG_DIR/cephdriver.stdout.log | logger -p user.info -t vcap.cephdriver)
 

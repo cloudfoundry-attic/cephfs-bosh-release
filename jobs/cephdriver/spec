@@ -28,3 +28,6 @@ properties:
   cephdriver.log_level:
     description: "cephdriver log level"
     default: "info"
+  cephdriver.fuse_args:
+    description: "additional arguments passed to the ceph-fuse invocation"
+    default: []
